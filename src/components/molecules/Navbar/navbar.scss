@@ -1,0 +1,12 @@
+.nav-link {
+     cursor: pointer;
+     color: white !important;
+
+     &:hover {
+          color: rgb(212, 212, 212) !important;
+     }
+}
+
+.navbar-brand {
+     cursor: pointer;
+}
