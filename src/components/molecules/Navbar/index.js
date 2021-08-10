@@ -1,10 +1,17 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Fragment } from 'react';
+import { useHistory, withRouter } from 'react-router-dom';
 import './navbar.scss'
 
 const Navbar = () => {
 
      const history = useHistory();
+     const userName = localStorage.getItem('userName');
+
+     const logout = () => {
+          localStorage.clear();
+          history.push('/');
+     }
 
      return (
           <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -15,8 +22,18 @@ const Navbar = () => {
                     </button>
                     <div class="collapse navbar-collapse" id="cureboxNavbar">
                          <div class="navbar-nav ms-auto">
-                              <p class="nav-link m-0" onClick={() => history.push('/register') }>Register</p>
-                              <p class="nav-link m-0" onClick={() => history.push('/login')}>Login</p>
+                              {
+                                   userName != null ?
+                                        <Fragment>
+                                             <p class="nav-link m-0">Hello {userName}</p>
+                                             <p class="nav-link m-0" onClick={logout}>Logout</p>
+                                        </Fragment>
+                                   : 
+                                   <Fragment>
+                                        <p class="nav-link m-0" onClick={() => history.push('/register') }>Register</p>
+                                        <p class="nav-link m-0" onClick={() => history.push('/login')}>Login</p>
+                                   </Fragment>
+                              }
                          </div>
                     </div>
                </div>

@@ -1,18 +1,35 @@
 import React from 'react';
+import { Fragment } from 'react';
 
-const Select = ({label, options, ...rest}) => {
-     console.log(options);
+const Select = ({label, errorMessage, options, ...rest}) => {
      return (
           <div className="my-3">
                <p className="mb-1">{label}</p>
-               <select className="form-select" {...rest} >
-                    <option value="">Choose...</option>
-                    {
-                         options.map( (option) => 
-                              <option value={option}>{option}</option>
-                         )
-                    }
-               </select>
+               {
+                    errorMessage != '' ?
+                    <Fragment>
+                         <select className="form-select is-invalid" {...rest} >
+                              <option value="">Choose...</option>
+                              {
+                                   options.map( (option) => 
+                                        <option id={option} value={option}>{option}</option>
+                                   )
+                              }
+                         </select>
+                         <div class="invalid-feedback d-block">
+                                   {errorMessage}
+                         </div>
+                    </Fragment>
+                    :
+                    <select className="form-select" {...rest} >
+                         <option value="">Choose...</option>
+                         {
+                              options.map( (option) => 
+                                   <option id={option} value={option}>{option}</option>
+                              )
+                         }
+                    </select>
+               }
           </div>
      );
 }

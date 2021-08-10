@@ -1,4 +1,5 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+import { useHistory, withRouter } from 'react-router';
 import {Navbar, Footer, ProductItem}  from '../../components';
 
 
@@ -18,4 +19,4 @@ const Home = () => {
      )
 }
 
-export default Home;
+export default withRouter(Home);
