@@ -4,7 +4,13 @@ const initialState = {
           totalData: 0,
           perPage: 10,
           currentPage: 1,
-          totalPage: 0,
+          totalPage: 0
+     },
+     form: {
+          name: '',
+          price: '',
+          description: '',
+          productPhoto: ''
      }
 };
 
@@ -20,6 +26,26 @@ const productReducer = (state = initialState, action) => {
           return {
                ...state,
                page: action.payload,
+          }
+     }
+     if(action.type === 'SET_FORM_DATA'){
+          return {
+               ...state,
+               form: {
+                    ...state.form,
+                    [action.formType] : action.formValue,
+               }
+          }
+     }
+     if(action.type === 'CLEAR_FORM'){
+          return {
+               ...state,
+               form: {
+                    name: '',
+                    price: '',
+                    description: '',
+                    productPhoto: ''
+               }
           }
      }
 

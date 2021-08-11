@@ -1,8 +1,8 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router';
-import {Navbar, Footer, ProductItem}  from '../../components';
-import { setProducts } from '../../config/redux/action';
+import { useHistory, withRouter } from 'react-router';
+import {Navbar, Footer, ProductItem, Button}  from '../../components';
+import { setProducts } from '../../config/redux/action/productAction';
 
 
 const Home = () => {
@@ -10,6 +10,7 @@ const Home = () => {
      const [currentPage, setCurrentPage] = useState(1); 
      const {products, page} = useSelector(state => state.productReducer);
      const dispatch = useDispatch();
+     const history = useHistory();
 
      useEffect(() => {
           dispatch(setProducts(currentPage));
@@ -22,6 +23,7 @@ const Home = () => {
                     <div className="text-dark text-center">
                          <h1>Home Page</h1>
                          <hr />
+                         <Button onClick={() => history.push('/products/create') } title="Create Product" />
                          <div className="row">
                               {products.map ((product) => {
                                    return (
@@ -29,7 +31,7 @@ const Home = () => {
                                              <ProductItem key={product._id}
                                              name={product.name}
                                              description={product.description}
-                                             image={`https://curebox-api.herokuapp.com/${product.product_photo}`}
+                                             image={product.productPhoto}
                                              price={product.price}
                                              />
                                         </div>

@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Button, Footer, Input, Navbar } from '../../components';
-import { clearErrors, clearForm, login, setForm } from '../../config/redux/action';
+import { clearErrors, clearForm, login, setForm } from '../../config/redux/action/authAction';
 
 const Login = () => {
 

@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Footer, Input, Navbar, Select } from '../../components';
-import { clearErrors, clearForm, registerNewUser, setErrors, setForm } from '../../config/redux/action';
+import { clearErrors, clearForm, registerNewUser, setErrors, setForm } from '../../config/redux/action/authAction';
 import { useHistory } from 'react-router-dom';
 
 const Register = () => {
