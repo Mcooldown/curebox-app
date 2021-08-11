@@ -7,7 +7,7 @@ const Input = ({label, errorMessage, ...rest}) => {
           <div className="my-3">
                <p className="mb-1">{label}</p>
                {
-                    errorMessage != '' ? 
+                    errorMessage !== '' ? 
                     <Fragment>
                           <input className="form-control is-invalid"
                          {...rest} />

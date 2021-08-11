@@ -6,7 +6,7 @@ const Select = ({label, errorMessage, options, ...rest}) => {
           <div className="my-3">
                <p className="mb-1">{label}</p>
                {
-                    errorMessage != '' ?
+                    errorMessage !== '' ?
                     <Fragment>
                          <select className="form-select is-invalid" {...rest} >
                               <option value="">Choose...</option>

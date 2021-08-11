@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Button, Footer, Input, Navbar } from '../../components';
-import { clearErrors, clearForm, login, setErrors, setForm } from '../../config/redux/action';
+import { clearErrors, clearForm, login, setForm } from '../../config/redux/action';
 
 const Login = () => {
 
-     const {form, errors} = useSelector(state => state.authReducer);
+     const {form} = useSelector(state => state.authReducer);
 
      const dispatch = useDispatch();
      const history = useHistory();
@@ -29,7 +29,7 @@ const Login = () => {
                }
                else{
                     dispatch(clearErrors());
-                    dispatch(setErrors('email', 'Invalid email or password'));
+                    dispatch(clearForm());
                     alert("Login failed");
                }
           });
@@ -42,7 +42,7 @@ const Login = () => {
                     <h1 className="text-center text-dark">Login</h1>
                     <hr />
                     <Input type="text" value={form.email} label="Email"
-                    errorMessage={errors.email !== '' ? errors.email : ''}
+                    errorMessage={''}
                     onChange={(e) => dispatch(setForm('email', e.target.value))} />
 
                     <Input type="password" value={form.password} label="Password"

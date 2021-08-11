@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Fragment } from 'react';
-import { useHistory, withRouter } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import './navbar.scss'
 
 const Navbar = () => {
