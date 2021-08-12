@@ -1,11 +1,12 @@
 import axios from "axios";
+import { setIsLoading } from "./generalAction";
 
 export const setForm = (formType, formValue) => {
-     return {type: 'SET_FORM_DATA', formType, formValue};
+     return {type: 'SET_PRODUCT_FORM_DATA', formType, formValue};
 }
 
 export const clearForm = () => {
-     return {type: 'CLEAR_FORM'};
+     return {type: 'CLEAR_PRODUCT_FORM'};
 }
 
 export const setProducts = (page) => (dispatch) => {
@@ -16,7 +17,7 @@ export const setProducts = (page) => (dispatch) => {
           const resData = res.data;
           dispatch({type: 'SET_PRODUCTS', payload: resData.data});
           dispatch({
-               type: 'SET_PAGE',
+               type: 'SET_PRODUCTS_PAGE',
                payload: {
                     totalData: resData.total_data,
                     perPage: resData.per_page,
@@ -24,6 +25,7 @@ export const setProducts = (page) => (dispatch) => {
                     totalPage: Math.ceil(resData.total_data/ resData.per_page),
                }
           })
+          dispatch(setIsLoading(false));
 
      })
      .catch(err => {

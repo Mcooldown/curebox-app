@@ -1,19 +1,19 @@
 import axios from "axios";
 
 export const setForm = (formType, formValue) => {
-     return {type: 'SET_FORM_DATA', formType, formValue};
+     return {type: 'SET_AUTH_FORM_DATA', formType, formValue};
 }
 
 export const clearForm = () => {
-     return {type: 'CLEAR_FORM'};
+     return {type: 'CLEAR_AUTH_FORM'};
 }
 
 export const setErrors = (errorType, errorMessage) => {
-     return {type: 'SET_ERRORS', errorType, errorMessage};
+     return {type: 'SET_AUTH_ERRORS', errorType, errorMessage};
 }
 
 export const clearErrors = () => {
-     return {type: 'CLEAR_ERRORS'};
+     return {type: 'CLEAR_AUTH_ERRORS'};
 }
 
 export const registerNewUser = (form) => {

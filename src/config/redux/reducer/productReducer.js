@@ -22,13 +22,13 @@ const productReducer = (state = initialState, action) => {
                products: action.payload,
           }
      }
-     if(action.type === 'SET_PAGE'){
+     if(action.type === 'SET_PRODUCTS_PAGE'){
           return {
                ...state,
                page: action.payload,
           }
      }
-     if(action.type === 'SET_FORM_DATA'){
+     if(action.type === 'SET_PRODUCT_FORM_DATA'){
           return {
                ...state,
                form: {
@@ -37,7 +37,7 @@ const productReducer = (state = initialState, action) => {
                }
           }
      }
-     if(action.type === 'CLEAR_FORM'){
+     if(action.type === 'CLEAR_PRODUCT_FORM'){
           return {
                ...state,
                form: {

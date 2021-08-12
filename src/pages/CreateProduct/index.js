@@ -9,6 +9,7 @@ const CreateProduct = () => {
 
      const {form} = useSelector(state => state.productReducer);
      const [imgPreview, setImgPreview] = useState('');
+     const [isLoading, setIsLoading] = useState(false);
      const dispatch = useDispatch();
      const history = useHistory();
 
@@ -26,15 +27,16 @@ const CreateProduct = () => {
      const onSubmit = (e) => {
           e.preventDefault();
           if(imgPreview === '')return alert('Image required');
+          setIsLoading(true);
 
           postNewProduct(form)
           .then(res => {
+               setIsLoading(false);
                if(res.status === 201){
                     dispatch(clearForm());
                     alert('New Product Added');
                     history.push('/');
                }
-               console.log(res);
           });
      }
 
@@ -54,7 +56,13 @@ const CreateProduct = () => {
                     onChange={(e) => dispatch(setForm('price', e.target.value))}
                     />
                     <Upload label="Product Photo" img={imgPreview} onChange={(e) => onImageUpload(e)}  />
-                    <Button title="Submit" onClick={onSubmit} />
+                    
+                    {
+                         isLoading ?
+                         <Button title="Please wait" isLoading={isLoading} />
+                         :
+                         <Button title="Submit" isLoading={isLoading} onClick={onSubmit} />
+                    }
                </div>
                <Footer />
           </Fragment>

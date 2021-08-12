@@ -23,7 +23,7 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
 
-     if(action.type === 'SET_FORM_DATA'){
+     if(action.type === 'SET_AUTH_FORM_DATA'){
           return {
                ...state,
                form : {
@@ -31,7 +31,7 @@ const authReducer = (state = initialState, action) => {
                     [action.formType] : action.formValue
                }
           }
-     }else if(action.type === 'CLEAR_FORM'){
+     }else if(action.type === 'CLEAR_AUTH_FORM'){
          return {
                ...state,
                form : {
@@ -47,7 +47,7 @@ const authReducer = (state = initialState, action) => {
                }
           }
 
-     }else if(action.type === 'SET_ERRORS'){
+     }else if(action.type === 'SET_AUTH_ERRORS'){
           return {
                ...state,
                errors : {
@@ -55,7 +55,7 @@ const authReducer = (state = initialState, action) => {
                     [action.errorType] : action.errorMessage
                }
           }
-     }else if(action.type === 'CLEAR_ERRORS'){
+     }else if(action.type === 'CLEAR_AUTH_ERRORS'){
           return {
                ...state,
                errors : {

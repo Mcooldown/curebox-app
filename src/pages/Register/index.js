@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Footer, Input, Navbar, Select } from '../../components';
 import { clearErrors, clearForm, registerNewUser, setErrors, setForm } from '../../config/redux/action/authAction';
 import { useHistory } from 'react-router-dom';
+import { setIsLoading } from '../../config/redux/action/generalAction';
 
 const Register = () => {
 
      const {form, errors} = useSelector(state => state.authReducer);
+     const {isLoading} = useSelector(state => state.generalReducer);
      const dispatch = useDispatch();
      const history = useHistory();
      const genderOptions = ['Male', 'Female'];
@@ -23,8 +25,12 @@ const Register = () => {
 
      const onSubmit = async () => {
 
+          dispatch(setIsLoading(true));
+
           registerNewUser(form)
           .then(res => {
+
+               dispatch(setIsLoading(false));
                if(res.status === 200) {
                     dispatch(clearForm());
                     dispatch(clearErrors());
@@ -81,7 +87,12 @@ const Register = () => {
                     errorMessage={errors.passwordConfirm !== null ? errors.passwordConfirm : null}
                     onChange={(e) => dispatch(setForm('passwordConfirm', e.target.value))} />
 
-                    <Button title="Register" onClick={onSubmit} />
+                     {
+                         isLoading ?
+                         <Button title="Please wait" isLoading={isLoading} />
+                         :
+                         <Button title="Register" isLoading={isLoading} onClick={onSubmit} />
+                    }
                </div>
                <Footer />
           </Fragment>
