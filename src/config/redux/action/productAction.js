@@ -12,7 +12,7 @@ export const clearForm = () => {
 export const setProducts = (page) => (dispatch) => {
 
      axios.get(`http://curebox-api.herokuapp.com/v1/products?page=${page}&perPage=10`)
-     .then(res => {
+     .then((res) => {
 
           const resData = res.data;
           dispatch({type: 'SET_PRODUCTS', payload: resData.data});
@@ -61,7 +61,6 @@ export const setProduct = (productId) => (dispatch) => {
           const resData = res.data;
           dispatch({type: 'SET_PRODUCT', payload: resData.data});
           dispatch(setIsLoading(false));
-
      })
      .catch(err => {
           console.log(err);

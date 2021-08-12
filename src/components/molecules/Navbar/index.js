@@ -26,6 +26,7 @@ const Navbar = () => {
                                    userName != null ?
                                         <Fragment>
                                              <p class="nav-link m-0">Hello {userName}</p>
+                                             <p class="nav-link m-0" onClick={() => history.push('/cart')}>Your Cart</p>
                                              <p class="nav-link m-0" onClick={logout}>Logout</p>
                                         </Fragment>
                                    : 

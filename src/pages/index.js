@@ -3,5 +3,6 @@ import Register from './Register';
 import Login from './Login';
 import CreateProduct from './CreateProduct';
 import ProductDetail from './ProductDetail';
+import Cart from './Cart';
 
-export {Home, Register, Login, CreateProduct, ProductDetail};
+export {Home, Register, Login, CreateProduct, ProductDetail, Cart};
