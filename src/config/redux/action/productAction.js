@@ -52,3 +52,18 @@ export const postNewProduct = async (form) => {
      const response = createProductPromise.then(res => res).catch(err => err.response);
      return response;
 }
+
+export const setProduct = (productId) => (dispatch) => {
+
+     axios.get(`http://curebox-api.herokuapp.com/v1/products/${productId}`)
+     .then(res => {
+
+          const resData = res.data;
+          dispatch({type: 'SET_PRODUCT', payload: resData.data});
+          dispatch(setIsLoading(false));
+
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}

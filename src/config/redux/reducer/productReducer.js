@@ -1,5 +1,6 @@
 const initialState = {
      products: [],
+     product: [],
      page: {
           totalData: 0,
           perPage: 10,
@@ -46,6 +47,12 @@ const productReducer = (state = initialState, action) => {
                     description: '',
                     productPhoto: ''
                }
+          }
+     }
+     if(action.type === 'SET_PRODUCT'){
+          return {
+               ...state,
+               product: action.payload,
           }
      }
 
