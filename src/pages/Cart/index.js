@@ -57,6 +57,7 @@ const Cart = () => {
                                         name={cartItem.product.name}
                                         description={cartItem.product.description}
                                         price={cartItem.product.price}
+                                        image={cartItem.product.productPhoto}
                                         quantity={cartItem.quantity}
                                         onDelete={onDelete} />
                                    })
