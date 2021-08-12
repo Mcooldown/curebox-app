@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,27 +10,17 @@ const Cart = () => {
 
      const history = useHistory();
      const {isLoading} = useSelector(state => state.generalReducer);
-     const {cartItems} = useSelector(state => state.cartReducer);
+     const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
      const dispatch = useDispatch();
-     const [totalPayment, setTotalPayment] = useState(0);
 
-     useEffect( async() => {
+     useEffect(() => {
           const userId = localStorage.getItem('userId');
           if(!userId) history.push('/login');
 
-          await dispatch(setIsLoading(true));
-          await dispatch(setCartItems(userId));
-          await setTotalPayment(countTotalPayment());
+          dispatch(setIsLoading(true));
+          dispatch(setCartItems(userId));
 
-     }, [dispatch]);
-
-     const countTotalPayment = () => {
-          let total = 0;
-          cartItems.forEach((cartItem) => {
-               total += cartItem.product.price*cartItem.quantity;
-          });
-          return total;
-     }
+     }, [dispatch, history]);
 
      const onDelete = (id) => {
 
@@ -47,7 +37,7 @@ const Cart = () => {
                     <h1>Your Cart</h1>
                     <hr />
                     {
-                         isLoading && totalPayment > 0 ?
+                         (isLoading) ?
                          <Loading title="Waiting for data" />
                          :
                          <Fragment>

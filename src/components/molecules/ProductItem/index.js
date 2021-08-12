@@ -8,14 +8,12 @@ const ProductItem = (props) => {
      const history = useHistory();
 
      return (
-          <div className="card border-0 shadow-sm">
+          <div className="card card-product" onClick={() => history.push(`/products/${props._id}`)}>
                <img className="product-image" src={props.image} alt={props.name} />
                <div className="card-body">
-                    <h4>{props.name}</h4>
-                    <p>{props.description}</p>
-                    <h5 className="text-danger">Rp{props.price}</h5>
-                    <p>by {props.seller.name}</p>
-                    <Button title="Buy Now" onClick={() => history.push(`/products/${props._id}`)} />
+                    <p className="mb-2">{props.name}</p>
+                    <h5 className="mb-2">Rp{props.price}</h5>
+                    <small>Seller: {props.seller.name}</small>
                </div>
           </div>
      );

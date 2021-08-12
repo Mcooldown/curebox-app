@@ -1,12 +1,25 @@
-.nav-link {
-     cursor: pointer;
-     color: white !important;
+.navbar {
+     background: white;
+     box-shadow: 1px 2px 5px rgb(167, 167, 167);
 
-     &:hover {
-          color: rgb(212, 212, 212) !important;
+     .nav-link {
+          cursor: pointer;
+          color: black;
+
+          &:hover {
+               color: rgb(85, 85, 85) !important;
+          }
      }
-}
 
-.navbar-brand {
-     cursor: pointer;
+     .navbar-brand {
+          cursor: pointer;
+
+          .logo {
+               height: 50px;
+          }
+     }
+
+     .navbar-toggler {
+          font-size: 40px;
+     }
 }

@@ -1,0 +1,17 @@
+.landing-section {
+     margin-top: 5rem;
+     min-height: 80vh;
+     height: 80vh;
+     background: url('../../assets/images/landingBackround.png') center center no-repeat;
+     background-size: cover;
+
+     .text-landing {
+          line-height: 1.8;
+     }
+}
+
+.section-line {
+     background: black;
+     height: 2px;
+     width: 200px;
+}

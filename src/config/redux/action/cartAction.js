@@ -16,8 +16,10 @@ export const addCartItem = (data) => {
 export const setCartItems = (userId) => (dispatch) => {
 
      axios.get(`http://curebox-api.herokuapp.com/v1/cart/${userId}`)
-     .then(res => {
+     .then((res) => {
+          
           const resData = res.data;
+          dispatch({type: 'SET_TOTAL_PAYMENT', payload: countTotalPayment(resData.data)});
           dispatch({type: 'SET_CART_ITEMS', payload: resData.data});
           dispatch(setIsLoading(false));
      })
@@ -26,6 +28,10 @@ export const setCartItems = (userId) => (dispatch) => {
      })
 }
 
-export const setTotalPayment = (value) => {
-     return {type: 'SET_TOTAL_PAYMENT', payload: value};
+const countTotalPayment = (data) => {
+     let total = 0;
+     data.forEach((cartItem) => {
+          total += cartItem.product.price*cartItem.quantity;
+     });
+     return total;
 }

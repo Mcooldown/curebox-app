@@ -16,12 +16,12 @@ const ProductDetail = (props) => {
      const history = useHistory();
      const [quantity, setQuantity] = useState(1);
 
-     useEffect(async() => {
-          await dispatch(setIsLoading(true));
+     useEffect(() => {
+          dispatch(setIsLoading(true));
           
           const id = props.match.params.id
-          await dispatch(setProduct(id));
-     }, [dispatch]);
+          dispatch(setProduct(id));
+     }, [dispatch, props]);
 
      const onSubmit = () => {
 
@@ -37,7 +37,6 @@ const ProductDetail = (props) => {
           .then(res => {
                setButtonLoading(false);
                if(res.status === 200){
-                    alert(res.data.message);
                     history.push('/cart');
                }
           });
