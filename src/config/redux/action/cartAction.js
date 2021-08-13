@@ -41,6 +41,21 @@ export const removeCartItems = (cartItemId, userId) => (dispatch) => {
 
 export const changeCartItemQuantity = (cartItemId, quantity, userId) => (dispatch) => {
 
+     const data = JSON.stringify({
+          quantity: quantity
+     });
+
+     axios.put(`http://localhost:4000/v1/cart/${cartItemId}`, data, {
+          headers: {
+               'Content-Type': 'application/json',
+          }
+     })
+     .then((res) => {
+          dispatch(setCartItems(userId));
+     })
+     .catch(err => {
+          console.log(err);
+     })
 }
 
 const countTotalPayment = (data) => {

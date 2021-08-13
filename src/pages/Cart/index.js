@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, CartItem, Footer, Loading, Navbar } from '../../components';
-import { removeCartItems, setCartItems} from '../../config/redux/action/cartAction';
+import { changeCartItemQuantity, removeCartItems, setCartItems} from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import {LoadingPage} from '../../pages';
 
@@ -31,6 +31,11 @@ const Cart = () => {
           }
      }
 
+     const onChangeQuantity = async (id, quantity) => {
+          await dispatch(setIsLoading(true));
+          await dispatch(changeCartItemQuantity(id, parseInt(quantity), localStorage.getItem('userId')));
+     }
+
      if(!isLoading) {
           return(
                <Fragment>
@@ -47,7 +52,8 @@ const Cart = () => {
                                    price={cartItem.product.price}
                                    image={cartItem.product.productPhoto}
                                    quantity={cartItem.quantity}
-                                   onDelete={onDelete} />
+                                   onDelete={onDelete}
+                                   onChangeQuantity={onChangeQuantity} />
                               })
 
                          }

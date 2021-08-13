@@ -25,13 +25,13 @@ const Navbar = () => {
                          <span class="menu-icon">≡</span>
                     </button>
                     <div class="collapse navbar-collapse" id="cureboxNavbar">
-                         <div class="navbar-nav ms-auto">
-                              <form className="m-0 p-0">
+                         <div class="navbar-nav ms-auto d-lg-flex align-items-center">
+                              <form className="m-0 py-2">
                                    <Input type="text" errorMessage={''} placeholder="Find your needs here" />
                               </form>
                               {
                                    userName  &&
-                                   <button className="btn btn-cart mx-3"><i class="fas fa-shopping-cart" onClick={() => history.push('/cart')}></i></button>
+                                   <button className="btn btn-cart mx-3" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i></button>
                               }
                               
                               <p class="nav-link m-0 px-3">Article</p>
@@ -39,7 +39,15 @@ const Navbar = () => {
                               {
                                    userName ?
                                         <Fragment>
-                                             <p class="nav-link m-0 px-3" onClick={logout}>Logout</p>
+                                             <div class="nav-link m-0 mx-2 dropdown">
+                                                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  { localStorage.getItem('userName').substring(0, 15)}
+                                                  </a>
+                                                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                                  <li><a class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                                                  <li><a class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
+                                                  </ul>
+                                             </div>
                                         </Fragment>
                                    : <div className="d-lg-flex align-items-center">
                                         

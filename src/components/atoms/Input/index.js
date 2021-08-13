@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 
 const Input = ({label, errorMessage, ...rest}) => {
 
-     const inputClass = errorMessage === '' ? 'form-control' : 'form-control is-invalid'
+     const inputClass = !errorMessage ? 'form-control' : 'form-control is-invalid'
 
      return (
           <Fragment>
@@ -11,7 +11,7 @@ const Input = ({label, errorMessage, ...rest}) => {
                <input className={inputClass}
                {...rest} />
                {
-                    errorMessage !== '' && 
+                    errorMessage && 
                     <div class="invalid-feedback d-block">{errorMessage}</div>
                }    
           </Fragment>

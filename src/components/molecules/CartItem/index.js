@@ -1,7 +1,10 @@
-import React from 'react';
-import { Button } from '../../atoms';
+import React, { useState } from 'react';
+import { Button, Input } from '../../atoms';
 
 const CartItem = (props) => {
+
+     const [quantity, setQuantity] = useState(props.quantity)
+
      return (
           <div className="card my-3 border-0 shadow"> 
                <div className="card-body my-2">
@@ -12,8 +15,14 @@ const CartItem = (props) => {
                          <div className="col-md-6">
                               <h4>{props._id}</h4>
                               <p>{props.description}</p>
-                              <p>Quantity:{props.quantity}</p>
-                              <h5 className="text-danger">Rp{props.price}</h5>
+                              <p>Quantity:
+                                   <Input type="number" min={1} value={quantity} onChange={(e) => setQuantity(e.target.value) } /> 
+                              </p>
+                              {
+                                   quantity != props.quantity && 
+                                   <Button title="Update" onClick={() => props.onChangeQuantity(props._id, quantity)} />
+                              }
+                              <h5 className="text-danger mt-3">Rp{props.price}</h5>
                          </div>
                          <div className="col-md-3">
                               Subtotal:

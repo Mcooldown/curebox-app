@@ -56,35 +56,35 @@ const Register = () => {
                     <h1 className="text-center text-dark">Register</h1>
                     <hr />
                     <Input type="text" label="Name" value={form.name} 
-                    errorMessage={errors.name !== null ? errors.name : null}
+                    errorMessage={errors.name && errors.name}
                     onChange={(e) => dispatch(setForm('name', e.target.value))} />
 
                     <Select label="Gender" value={form.gender} options={genderOptions}
-                    errorMessage={errors.gender !== null ? errors.gender : null}
+                    errorMessage={errors.gender && errors.gender}
                     onChange={(e) => dispatch(setForm('gender', e.target.value))} />
                     
                     <Input type="text" value={form.address} label="Address"
-                    errorMessage={errors.address !== null ? errors.address : null}
+                    errorMessage={errors.address && errors.address}
                     onChange={(e) => dispatch(setForm('address', e.target.value))} />
 
                     <Input type="date" value={form.dateOfBirth} label="Date Of Birth"
-                    errorMessage={errors.dateOfBirth !== null ? errors.dateOfBirth : null}
+                    errorMessage={errors.dateOfBirth && errors.dateOfBirth}
                     onChange={(e) => dispatch(setForm('dateOfBirth', e.target.value))} />
 
                     <Input type="text" value={form.phoneNumber} label="Phone Number"
-                    errorMessage={errors.phoneNumber !== null ? errors.phoneNumber : null}
+                    errorMessage={errors.phoneNumber && errors.phoneNumber}
                     onChange={(e) => dispatch(setForm('phoneNumber', e.target.value))} />
 
                     <Input type="text" value={form.email} label="Email"
-                    errorMessage={errors.email !== null ? errors.email : null}
+                    errorMessage={errors.email && errors.email}
                     onChange={(e) => dispatch(setForm('email', e.target.value))} />
 
                     <Input type="password" value={form.password} label="Password"
-                    errorMessage={errors.password !== null ? errors.password : null}
+                    errorMessage={errors.password && errors.password}
                     onChange={(e) => dispatch(setForm('password', e.target.value))} />
 
                     <Input type="password" value={form.passwordConfirm} label="Confirm Password"
-                    errorMessage={errors.passwordConfirm !== null ? errors.passwordConfirm : null}
+                    errorMessage={errors.passwordConfirm && errors.passwordConfirm}
                     onChange={(e) => dispatch(setForm('passwordConfirm', e.target.value))} />
 
                      {
