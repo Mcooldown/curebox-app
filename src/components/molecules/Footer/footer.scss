@@ -1,18 +1,25 @@
 .footer {
      background: linear-gradient(rgba(40, 126, 0, 0.7), #287E00);
-     padding-top: 4rem;
-     padding-bottom: 2rem;
+     padding: 3rem 0 2rem 0;
      color: white;
 
+     p {
+          font-size: 13px;
+     }
+
+     h5 {
+          font-size: 17px;
+     }
+
      .img-footer {
-          width: 90%;
+          width: 100%;
      }
 
      .btn-footer {
           background: white;
           color: #287E00;
           border-radius: 6px;
-          padding: 0.5rem 1rem;
+          font-size: 13px;
      }
 
      .icon-footer {

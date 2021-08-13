@@ -13,13 +13,13 @@ const CartItem = (props) => {
                               <img className="product-image w-100" src={props.image} alt={props.name} />
                          </div>
                          <div className="col-md-6">
-                              <h4>{props._id}</h4>
+                              <h4>{props.name}</h4>
                               <p>{props.description}</p>
                               <p>Quantity:
                                    <Input type="number" min={1} value={quantity} onChange={(e) => setQuantity(e.target.value) } /> 
                               </p>
                               {
-                                   quantity != props.quantity && 
+                                   quantity !== props.quantity && 
                                    <Button title="Update" onClick={() => props.onChangeQuantity(props._id, quantity)} />
                               }
                               <h5 className="text-danger mt-3">Rp{props.price}</h5>

@@ -45,7 +45,7 @@ export const changeCartItemQuantity = (cartItemId, quantity, userId) => (dispatc
           quantity: quantity
      });
 
-     axios.put(`http://localhost:4000/v1/cart/${cartItemId}`, data, {
+     axios.put(`http://curebox-api.herokuapp.com/v1/cart/${cartItemId}`, data, {
           headers: {
                'Content-Type': 'application/json',
           }

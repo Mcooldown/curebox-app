@@ -23,7 +23,7 @@ const Register = () => {
           }
      },[dispatch, history]);
 
-     const onSubmit = async () => {
+     const onSubmit = () => {
 
           dispatch(setIsLoading(true));
 

@@ -5,5 +5,8 @@ import CreateProduct from './CreateProduct';
 import ProductDetail from './ProductDetail';
 import Cart from './Cart';
 import LoadingPage from './LoadingPage';
+import CheckoutTransaction from './CheckoutTransaction';
+import TransactionHistory from './TransactionHistory';
 
-export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage};
+export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
+, CheckoutTransaction, TransactionHistory};

@@ -19,7 +19,7 @@ const Navbar = () => {
           <nav class="navbar navbar-expand-lg fixed-top">
                <div class="container">
                     <div class="navbar-brand m-0" onClick={ () => history.push('/')}>
-                         <img src={Logo} className="logo" />
+                         <img src={Logo} className="logo" alt="logo" />
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#cureboxNavbar" aria-controls="cureboxNavbar" aria-expanded="false" aria-label="Toggle navigation">
                          <span class="menu-icon">≡</span>
@@ -40,12 +40,13 @@ const Navbar = () => {
                                    userName ?
                                         <Fragment>
                                              <div class="nav-link m-0 mx-2 dropdown">
-                                                  <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                   { localStorage.getItem('userName').substring(0, 15)}
                                                   </a>
                                                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                  <li><a class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</a></li>
-                                                  <li><a class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
+                                                  <li><a href="#" class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                                                  <li><a href="#" class="dropdown-item" onClick={() => history.push('/transactions')}><i class="fas fa-tags"></i> My Transactions</a></li>
+                                                  <li><a href="#" class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                                                   </ul>
                                              </div>
                                         </Fragment>

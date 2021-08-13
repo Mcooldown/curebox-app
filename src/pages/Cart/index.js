@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Button, CartItem, Footer, Loading, Navbar } from '../../components';
+import { Button, CartItem, Footer, Navbar } from '../../components';
 import { changeCartItemQuantity, removeCartItems, setCartItems} from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import {LoadingPage} from '../../pages';
@@ -59,7 +59,7 @@ const Cart = () => {
                          }
                          <div className="text-end">
                               <h3 className="mt-5 mb-3">Grand Total: <b>Rp{totalPayment}</b></h3>
-                              <Button title="Proceed to transaction" />
+                              <Button title="CHECKOUT" onClick={() => history.push('/checkout')} />
                          </div>
                     </div>
                     <Footer />
