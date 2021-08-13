@@ -3,22 +3,18 @@ import { Fragment } from 'react';
 
 const Input = ({label, errorMessage, ...rest}) => {
 
+     const inputClass = errorMessage === '' ? 'form-control' : 'form-control is-invalid'
+
      return (
-          <div className="my-3">
-               <p className="mb-1">{label}</p>
+          <Fragment>
+               {label && <p className="mb-1">{label}</p>}
+               <input className={inputClass}
+               {...rest} />
                {
-                    errorMessage !== '' ? 
-                    <Fragment>
-                          <input className="form-control is-invalid"
-                         {...rest} />
-                         <div class="invalid-feedback d-block">
-                              {errorMessage}
-                         </div>
-                    </Fragment>
-                    : <input className="form-control"
-                         {...rest} />
-               }
-          </div>
+                    errorMessage !== '' && 
+                    <div class="invalid-feedback d-block">{errorMessage}</div>
+               }    
+          </Fragment>
      );
 }
 

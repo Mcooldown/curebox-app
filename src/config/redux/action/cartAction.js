@@ -28,6 +28,21 @@ export const setCartItems = (userId) => (dispatch) => {
      })
 }
 
+export const removeCartItems = (cartItemId, userId) => (dispatch) => {
+     
+     axios.delete(`http://curebox-api.herokuapp.com/v1/cart/${cartItemId}`)
+     .then((res) => {
+          dispatch(setCartItems(userId));
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}
+
+export const changeCartItemQuantity = (cartItemId, quantity, userId) => (dispatch) => {
+
+}
+
 const countTotalPayment = (data) => {
      let total = 0;
      data.forEach((cartItem) => {

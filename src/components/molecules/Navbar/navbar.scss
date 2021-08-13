@@ -22,4 +22,17 @@
      .navbar-toggler {
           font-size: 40px;
      }
+
+     .btn-cart {
+          border-radius: 50%;
+          background-color: #287E00;
+          color: white;
+          transition: 0.3s ease all;
+          box-shadow: 2px 2px 5px !important;
+
+          &:hover {
+               color: white;
+               transform: scale(1.03);
+          }
+     }
 }

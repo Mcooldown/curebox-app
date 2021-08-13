@@ -1,24 +1,21 @@
-import React, { Fragment, useEffect, useState} from 'react';
+import React, { Fragment, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, withRouter } from 'react-router';
-import { BannerVector } from '../../assets';
-import {Navbar, Footer, ProductItem, Button, Loading}  from '../../components';
+import { withRouter } from 'react-router';
+import {Navbar, Footer, ProductItem, Loading}  from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setProducts } from '../../config/redux/action/productAction';
 import './home.scss';
 
 const Home = () => {
 
-     const [currentPage, setCurrentPage] = useState(1); 
      const {isLoading} = useSelector(state => state.generalReducer);
-     const {products, page} = useSelector(state => state.productReducer);
+     const {products} = useSelector(state => state.productReducer);
      const dispatch = useDispatch();
-     const history = useHistory();
 
      useEffect(() => {
           dispatch(setIsLoading(true));
-          dispatch(setProducts(currentPage));
-     },[dispatch, currentPage]);
+          dispatch(setProducts(1, 8));
+     },[dispatch]);
 
      return (
           <Fragment>
@@ -55,6 +52,7 @@ const Home = () => {
                                                   image={product.productPhoto}
                                                   price={product.price}
                                                   seller = {product.seller}
+                                                  rating ={product.rating}
                                                   />
                                              </div>
                                         )

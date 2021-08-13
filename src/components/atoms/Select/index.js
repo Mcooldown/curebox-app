@@ -2,35 +2,26 @@ import React from 'react';
 import { Fragment } from 'react';
 
 const Select = ({label, errorMessage, options, ...rest}) => {
+
+     const selectClass = errorMessage === '' ? 'form-select' : 'form-select is-invalid';
+
      return (
-          <div className="my-3">
-               <p className="mb-1">{label}</p>
-               {
-                    errorMessage !== '' ?
-                    <Fragment>
-                         <select className="form-select is-invalid" {...rest} >
-                              <option value="">Choose...</option>
-                              {
-                                   options.map( (option) => 
-                                        <option id={option} value={option}>{option}</option>
-                                   )
-                              }
-                         </select>
-                         <div class="invalid-feedback d-block">
-                                   {errorMessage}
-                         </div>
-                    </Fragment>
-                    :
-                    <select className="form-select" {...rest} >
-                         <option value="">Choose...</option>
-                         {
-                              options.map( (option) => 
-                                   <option id={option} value={option}>{option}</option>
-                              )
-                         }
-                    </select>
+          <Fragment>
+               {label && <p className="mb-1">{label}</p>}
+               <select className={selectClass} {...rest} >
+                    <option value="">Choose...</option>
+                    {
+                         options.map( (option) => 
+                              <option id={option} value={option}>{option}</option>
+                         )
+                    }
+               </select>
+               {errorMessage !== '' &&
+                    <div class="invalid-feedback d-block">
+                              {errorMessage}
+                    </div>
                }
-          </div>
+          </Fragment>
      );
 }
 

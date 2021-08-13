@@ -13,7 +13,10 @@ const ProductItem = (props) => {
                <div className="card-body">
                     <p className="mb-2">{props.name}</p>
                     <h5 className="mb-2">Rp{props.price}</h5>
-                    <small>Seller: {props.seller.name}</small>
+                    <p className="text-muted m-0"><i class="fas fa-map-marker-alt"></i> {props.seller.address.substring(0, 15)}
+                    <br />
+                    <i class="fa fa-star"></i> {props.rating}/5.00
+                    </p>
                </div>
           </div>
      );

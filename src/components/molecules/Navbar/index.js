@@ -26,19 +26,23 @@ const Navbar = () => {
                     </button>
                     <div class="collapse navbar-collapse" id="cureboxNavbar">
                          <div class="navbar-nav ms-auto">
+                              <form className="m-0 p-0">
+                                   <Input type="text" errorMessage={''} placeholder="Find your needs here" />
+                              </form>
                               {
-                                   userName != null ?
+                                   userName  &&
+                                   <button className="btn btn-cart mx-3"><i class="fas fa-shopping-cart" onClick={() => history.push('/cart')}></i></button>
+                              }
+                              
+                              <p class="nav-link m-0 px-3">Article</p>
+                              <p class="nav-link m-0 px-3">Forum</p>
+                              {
+                                   userName ?
                                         <Fragment>
-                                             <p class="nav-link m-0 px-3">Hello {userName}</p>
-                                             <p class="nav-link m-0 px-3" onClick={() => history.push('/cart')}>Your Cart</p>
                                              <p class="nav-link m-0 px-3" onClick={logout}>Logout</p>
                                         </Fragment>
                                    : <div className="d-lg-flex align-items-center">
-                                        <form>
-                                             <Input type="text" errorMessage={''} placeholder="Find your needs here" />
-                                        </form>
-                                        <p class="nav-link m-0 mx-2">Article</p>
-                                        <p class="nav-link m-0 mx-2">Forum</p>
+                                        
                                         <p class="nav-link m-0 mx-2" onClick={() => history.push('/login') }>Login</p>
                                         <Button title="Register" onClick={() => history.push('/register')} />
                                    </div>
