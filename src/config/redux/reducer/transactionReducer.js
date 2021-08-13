@@ -5,7 +5,12 @@ const initialState = {
           receiverName: '',
           receiverPhoneNumber: '',
           notes: ''
-     } 
+     },
+     errors:{
+          sendAddress: '',
+          receiverName: '',
+          receiverPhoneNumber: '',
+     }
 }
 
 const transactionReducer = (state = initialState, action) => {
@@ -27,6 +32,31 @@ const transactionReducer = (state = initialState, action) => {
                     receiverName: '',
                     receiverPhoneNumber:'',
                     notes: ''
+               }
+          }
+     }
+     if(action.type === 'SET_TRANSACTIONS'){
+          return {
+               ...state,
+               transactions : action.payload,
+          }
+     }
+     if(action.type === 'SET_TRANSACTION_ERRORS'){
+          return {
+               ...state,
+               errors : {
+                    ...state.errors,
+                    [action.errorType] : action.errorMessage
+               }
+          }
+     }
+     if(action.type === 'CLEAR_TRANSACTION_ERRORS'){
+          return {
+               ...state,
+               errors : {
+                    sendAddress: '',
+                    receiverName: '',
+                    receiverPhoneNumber:'',
                }
           }
      }

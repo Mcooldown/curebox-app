@@ -5,7 +5,7 @@ import { useHistory } from 'react-router';
 import { Button, Footer, Input, Navbar } from '../../components';
 import { setCartItems } from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
-import { checkoutTransaction, clearForm, setForm } from '../../config/redux/action/transactionAction';
+import { checkoutTransaction, clearErrors, clearForm, setErrors, setForm } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
 
 const CheckoutTransaction = () => {
@@ -13,7 +13,7 @@ const CheckoutTransaction = () => {
      const history = useHistory();
      const {isLoading} = useSelector(state => state.generalReducer);
      const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
-     const {form} = useSelector(state => state.transactionReducer);
+     const {form, errors} = useSelector(state => state.transactionReducer);
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
 
@@ -23,6 +23,7 @@ const CheckoutTransaction = () => {
 
           dispatch(setIsLoading(true));
           dispatch(clearForm());
+          dispatch(clearErrors());
           dispatch(setCartItems(userId));
 
      }, [dispatch, history]);
@@ -30,7 +31,7 @@ const CheckoutTransaction = () => {
      const onSubmit = () => {
           
           setButtonLoading(true);
-          checkoutTransaction(form)
+          checkoutTransaction(form, totalPayment)
           .then(res => {
 
                setButtonLoading(false);
@@ -40,12 +41,11 @@ const CheckoutTransaction = () => {
                     history.push('/transactions');
                }
                else{
-                    // dispatch(clearErrors());
-                    // res.data.data.map((error) => {
-                    //      dispatch(setErrors(error.param, error.msg));
-                    // });
+                    dispatch(clearErrors());
+                    res.data.data.map((error) => {
+                         dispatch(setErrors(error.param, error.msg));
+                    });
                     alert("Checkout failed. Please fill the required information correctly");
-                    console.log(res);
                }
           });
      }
@@ -59,9 +59,18 @@ const CheckoutTransaction = () => {
                          <hr />
                          <div className="row justify-content-center">
                               <div className="col-md-7">
-                                   <Input type="text" label="Send Address" value={form.sendAddress} onChange={(e) => dispatch(setForm('sendAddress',e.target.value))} />
-                                   <Input type="text" label="Receiver Name" value={form.receiverName} onChange={(e) => dispatch(setForm('receiverName',e.target.value))} />
-                                   <Input type="text" label="Receiver Phone Number" value={form.receiverPhoneNumber} onChange={(e) => dispatch(setForm('receiverPhoneNumber',e.target.value))} />
+                                   <Input type="text" label="Send Address" value={form.sendAddress} 
+                                   errorMessage={errors.sendAddress && errors.sendAddress}
+                                   onChange={(e) => dispatch(setForm('sendAddress',e.target.value))} />
+
+                                   <Input type="text" label="Receiver Name" value={form.receiverName} 
+                                   errorMessage={errors.receiverName && errors.receiverName}
+                                   onChange={(e) => dispatch(setForm('receiverName',e.target.value))} />
+
+                                   <Input type="text" label="Receiver Phone Number" value={form.receiverPhoneNumber} 
+                                   errorMessage={errors.receiverPhoneNumber && errors.receiverPhoneNumber}
+                                   onChange={(e) => dispatch(setForm('receiverPhoneNumber',e.target.value))} />
+
                                    <Input type="text" label="Notes" value={form.notes} onChange={(e) => dispatch(setForm('notes',e.target.value))} />
                                    {
                                         buttonLoading ?

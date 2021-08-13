@@ -44,9 +44,9 @@ const Navbar = () => {
                                                   { localStorage.getItem('userName').substring(0, 15)}
                                                   </a>
                                                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                  <li><a href="#" class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</a></li>
-                                                  <li><a href="#" class="dropdown-item" onClick={() => history.push('/transactions')}><i class="fas fa-tags"></i> My Transactions</a></li>
-                                                  <li><a href="#" class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
+                                                  <li><a class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</a></li>
+                                                  <li><a class="dropdown-item" onClick={() => history.push('/transactions')}><i class="fas fa-tags"></i> My Transactions</a></li>
+                                                  <li><a class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</a></li>
                                                   </ul>
                                              </div>
                                         </Fragment>

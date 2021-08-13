@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setIsLoading } from "./generalAction";
 
 export const setForm = (formType, formValue) => {
      return {type: 'SET_TRANSACTION_FORM_DATA', formType, formValue};
@@ -8,7 +9,15 @@ export const clearForm = () => {
      return {type: 'CLEAR_TRANSACTION_FORM'};
 }
 
-export const checkoutTransaction = (form) => {
+export const setErrors = (errorType, errorMessage) => {
+     return {type: 'SET_TRANSACTION_ERRORS', errorType, errorMessage};
+}
+
+export const clearErrors = () => {
+     return {type: 'CLEAR_TRANSACTION_ERRORS'};
+}
+
+export const checkoutTransaction = (form, amount) => {
      
      const data = JSON.stringify({
           userId: localStorage.getItem('userId'),
@@ -16,6 +25,7 @@ export const checkoutTransaction = (form) => {
           receiverName: form.receiverName,
           receiverPhoneNumber: form.receiverPhoneNumber,
           notes: form.notes,
+          amount: amount,
      });
 
      const checkoutPromise = axios.post('http://curebox-api.herokuapp.com/v1/transactions' ,data, {
@@ -25,4 +35,18 @@ export const checkoutTransaction = (form) => {
      })
      const response = checkoutPromise.then(res => res).catch(err => err.response);
      return response;
+}
+
+export const setTransactions = (userId) => (dispatch) => {
+
+     axios.get(`http://localhost:4000/v1/transactions/${userId}`)
+     .then((res) => {
+          
+          const resData = res.data;
+          dispatch({type: 'SET_TRANSACTIONS', payload: resData.data});
+          dispatch(setIsLoading(false));
+     })
+     .catch(err => {
+          console.log(err);
+     })
 }
