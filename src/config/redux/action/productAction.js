@@ -11,7 +11,7 @@ export const clearForm = () => {
 
 export const setProducts = (currentPage, perPage) => (dispatch) => {
 
-     axios.get(`http://curebox-api.herokuapp.com/v1/products?page=${currentPage}&perPage=${perPage}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/products?page=${currentPage}&perPage=${perPage}`)
      .then((res) => {
 
           const resData = res.data;
@@ -43,7 +43,7 @@ export const postNewProduct = async (form) => {
           'sellerId': localStorage.getItem('userId'),
      });
 
-     const createProductPromise = axios.post('http://curebox-api.herokuapp.com/v1/products' ,data, {
+     const createProductPromise = axios.post('https://curebox-api.herokuapp.com/v1/products' ,data, {
           headers: {
                'Content-Type': 'application/json',
           }
@@ -55,7 +55,7 @@ export const postNewProduct = async (form) => {
 
 export const setProduct = (productId) => (dispatch) => {
 
-     axios.get(`http://curebox-api.herokuapp.com/v1/products/${productId}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/products/${productId}`)
      .then(res => {
 
           const resData = res.data;

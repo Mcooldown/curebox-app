@@ -29,7 +29,7 @@ export const registerNewUser = (form) => {
           'passwordConfirm': form.passwordConfirm
      });
 
-     const registerPromise = axios.post('http://curebox-api.herokuapp.com/v1/auth/register' ,data, {
+     const registerPromise = axios.post('https://curebox-api.herokuapp.com/v1/auth/register' ,data, {
           headers: {
                'Content-Type': 'application/json',
           }
@@ -46,7 +46,7 @@ export const login = (form) => {
           'password': form.password,
      });
 
-     const loginPromise = axios.post('http://curebox-api.herokuapp.com/v1/auth/login' ,data, {
+     const loginPromise = axios.post('https://curebox-api.herokuapp.com/v1/auth/login' ,data, {
           headers: {
                'Content-Type': 'application/json',
           }

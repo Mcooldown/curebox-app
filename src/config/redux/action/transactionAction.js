@@ -28,7 +28,7 @@ export const checkoutTransaction = (form, amount) => {
           amount: amount,
      });
 
-     const checkoutPromise = axios.post('http://curebox-api.herokuapp.com/v1/transactions' ,data, {
+     const checkoutPromise = axios.post('https://curebox-api.herokuapp.com/v1/transactions' ,data, {
           headers: {
                'Content-Type': 'application/json',
           }
@@ -39,7 +39,7 @@ export const checkoutTransaction = (form, amount) => {
 
 export const setTransactions = (userId) => (dispatch) => {
 
-     axios.get(`http://localhost:4000/v1/transactions/${userId}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/transactions/${userId}`)
      .then((res) => {
           
           const resData = res.data;

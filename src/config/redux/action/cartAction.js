@@ -3,7 +3,7 @@ import { setIsLoading } from "./generalAction";
 
 export const addCartItem = (data) => {
 
-     const createCartItemPromise = axios.post('http://curebox-api.herokuapp.com/v1/cart' ,JSON.stringify(data), {
+     const createCartItemPromise = axios.post('https://curebox-api.herokuapp.com/v1/cart' ,JSON.stringify(data), {
           headers: {
                'Content-Type': 'application/json',
           }
@@ -15,7 +15,7 @@ export const addCartItem = (data) => {
 
 export const setCartItems = (userId) => (dispatch) => {
 
-     axios.get(`http://curebox-api.herokuapp.com/v1/cart/${userId}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/cart/${userId}`)
      .then((res) => {
           
           const resData = res.data;
@@ -30,7 +30,7 @@ export const setCartItems = (userId) => (dispatch) => {
 
 export const removeCartItems = (cartItemId, userId) => (dispatch) => {
      
-     axios.delete(`http://curebox-api.herokuapp.com/v1/cart/${cartItemId}`)
+     axios.delete(`https://curebox-api.herokuapp.com/v1/cart/${cartItemId}`)
      .then((res) => {
           dispatch(setCartItems(userId));
      })
@@ -45,7 +45,7 @@ export const changeCartItemQuantity = (cartItemId, quantity, userId) => (dispatc
           quantity: quantity
      });
 
-     axios.put(`http://curebox-api.herokuapp.com/v1/cart/${cartItemId}`, data, {
+     axios.put(`https://curebox-api.herokuapp.com/v1/cart/${cartItemId}`, data, {
           headers: {
                'Content-Type': 'application/json',
           }
