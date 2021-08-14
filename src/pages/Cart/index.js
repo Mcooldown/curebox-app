@@ -10,8 +10,8 @@ import {LoadingPage} from '../../pages';
 const Cart = () => {
 
      const history = useHistory();
-     const {isLoading} = useSelector(state => state.generalReducer);
-     const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
+     const {isLoading, totalPayment} = useSelector(state => state.generalReducer);
+     const {cartItems} = useSelector(state => state.cartReducer);
      const dispatch = useDispatch();
 
      useEffect(() => {
@@ -57,10 +57,13 @@ const Cart = () => {
                               })
 
                          }
-                         <div className="text-end">
-                              <h3 className="mt-5 mb-3">Grand Total: <b>Rp{totalPayment}</b></h3>
-                              <Button title="CHECKOUT" onClick={() => history.push('/checkout')} />
-                         </div>
+                         {
+                              cartItems.length ?
+                              <div className="text-end">
+                                   <h3 className="mt-5 mb-3">Grand Total: <b>Rp{totalPayment}</b></h3>
+                                   <Button title="CHECKOUT" onClick={() => history.push('/checkout')} />
+                              </div> : null
+                         }
                     </div>
                     <Footer />
                </Fragment>

@@ -3,12 +3,12 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Footer, Navbar } from '../../components';
-import TransactionItem from '../../components/molecules/TransactionItem';
+import {TransactionItem} from '../../components/molecules';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setTransactions } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
 
-const TransactionHistory = () => {
+const TransactionHeaders = () => {
 
      const {isLoading} = useSelector(state => state.generalReducer);
      const {transactions} = useSelector(state => state.transactionReducer);
@@ -53,4 +53,4 @@ const TransactionHistory = () => {
      }
 }
 
-export default TransactionHistory;
+export default TransactionHeaders;

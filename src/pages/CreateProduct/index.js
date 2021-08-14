@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -12,6 +12,14 @@ const CreateProduct = () => {
      const [isLoading, setIsLoading] = useState(false);
      const dispatch = useDispatch();
      const history = useHistory();
+
+     useEffect(() => {
+          const userId = localStorage.getItem('userId');
+          if(!userId){
+               alert('Not authorized. Please login first');
+               history.push('/login');
+          }
+     },[history])
 
      const onImageUpload = (e) => {
           const file = e.target.files[0];
@@ -35,7 +43,7 @@ const CreateProduct = () => {
                if(res.status === 201){
                     dispatch(clearForm());
                     alert('New Product Added');
-                    history.push('/');
+                    history.push('/store');
                }
           });
      }

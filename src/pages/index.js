@@ -6,7 +6,9 @@ import ProductDetail from './ProductDetail';
 import Cart from './Cart';
 import LoadingPage from './LoadingPage';
 import CheckoutTransaction from './CheckoutTransaction';
-import TransactionHistory from './TransactionHistory';
+import TransactionHeaders from './TransactionHeaders';
+import TransactionDetails from './TransactionDetails';
+import Store from './Store';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
-, CheckoutTransaction, TransactionHistory};
+, CheckoutTransaction, TransactionHeaders, TransactionDetails, Store};

@@ -33,6 +33,29 @@ export const setProducts = (currentPage, perPage) => (dispatch) => {
      })
 }
 
+export const setStoreProducts = (userId, currentPage, perPage) => (dispatch) => {
+     
+     axios.get(`http://localhost:4000/v1/products/store/${userId}?page=${currentPage}&perPage=${perPage}`)
+     .then((res) => {
+
+          const resData = res.data;
+          dispatch({type: 'SET_PRODUCTS', payload: resData.data});
+          dispatch({
+               type: 'SET_PRODUCTS_PAGE',
+               payload: {
+                    totalData: resData.total_data,
+                    perPage: resData.per_page,
+                    currentPage: resData.current_page,
+                    totalPage: Math.ceil(resData.total_data/ resData.per_page),
+               }
+          })
+          dispatch(setIsLoading(false));
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}
+
 export const postNewProduct = async (form) => {
      
      const data = await JSON.stringify({

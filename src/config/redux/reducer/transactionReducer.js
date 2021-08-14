@@ -1,5 +1,6 @@
 const initialState = {
      transactions: [],
+     transactionDetails: [],
      form: {
           sendAddress: '',
           receiverName: '',
@@ -58,6 +59,12 @@ const transactionReducer = (state = initialState, action) => {
                     receiverName: '',
                     receiverPhoneNumber:'',
                }
+          }
+     }
+     if(action.type === 'SET_TRANSACTION_DETAILS'){
+          return {
+               ...state,
+               transactionDetails: action.payload,
           }
      }
 

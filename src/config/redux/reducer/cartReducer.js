@@ -1,6 +1,5 @@
 const initialState = {
      cartItems: [],
-     totalPayment: '',
 }
 
 const cartReducer = (state = initialState, action) => {
@@ -9,12 +8,6 @@ const cartReducer = (state = initialState, action) => {
           return {
                ...state,
                cartItems: action.payload,
-          }
-     }
-     if(action.type === 'SET_TOTAL_PAYMENT'){
-          return {
-               ...state,
-               totalPayment: action.payload,
           }
      }
 

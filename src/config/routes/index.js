@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {Login, Register, Home, CreateProduct, ProductDetail, Cart, CheckoutTransaction, TransactionHistory} from '../../pages';
+import {Login, Register, Home, CreateProduct, ProductDetail, Cart, 
+     CheckoutTransaction, TransactionHeaders, TransactionDetails, Store} from '../../pages';
 
 const Routes = () => {
      return (
@@ -28,7 +29,13 @@ const Routes = () => {
                          <CheckoutTransaction />
                     </Route>
                     <Route path="/transactions" exact>
-                         <TransactionHistory />
+                         <TransactionHeaders />
+                    </Route>
+                    <Route path="/transactions/:id" exact>
+                         <TransactionDetails />
+                    </Route>
+                     <Route path="/store" exact>
+                         <Store />
                     </Route>
                </Switch>
           </Router>

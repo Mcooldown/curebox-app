@@ -1,7 +1,10 @@
 import React from 'react';
+import { useHistory } from 'react-router';
 import { Button } from '../../atoms';
 
 const TransactionItem = (props) => {
+
+     const history = useHistory();
 
      return (
           <div className="card my-3 border-0 shadow"> 
@@ -14,7 +17,7 @@ const TransactionItem = (props) => {
                     <p>Receiver Phone Number: {props.receiverPhoneNumber}</p>
                     <h5 className="text-danger mt-3">Grand Total: Rp{props.amount}</h5>
                     <p>Status: <span className="text-success fw-bold">Success</span> </p>
-                    <Button title="DETAIL ITEMS" />
+                    <Button title="View Details" onClick={() => history.push(`/transactions/${props._id}`)} />
                </div>
           </div>
      )

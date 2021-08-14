@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setIsLoading } from "./generalAction";
+import { countTotalPayment, setIsLoading } from "./generalAction";
 
 export const addCartItem = (data) => {
 
@@ -56,12 +56,4 @@ export const changeCartItemQuantity = (cartItemId, quantity, userId) => (dispatc
      .catch(err => {
           console.log(err);
      })
-}
-
-const countTotalPayment = (data) => {
-     let total = 0;
-     data.forEach((cartItem) => {
-          total += cartItem.product.price*cartItem.quantity;
-     });
-     return total;
 }

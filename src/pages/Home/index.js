@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
 import {Navbar, Footer, ProductItem, Loading}  from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setProducts } from '../../config/redux/action/productAction';
@@ -11,6 +11,7 @@ const Home = () => {
      const {isLoading} = useSelector(state => state.generalReducer);
      const {products} = useSelector(state => state.productReducer);
      const dispatch = useDispatch();
+     const history = useHistory();
 
      useEffect(() => {
           dispatch(setIsLoading(true));
@@ -41,7 +42,7 @@ const Home = () => {
 
                          <div className="row my-5">
                               {
-                                   isLoading === false ?
+                                   !isLoading ?
                                    products && products.map ((product) => {
                                         return (
                                              <div className="col-md-3 my-3">
@@ -53,6 +54,7 @@ const Home = () => {
                                                   price={product.price}
                                                   seller = {product.seller}
                                                   rating ={product.rating}
+                                                  onClick={() => history.push(`/products/${product._id}`)}
                                                   />
                                              </div>
                                         )
