@@ -10,8 +10,8 @@ import {LoadingPage} from '../../pages';
 const Cart = () => {
 
      const history = useHistory();
-     const {isLoading, totalPayment} = useSelector(state => state.generalReducer);
-     const {cartItems} = useSelector(state => state.cartReducer);
+     const {isLoading} = useSelector(state => state.generalReducer);
+     const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
      const dispatch = useDispatch();
 
      useEffect(() => {

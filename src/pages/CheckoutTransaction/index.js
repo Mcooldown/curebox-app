@@ -11,8 +11,8 @@ import LoadingPage from '../LoadingPage';
 const CheckoutTransaction = () => {
      
      const history = useHistory();
-     const {isLoading, totalPayment} = useSelector(state => state.generalReducer);
-     const {cartItems} = useSelector(state => state.cartReducer);
+     const {isLoading} = useSelector(state => state.generalReducer);
+     const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
      const {form, errors} = useSelector(state => state.transactionReducer);
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();

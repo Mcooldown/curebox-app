@@ -1,39 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
 import { Button, Footer, Navbar, TransactionDetailItem } from '../../components';
-import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setTransactionDetails } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
 
 const TransactionDetails = (props) => {
 
-     const {isLoading, totalPayment} = useSelector(state => state.generalReducer);
+     const [isLoading, setIsLoading] = useState(true);
      const {transactionDetails} = useSelector(state => state.transactionReducer);
      const dispatch = useDispatch();
      const history = useHistory();
 
      useEffect(() => {
-          
           const userId = localStorage.getItem('userId');
 
           if(!userId){
                alert('Not Authorized, Please login first');
                history.push('/login');
           } 
-          
+
           async function initialize() {
-               await dispatch(setIsLoading(true));
                await dispatch(setTransactionDetails(props.match.params.id));
           }
-          initialize();
 
-     }, [dispatch, props, history])
+          initialize().then(() => setIsLoading(false));
+
+     }, [dispatch, props.match.params.id, history])
 
      if(!isLoading) {
           return (
-               
                <Fragment>
                     <Navbar />
                     <div className="container my-5 py-5">
@@ -42,12 +39,12 @@ const TransactionDetails = (props) => {
                          <hr/>
                          {
                               transactionDetails[0] &&
-                              <p>Transaction ID:{ transactionDetails[0].transaction} <br />
-                                   Total Payment: Rp{totalPayment}
+                              <p>Transaction ID:{ transactionDetails[0].transaction._id} <br />
+                                   Total Payment: Rp{transactionDetails[0].transaction.amount}
                               </p>
                          }
                          {
-                              transactionDetails.map((detail) => {
+                              transactionDetails && transactionDetails.map((detail) => {
                                    return <TransactionDetailItem 
                                    key={detail._id}
                                    name={detail.product.name}

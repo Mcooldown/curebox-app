@@ -1,5 +1,5 @@
 import axios from "axios";
-import { countTotalPayment, setIsLoading } from "./generalAction";
+import { setIsLoading } from "./generalAction";
 
 export const setForm = (formType, formValue) => {
      return {type: 'SET_TRANSACTION_FORM_DATA', formType, formValue};
@@ -53,12 +53,14 @@ export const setTransactions = (userId) => (dispatch) => {
 
 export const setTransactionDetails = (transactionId) => (dispatch) => {
 
-     axios.get(`https://curebox-api.herokuapp.com/v1/transactions/detail/${transactionId}`)
+     axios.get(`http://localhost:4000/v1/transactions/detail/${transactionId}`)
      .then(res => {
           const resData = res.data;
-          dispatch({type: 'SET_TOTAL_PAYMENT', payload: countTotalPayment(resData.data)});
-          dispatch({type: 'SET_TRANSACTION_DETAILS', payload: resData.data});
-          dispatch(setIsLoading(false));
+
+          async function finalize(){
+               await dispatch({type: 'SET_TRANSACTION_DETAILS', payload: resData.data});
+          }
+          finalize().then(() => dispatch(setIsLoading(false)));
      })
      .catch(err => {
           console.log(err);

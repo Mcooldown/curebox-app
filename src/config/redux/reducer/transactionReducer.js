@@ -1,6 +1,6 @@
 const initialState = {
      transactions: [],
-     transactionDetails: [],
+     transactionDetails: [{}],
      form: {
           sendAddress: '',
           receiverName: '',
