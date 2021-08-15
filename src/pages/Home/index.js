@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, withRouter } from 'react-router';
+import { withRouter } from 'react-router';
 import {Navbar, Footer, ProductItem, Loading}  from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setProducts } from '../../config/redux/action/productAction';
@@ -11,11 +11,15 @@ const Home = () => {
      const {isLoading} = useSelector(state => state.generalReducer);
      const {products} = useSelector(state => state.productReducer);
      const dispatch = useDispatch();
-     const history = useHistory();
 
      useEffect(() => {
-          dispatch(setIsLoading(true));
-          dispatch(setProducts(1, 8));
+
+          async function initialize() {
+               await dispatch(setIsLoading(true));
+               await dispatch(setProducts(1, 8));
+          }
+
+          initialize();
      },[dispatch]);
 
      return (
@@ -52,7 +56,7 @@ const Home = () => {
                                                   description={product.description}
                                                   image={product.productPhoto}
                                                   price={product.price}
-                                                  seller = {product.seller}
+                                                  seller= {product.seller}
                                                   rating ={product.rating}
                                                   />
                                              </div>

@@ -16,19 +16,18 @@ const TransactionDetails = (props) => {
 
      useEffect(() => {
           
-          async function fetchData() {
-               await dispatch(setIsLoading(true));
-               await dispatch(setTransactionDetails(props.match.params.id));
-          }
-          
           const userId = localStorage.getItem('userId');
 
           if(!userId){
                alert('Not Authorized, Please login first');
                history.push('/login');
           } 
-
-          fetchData();
+          
+          async function initialize() {
+               await dispatch(setIsLoading(true));
+               await dispatch(setTransactionDetails(props.match.params.id));
+          }
+          initialize();
 
      }, [dispatch, props, history])
 

@@ -90,6 +90,26 @@ export const setProduct = (productId) => (dispatch) => {
      })
 }
 
+export const updateProduct = (form, productId) => {
+     
+     const data = JSON.stringify({
+          'name': form.name,
+          'description': form.description,
+          'price': form.price,
+          'productPhoto': form.productPhoto,
+          'productId': productId,
+     });
+
+     const updateProductPromise =  axios.put(`https://curebox-api.herokuapp.com/v1/products/${productId}`, data, {
+          headers: {
+               'Content-Type': 'application/json',
+          }
+     })
+
+     const response = updateProductPromise.then(res => res).catch(err => err.response);
+     return response;
+}
+
 export const deleteProduct = (productId, userId) => (dispatch) => {
      
      axios.delete(`https://curebox-api.herokuapp.com/v1/products/${productId}`)

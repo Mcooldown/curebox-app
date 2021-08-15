@@ -9,6 +9,7 @@ import CheckoutTransaction from './CheckoutTransaction';
 import TransactionHeaders from './TransactionHeaders';
 import TransactionDetails from './TransactionDetails';
 import Store from './Store';
+import EditProduct from './EditProduct';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
-, CheckoutTransaction, TransactionHeaders, TransactionDetails, Store};
+, CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct};

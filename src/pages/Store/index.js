@@ -40,6 +40,10 @@ const Store = () => {
           }
      }
 
+     const onUpdate = (id) => {
+          history.push(`/products/edit/${id}`);
+     }
+
      if(isLoading){
           return <LoadingPage title="Please wait..." /> 
      }else{
@@ -53,13 +57,15 @@ const Store = () => {
                          {
                          products.map((product) => {
                               return <div className="col-md-6 my-3">
-                                   <StoreProductItem key={product._id}
+                                   <StoreProductItem 
+                                   key={product._id}
                                    _id = {product._id}
                                    name={product.name}
                                    image={product.productPhoto}
                                    price={product.price}
                                    rating ={product.rating}
                                    onDelete = {onDelete}
+                                   onUpdate = {onUpdate}
                                    />
                               </div>
                          })

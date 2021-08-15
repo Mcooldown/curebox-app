@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Button } from '../../atoms';
 
 const StoreProductItem = (props) => {
@@ -17,6 +16,7 @@ const StoreProductItem = (props) => {
                               <i class="fa fa-star"></i> {props.rating}/5.00
                          </div>
                          <div className="col-md-2">
+                              <Button title="Update" onClick={() => props.onUpdate(props._id)} />
                               <Button title="Delete" onClick={() => props.onDelete(props._id)} />
                          </div>
                     </div>

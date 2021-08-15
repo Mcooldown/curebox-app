@@ -19,7 +19,7 @@ const CheckoutTransaction = () => {
 
      useEffect(() => {
 
-          async function fetchData(){
+          async function initialize(){
                await dispatch(setIsLoading(true));
                await dispatch(clearForm());
                await dispatch(clearErrors());
@@ -29,7 +29,7 @@ const CheckoutTransaction = () => {
           const userId = localStorage.getItem('userId');
           if(!userId) history.push('/login');
 
-          fetchData();
+          initialize();
 
      }, [dispatch, history]);
 

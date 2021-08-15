@@ -20,8 +20,12 @@ const TransactionHeaders = () => {
           const userId = localStorage.getItem('userId');
           if(!userId) history.push('/login');
 
-          dispatch(setIsLoading(true));
-          dispatch(setTransactions(userId));
+          async function initialize(){
+               await dispatch(setIsLoading(true));
+               await dispatch(setTransactions(userId));
+          }
+          initialize();
+
      },[dispatch, history]);
 
      if(!isLoading){
@@ -37,7 +41,7 @@ const TransactionHeaders = () => {
                                    key={transaction._id}
                                    _id={transaction._id}
                                    transactionDate={transaction.createdAt}
-                                   sendAddress={transaction.send_address}
+                                   sendAddress={transaction.sendAddress}
                                    receiverName={transaction.receiverName}
                                    receiverPhoneNumber={transaction.receiverPhoneNumber}
                                    amount={transaction.amount}

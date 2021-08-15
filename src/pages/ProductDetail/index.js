@@ -18,11 +18,17 @@ const ProductDetail = (props) => {
      const [quantity, setQuantity] = useState(1);
 
      useEffect(() => {
-          dispatch(setIsLoading(true));
           
-          const id = props.match.params.id
-          dispatch(setProduct(id));
-     }, [dispatch, props]);
+          const id = props.match.params.id;
+
+          async function initialize() {
+               await dispatch(setIsLoading(true));
+               await dispatch(setProduct(id));
+          }
+          
+          initialize();
+
+     }, [dispatch, props.match.params.id]);
 
      const onSubmit = () => {
 

@@ -18,8 +18,11 @@ const Cart = () => {
           const userId = localStorage.getItem('userId');
           if(!userId) history.push('/login');
 
-          dispatch(setIsLoading(true));
-          dispatch(setCartItems(userId));
+          async function initialize () {
+               await dispatch(setIsLoading(true));
+               await dispatch(setCartItems(userId));
+          }
+          initialize();
 
      }, [dispatch, history]);
 

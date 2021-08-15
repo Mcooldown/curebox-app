@@ -14,7 +14,7 @@ const ProductItem = (props) => {
                     <h5 className="mb-2">Rp{props.price}</h5>
                     {
                          props.seller && 
-                         <p className="text-muted mb-2"><i class="fas fa-map-marker-alt"></i> {props.seller.address.substring(0, 15)}</p>
+                         <p className="text-muted mb-2 text-truncate"><i class="fas fa-map-marker-alt"></i> {props.seller.address}</p>
                     }
                     <i class="fa fa-star"></i> {props.rating}/5.00
                </div>
