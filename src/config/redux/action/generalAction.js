@@ -3,6 +3,7 @@ export const setIsLoading = (value) => {
 }
 
 export const countTotalPayment = (data) => {
+     
      let total = 0;
      data.forEach((dataItem) => {
           total += dataItem.product.price*dataItem.quantity;

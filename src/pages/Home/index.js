@@ -54,7 +54,6 @@ const Home = () => {
                                                   price={product.price}
                                                   seller = {product.seller}
                                                   rating ={product.rating}
-                                                  onClick={() => history.push(`/products/${product._id}`)}
                                                   />
                                              </div>
                                         )

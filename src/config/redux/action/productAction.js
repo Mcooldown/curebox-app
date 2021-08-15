@@ -35,7 +35,7 @@ export const setProducts = (currentPage, perPage) => (dispatch) => {
 
 export const setStoreProducts = (userId, currentPage, perPage) => (dispatch) => {
      
-     axios.get(`http://localhost:4000/v1/products/store/${userId}?page=${currentPage}&perPage=${perPage}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/products/store/${userId}?page=${currentPage}&perPage=${perPage}`)
      .then((res) => {
 
           const resData = res.data;
@@ -83,6 +83,18 @@ export const setProduct = (productId) => (dispatch) => {
 
           const resData = res.data;
           dispatch({type: 'SET_PRODUCT', payload: resData.data});
+          dispatch(setIsLoading(false));
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}
+
+export const deleteProduct = (productId, userId) => (dispatch) => {
+     
+     axios.delete(`https://curebox-api.herokuapp.com/v1/products/${productId}`)
+     .then((res) => {
+          dispatch(setStoreProducts(userId, 1, 8));
           dispatch(setIsLoading(false));
      })
      .catch(err => {

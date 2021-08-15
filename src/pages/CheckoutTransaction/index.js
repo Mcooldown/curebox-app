@@ -11,20 +11,25 @@ import LoadingPage from '../LoadingPage';
 const CheckoutTransaction = () => {
      
      const history = useHistory();
-     const {isLoading} = useSelector(state => state.generalReducer);
-     const {cartItems, totalPayment} = useSelector(state => state.cartReducer);
+     const {isLoading, totalPayment} = useSelector(state => state.generalReducer);
+     const {cartItems} = useSelector(state => state.cartReducer);
      const {form, errors} = useSelector(state => state.transactionReducer);
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
 
      useEffect(() => {
+
+          async function fetchData(){
+               await dispatch(setIsLoading(true));
+               await dispatch(clearForm());
+               await dispatch(clearErrors());
+               await dispatch(setCartItems(userId));
+          }
+
           const userId = localStorage.getItem('userId');
           if(!userId) history.push('/login');
 
-          dispatch(setIsLoading(true));
-          dispatch(clearForm());
-          dispatch(clearErrors());
-          dispatch(setCartItems(userId));
+          fetchData();
 
      }, [dispatch, history]);
 

@@ -1,12 +1,13 @@
 import React from 'react';
-import { Fragment } from 'react';
 import { useHistory } from 'react-router-dom';
 import './productItem.scss'
 
 const ProductItem = (props) => {
 
+     const history = useHistory();
+
      return (
-          <div className="card card-product" onClick={() => props.onClick()}>
+          <div className="card card-product"  onClick={() => history.push(`/products/${props._id}`)}>
                <img className="product-image" src={props.image} alt={props.name} />
                <div className="card-body">
                     <p className="mb-2">{props.name}</p>

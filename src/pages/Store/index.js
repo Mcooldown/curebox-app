@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Navbar, ProductItem } from '../../components';
+import { Button, Footer, Navbar, StoreProductItem } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
-import { setStoreProducts } from '../../config/redux/action/productAction';
+import { deleteProduct, setStoreProducts } from '../../config/redux/action/productAction';
 import LoadingPage from '../LoadingPage';
 
 const Store = () => {
@@ -17,7 +17,7 @@ const Store = () => {
      useEffect(() => {
 
           async function fetchData (){
-               await dispatch(setIsLoading(false));
+               await dispatch(setIsLoading(true));
                await dispatch(setStoreProducts(userId, 1, 8));
           }
 
@@ -29,6 +29,16 @@ const Store = () => {
 
           fetchData();
      }, [dispatch, history]);
+
+     const onDelete = async (id) => {
+
+          const confirmDelete = window.confirm('Are you sure want to delete this product?');
+
+          if(confirmDelete){
+               await dispatch(setIsLoading(true));
+               await dispatch(deleteProduct(id, localStorage.getItem('userId')));
+          }
+     }
 
      if(isLoading){
           return <LoadingPage title="Please wait..." /> 
@@ -42,14 +52,14 @@ const Store = () => {
                     <div className="row">
                          {
                          products.map((product) => {
-                              return <div className="col-md-3 my-3">
-                                   <ProductItem key={product._id}
+                              return <div className="col-md-6 my-3">
+                                   <StoreProductItem key={product._id}
                                    _id = {product._id}
                                    name={product.name}
                                    image={product.productPhoto}
                                    price={product.price}
                                    rating ={product.rating}
-                                   onClick ={() => null }
+                                   onDelete = {onDelete}
                                    />
                               </div>
                          })
