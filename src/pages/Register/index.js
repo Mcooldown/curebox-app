@@ -110,9 +110,9 @@ const Register = () => {
                                              <div className="d-grid">
                                                   {
                                                        buttonLoading ?
-                                                       <Button title="Please wait" isLoading={buttonLoading} />
+                                                       <Button background="#287E00" title="Please wait..." isLoading={buttonLoading} />
                                                        :
-                                                       <Button title="REGISTER" isLoading={buttonLoading} onClick={onSubmit} />
+                                                       <Button background="#287E00" title="REGISTER" isLoading={buttonLoading} onClick={onSubmit} />
                                                   }
                                              <Gap height={25} />
                                              <p className="text-end">Already have'an account? <h6 className="d-inline text-green" onClick={() => history.push('/login')}>Login</h6></p>

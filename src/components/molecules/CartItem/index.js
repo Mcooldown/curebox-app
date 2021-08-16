@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
-import { Button, Input } from '../../atoms';
+import { Button, Gap, Input } from '../../atoms';
+import './cartItem.scss';
 
 const CartItem = (props) => {
 
-     const [quantity, setQuantity] = useState(props.quantity)
+     const [quantity, setQuantity] = useState(props.quantity);
 
      return (
-          <div className="card my-3 border-0 shadow"> 
-               <div className="card-body my-2">
-                    <div className="row">
-                         <div className="col-md-3">
-                              <img className="product-image w-100" src={props.image} alt={props.name} />
+          <div className="cart-card card"> 
+               <div className="card-body">
+                    <div className="row align-items-center">
+                         <div className="col-md-3 my-3">
+                              <img className="product-image" src={props.image} alt={props.name} />
                          </div>
-                         <div className="col-md-6">
-                              <h4>{props.name}</h4>
-                              <p>{props.description}</p>
-                              <p>Quantity:
+                         <div className="col-md-5 my-3">
+                              <p className="mb-3">{props.name}</p>
+                              <h5 className="mb-3">Rp{new Intl.NumberFormat(['ban', 'id']).format(props.price)}</h5>
+                              <div className="d-flex align-items-center">
+                                   <p className="m-0 me-3">Quantity</p>
                                    <Input type="number" min={1} value={quantity} onChange={(e) => setQuantity(e.target.value) } /> 
-                              </p>
-                              {
-                                   quantity !== props.quantity && 
-                                   <Button title="Update" onClick={() => props.onChangeQuantity(props._id, quantity)} />
-                              }
-                              <h5 className="text-danger mt-3">Rp{props.price}</h5>
+                                   <Gap width={30} />
+                                   {
+                                        quantity !== props.quantity && 
+                                        <Button background="#287E00" title="Update" onClick={() => props.onChangeQuantity(props._id, quantity)} />
+                                   }
+                              </div>
                          </div>
-                         <div className="col-md-3">
-                              Subtotal:
-                              <h3 className="text-danger">Rp{props.price*props.quantity}</h3>
-                              <Button title="Delete" onClick={() => props.onDelete(props._id)}  />
+                         <div className="col-md-3 my-3 offset-md-1 text-end">
+                              <h3 className="text-danger mb-3">Rp{new Intl.NumberFormat(['ban', 'id']).format(props.price*props.quantity)}</h3>
+                              <Button background="gray" title="Remove" onClick={() => props.onDelete(props._id)}  />
                          </div>
                     </div>
                     

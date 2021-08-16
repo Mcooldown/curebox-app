@@ -62,14 +62,15 @@ const ProductDetail = (props) => {
                          <div className="col-md-7">
                               <h1>{product.name}</h1>
                               <p>{product.description}</p>
+                              <h4>Rp{product.price}</h4>
                               <p className="text-muted">by {product.seller.name}</p>
                               <hr />
                               <Input type="number" min={1} onChange={(e) => setQuantity(e.target.value)} value={quantity} label="Quantity" errorMessage={''} />
                               {
                                    buttonLoading ?
-                                   <Button title="Please Wait..." isLoading={true} />
+                                   <Button background="#287E00" title="Please Wait..." isLoading={true} />
                                    :
-                                   <Button title="Add to cart" isLoading={false} onClick={onSubmit} />
+                                   <Button background="#287E00" title="Add to cart" isLoading={false} onClick={onSubmit} />
                               }
                          </div>
                     </div>

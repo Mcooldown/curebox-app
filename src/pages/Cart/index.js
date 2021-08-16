@@ -6,6 +6,7 @@ import { Button, CartItem, Footer, Navbar } from '../../components';
 import { changeCartItemQuantity, removeCartItems, setCartItems} from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import {LoadingPage} from '../../pages';
+import './cart.scss';
 
 const Cart = () => {
 
@@ -43,30 +44,42 @@ const Cart = () => {
           return(
                <Fragment>
                     <Navbar />
-                    <div className="container py-5 my-5">
-                         <h1>Your Cart</h1>
-                         <hr />
-                         {
-                              cartItems.map( (cartItem) => {
-                                   return <CartItem key={cartItem._id}
-                                   _id= {cartItem._id}
-                                   name={cartItem.product.name}
-                                   description={cartItem.product.description}
-                                   price={cartItem.product.price}
-                                   image={cartItem.product.productPhoto}
-                                   quantity={cartItem.quantity}
-                                   onDelete={onDelete}
-                                   onChangeQuantity={onChangeQuantity} />
-                              })
+                    <div className="cart-wrapper">
+                         <div className="container">
+                              <h1 className="text-center mb-3">My Cart</h1>
+                              <div className="section-line mx-auto"></div>
 
-                         }
-                         {
-                              cartItems.length ?
-                              <div className="text-end">
-                                   <h3 className="mt-5 mb-3">Grand Total: <b>Rp{totalPayment}</b></h3>
-                                   <Button title="CHECKOUT" onClick={() => history.push('/checkout')} />
-                              </div> : null
-                         }
+                              <div className="cart-item-wrapper">
+                                   {
+                                        cartItems.length >0 ? cartItems.map( (cartItem) => {
+                                             return <CartItem key={cartItem._id}
+                                             _id= {cartItem._id}
+                                             productId={cartItem.product._id}
+                                             name={cartItem.product.name}
+                                             description={cartItem.product.description}
+                                             price={cartItem.product.price}
+                                             image={cartItem.product.productPhoto}
+                                             quantity={cartItem.quantity}
+                                             onDelete={onDelete}
+                                             onChangeQuantity={onChangeQuantity} />
+                                        }) : (
+                                             <div className="alert alert-dark">
+                                                  No items in cart. <h6 className="d-inline" onClick={() => history.push('/')}>Fill it with your medicine</h6>
+                                             </div>
+                                        ) 
+
+                                   }
+                              </div>
+                              {
+                                   cartItems.length >0 ?
+                                   <div className="total-wrapper">
+                                        <div className="d-inline-block text-center">
+                                             <h2 className="mb-3 text-danger">Total: Rp{new Intl.NumberFormat(['ban', 'id']).format(totalPayment)}</h2>
+                                             <Button width="300px" background="#287E00" title="CHECKOUT" onClick={() => history.push('/checkout')} />
+                                        </div>
+                                   </div> : null
+                              }
+                         </div>
                     </div>
                     <Footer />
                </Fragment>

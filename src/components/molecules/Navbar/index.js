@@ -54,7 +54,7 @@ const Navbar = () => {
                                    : <div className="d-lg-flex align-items-center">
                                         
                                         <p class="nav-link m-0 mx-2" onClick={() => history.push('/login') }>Login</p>
-                                        <Button title="Register" onClick={() => history.push('/register')} />
+                                        <Button background="#287E00" title="Register" onClick={() => history.push('/register')} />
                                    </div>
                               }
                          </div>

@@ -71,9 +71,9 @@ const Login = () => {
                                         <div className="d-grid">
                                              {
                                                   buttonLoading ?
-                                                  <Button title="Please wait..." isLoading={buttonLoading} />
+                                                  <Button background="#287E00" title="Please wait..." isLoading={buttonLoading} />
                                                   :
-                                                  <Button title="LOGIN" isLoading={buttonLoading} onClick={onSubmit} />
+                                                  <Button background="#287E00" title="LOGIN" isLoading={buttonLoading} onClick={onSubmit} />
                                              }
                                         <Gap height={25} />
                                         <p className="text-end">New to CureBox? <h6 className="d-inline text-green" onClick={() => history.push('/register')}>Sign Up, It's Free</h6></p>

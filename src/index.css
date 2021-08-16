@@ -36,3 +36,9 @@ h5,
 h6 {
   font-family: Spartan-Bold, sans-serif !important;
 }
+
+.section-line {
+  background: black;
+  height: 2px;
+  width: 200px;
+}
