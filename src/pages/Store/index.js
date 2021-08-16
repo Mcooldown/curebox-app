@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Button, Footer, Navbar, StoreProductItem } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
-import { deleteProduct, setStoreProducts } from '../../config/redux/action/productAction';
+import { clearForm, deleteProduct, setStoreProducts } from '../../config/redux/action/productAction';
 import LoadingPage from '../LoadingPage';
 
 const Store = () => {
@@ -18,6 +18,7 @@ const Store = () => {
 
           async function fetchData (){
                await dispatch(setIsLoading(true));
+               await dispatch(clearForm());
                await dispatch(setStoreProducts(userId, 1, 8));
           }
 
@@ -51,7 +52,7 @@ const Store = () => {
                <Navbar />
                <div className="container my-5 py-5">
                     <h1>My Store</h1>
-                    <Button title="Add New Product" onClick={() => history.push('/products/create')} />
+                    <Button background="#287E00" title="Add New Product" onClick={() => history.push('/products/create')} />
                     <hr />
                     <div className="row">
                          {

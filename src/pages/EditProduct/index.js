@@ -80,9 +80,9 @@ const EditProduct = (props) => {
                          <Upload label="Product Photo" img={imgPreview} onChange={(e) => onImageUpload(e)}  />
                          {
                               buttonLoading ?
-                              <Button title="Please wait" isLoading={buttonLoading} />
+                              <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
                               :
-                              <Button title="Submit" isLoading={buttonLoading} onClick={onSubmit} />
+                              <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={onSubmit} />
                          }
                     </div>
                     <Footer />

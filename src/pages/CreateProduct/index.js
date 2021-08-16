@@ -67,9 +67,9 @@ const CreateProduct = () => {
                     
                     {
                          isLoading ?
-                         <Button title="Please wait" isLoading={isLoading} />
+                         <Button background="#287E00" title="Please wait" isLoading={isLoading} />
                          :
-                         <Button title="Submit" isLoading={isLoading} onClick={onSubmit} />
+                         <Button background="#287E00" title="Submit" isLoading={isLoading} onClick={onSubmit} />
                     }
                </div>
                <Footer />

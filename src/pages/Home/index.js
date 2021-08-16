@@ -16,7 +16,7 @@ const Home = () => {
 
           async function initialize() {
                await dispatch(setIsLoading(true));
-               await dispatch(setProducts(1, 8));
+               await dispatch(setProducts(1, 12));
           }
 
           initialize();

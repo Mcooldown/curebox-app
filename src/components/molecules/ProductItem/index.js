@@ -10,7 +10,7 @@ const ProductItem = (props) => {
           <div className="card card-product"  onClick={() => history.push(`/products/${props._id}`)}>
                <img className="product-image" src={props.image} alt={props.name} />
                <div className="card-body">
-                    <p className="mb-2">{props.name}</p>
+                    <p className="product-name mb-2">{props.name}</p>
                     <h5 className="mb-2">Rp{props.price}</h5>
                     {
                          props.seller && 

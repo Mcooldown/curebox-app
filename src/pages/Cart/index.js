@@ -60,6 +60,7 @@ const Cart = () => {
                                              price={cartItem.product.price}
                                              image={cartItem.product.productPhoto}
                                              quantity={cartItem.quantity}
+                                             sellerName={cartItem.product.seller.name}
                                              onDelete={onDelete}
                                              onChangeQuantity={onChangeQuantity} />
                                         }) : (
@@ -73,10 +74,11 @@ const Cart = () => {
                               {
                                    cartItems.length >0 ?
                                    <div className="total-wrapper">
-                                        <div className="d-inline-block text-center">
-                                             <h2 className="mb-3 text-danger">Total: Rp{new Intl.NumberFormat(['ban', 'id']).format(totalPayment)}</h2>
-                                             <Button width="300px" background="#287E00" title="CHECKOUT" onClick={() => history.push('/checkout')} />
+                                        <div className="d-flex align-items-center justify-content-end">
+                                             <h5 className="me-2">Total: </h5>
+                                             <h2 className="fw-bold text-danger mb-3">{new Intl.NumberFormat(['ban', 'id']).format(totalPayment)}</h2>
                                         </div>
+                                        <Button width="300px" background="#287E00" title="CHECKOUT" onClick={() => history.push('/checkout')} />
                                    </div> : null
                               }
                          </div>

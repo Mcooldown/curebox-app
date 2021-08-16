@@ -14,6 +14,7 @@ const CartItem = (props) => {
                               <img className="product-image" src={props.image} alt={props.name} />
                          </div>
                          <div className="col-md-5 my-3">
+                              <p className="text-muted mb-2"><small><i class="fas fa-store"></i> {props.sellerName} Store</small></p>
                               <p className="mb-3">{props.name}</p>
                               <h5 className="mb-3">Rp{new Intl.NumberFormat(['ban', 'id']).format(props.price)}</h5>
                               <div className="d-flex align-items-center">

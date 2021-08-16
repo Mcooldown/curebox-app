@@ -17,7 +17,7 @@ const TransactionItem = (props) => {
                     <p>Receiver Phone Number: {props.receiverPhoneNumber}</p>
                     <h5 className="text-danger mt-3">Grand Total: Rp{props.amount}</h5>
                     <p>Status: <span className="text-success fw-bold">Success</span> </p>
-                    <Button title="View Details" onClick={() => history.push(`/transactions/${props._id}`)} />
+                    <Button background="#287E00" title="View Details" onClick={() => history.push(`/transactions/${props._id}`)} />
                </div>
           </div>
      )

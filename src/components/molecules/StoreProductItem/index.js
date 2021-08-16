@@ -16,8 +16,8 @@ const StoreProductItem = (props) => {
                               <i class="fa fa-star"></i> {props.rating}/5.00
                          </div>
                          <div className="col-md-2">
-                              <Button title="Update" onClick={() => props.onUpdate(props._id)} />
-                              <Button title="Delete" onClick={() => props.onDelete(props._id)} />
+                              <Button background="#287E00" title="Update" onClick={() => props.onUpdate(props._id)} />
+                              <Button background="#287E00" title="Delete" onClick={() => props.onDelete(props._id)} />
                          </div>
                     </div>
                     

@@ -79,8 +79,8 @@ const CheckoutTransaction = () => {
                                    <Input type="text" label="Notes" value={form.notes} onChange={(e) => dispatch(setForm('notes',e.target.value))} />
                                    {
                                         buttonLoading ?
-                                        <Button isLoading={true} title="Please wait..." />
-                                        : <Button title="Checkout" onClick={onSubmit} />
+                                        <Button background="#287E00" isLoading={true} title="Please wait..." />
+                                        : <Button background="#287E00" title="Checkout" onClick={onSubmit} />
                                    }
                                    
                               </div>
