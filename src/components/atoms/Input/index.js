@@ -7,7 +7,7 @@ const Input = ({label, errorMessage, ...rest}) => {
 
      return (
           <Fragment>
-               {label && <p className="mb-1">{label}</p>}
+               {label && <h6 className="mb-2 fw-bold">{label}</h6>}
                <input className={inputClass}
                {...rest} />
                {

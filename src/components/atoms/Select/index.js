@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 
 const Select = ({label, errorMessage, options, ...rest}) => {
 
-     const selectClass = errorMessage === '' ? 'form-select' : 'form-select is-invalid';
+     const selectClass = !errorMessage ? 'form-select' : 'form-select is-invalid';
 
      return (
           <Fragment>
-               {label && <p className="mb-1">{label}</p>}
+               {label && <h6 className="mb-2 fw-bold">{label}</h6>}
                <select className={selectClass} {...rest} >
                     <option value="">Choose...</option>
                     {
@@ -16,7 +16,7 @@ const Select = ({label, errorMessage, options, ...rest}) => {
                          )
                     }
                </select>
-               {errorMessage !== '' &&
+               {errorMessage &&
                     <div class="invalid-feedback d-block">
                               {errorMessage}
                     </div>

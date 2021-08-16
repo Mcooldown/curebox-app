@@ -1,13 +1,14 @@
 import React from 'react'
+import { Fragment } from 'react'
 import './upload.scss'
 
 const Upload = ({img, label, ...rest}) => {
      return (
-          <div className="my-3">
-               <p className="mb-1">{label}</p>
+          <Fragment>
+               <h6 className="mb-2 fw-bold">{label}</h6>
                {img && <img className="upload-preview" src={img} alt={label} />}
                <input type="file" className="form-control" {...rest} />
-          </div>
+          </Fragment>
      )
 }
 

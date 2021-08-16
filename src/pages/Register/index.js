@@ -1,15 +1,16 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Footer, Input, Navbar, Select } from '../../components';
+import { Button, Gap, Input, Select } from '../../components';
 import { clearErrors, clearForm, registerNewUser, setErrors, setForm } from '../../config/redux/action/authAction';
 import { useHistory } from 'react-router-dom';
-import { setIsLoading } from '../../config/redux/action/generalAction';
+import { AuthMedicine, Logo } from '../../assets';
+import './register.scss';
 
 const Register = () => {
 
      const {form, errors} = useSelector(state => state.authReducer);
-     const {isLoading} = useSelector(state => state.generalReducer);
+     const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
      const history = useHistory();
      const genderOptions = ['Male', 'Female'];
@@ -25,12 +26,12 @@ const Register = () => {
 
      const onSubmit = () => {
 
-          dispatch(setIsLoading(true));
+          setButtonLoading(true);
 
           registerNewUser(form)
           .then(res => {
 
-               dispatch(setIsLoading(false));
+              setButtonLoading(false);
                if(res.status === 200) {
                     dispatch(clearForm());
                     dispatch(clearErrors());
@@ -44,57 +45,84 @@ const Register = () => {
                          dispatch(setErrors(error.param, error.msg));
                     });
                     alert("Register Failed. Please check your registration data");
-                    console.log(errors);
                }
           });
      }
 
      return (
           <Fragment>
-               <Navbar />
-               <div className="container my-5 py-5">
-                    <h1 className="text-center text-dark">Register</h1>
-                    <hr />
-                    <Input type="text" label="Name" value={form.name} 
-                    errorMessage={errors.name && errors.name}
-                    onChange={(e) => dispatch(setForm('name', e.target.value))} />
+               <img src={Logo} className="img-auth" alt="Logo" onClick={() => history.push('/')} />
+               <div className="register auth-background">
+                    <div className="container my-5 py-5">
+                         <div className="row justify-content-end">
+                              <div className="col-md-6">
+                                   <div className="card auth-card">
+                                        <img src={AuthMedicine} className="img-medicine" alt="auth medicine" />
+                                        <div className="card-body">
+                                             <h4 className="text-center mb-3">REGISTER</h4>
+                                             <div className="green-line mx-auto"></div>
 
-                    <Select label="Gender" value={form.gender} options={genderOptions}
-                    errorMessage={errors.gender && errors.gender}
-                    onChange={(e) => dispatch(setForm('gender', e.target.value))} />
-                    
-                    <Input type="text" value={form.address} label="Address"
-                    errorMessage={errors.address && errors.address}
-                    onChange={(e) => dispatch(setForm('address', e.target.value))} />
+                                             <Gap height={50} />
+                                             <Input type="text" label="Name" value={form.name} 
+                                             placeholder="e.g. Michele Carolina"
+                                             errorMessage={errors.name && errors.name}
+                                             onChange={(e) => dispatch(setForm('name', e.target.value))} />
+                                             
+                                             <Gap height={30} />
+                                             <Select label="Gender" value={form.gender} options={genderOptions}
+                                             errorMessage={errors.gender && errors.gender}
+                                             onChange={(e) => dispatch(setForm('gender', e.target.value))} />
 
-                    <Input type="date" value={form.dateOfBirth} label="Date Of Birth"
-                    errorMessage={errors.dateOfBirth && errors.dateOfBirth}
-                    onChange={(e) => dispatch(setForm('dateOfBirth', e.target.value))} />
+                                             <Gap height={30} />
+                                             <Input type="text" value={form.address} label="Address"
+                                             errorMessage={errors.address && errors.address}
+                                             placeholder="e.g. Jl. Jendral Sudirman No. 12"
+                                             onChange={(e) => dispatch(setForm('address', e.target.value))} />
 
-                    <Input type="text" value={form.phoneNumber} label="Phone Number"
-                    errorMessage={errors.phoneNumber && errors.phoneNumber}
-                    onChange={(e) => dispatch(setForm('phoneNumber', e.target.value))} />
+                                             <Gap height={30} />
+                                             <Input type="date" value={form.dateOfBirth} label="Date Of Birth"
+                                             errorMessage={errors.dateOfBirth && errors.dateOfBirth}
+                                             onChange={(e) => dispatch(setForm('dateOfBirth', e.target.value))} />
 
-                    <Input type="text" value={form.email} label="Email"
-                    errorMessage={errors.email && errors.email}
-                    onChange={(e) => dispatch(setForm('email', e.target.value))} />
+                                             <Gap height={30} />
+                                             <Input type="text" value={form.phoneNumber} label="Phone Number"
+                                             errorMessage={errors.phoneNumber && errors.phoneNumber}
+                                             placeholder="e.g. 0816xxxxxxxx"
+                                             onChange={(e) => dispatch(setForm('phoneNumber', e.target.value))} />
 
-                    <Input type="password" value={form.password} label="Password"
-                    errorMessage={errors.password && errors.password}
-                    onChange={(e) => dispatch(setForm('password', e.target.value))} />
+                                             <Gap height={30} />
+                                             <Input type="text" value={form.email} label="Email"
+                                             errorMessage={errors.email && errors.email}
+                                             placeholder="e.g. customerservice@curebox.com"
+                                             onChange={(e) => dispatch(setForm('email', e.target.value))} />
 
-                    <Input type="password" value={form.passwordConfirm} label="Confirm Password"
-                    errorMessage={errors.passwordConfirm && errors.passwordConfirm}
-                    onChange={(e) => dispatch(setForm('passwordConfirm', e.target.value))} />
+                                             <Gap height={30} />
+                                             <Input type="password" value={form.password} label="Password"
+                                             errorMessage={errors.password && errors.password}
+                                             onChange={(e) => dispatch(setForm('password', e.target.value))} />
 
-                     {
-                         isLoading ?
-                         <Button title="Please wait" isLoading={isLoading} />
-                         :
-                         <Button title="Register" isLoading={isLoading} onClick={onSubmit} />
-                    }
+                                             <Gap height={30} />
+                                             <Input type="password" value={form.passwordConfirm} label="Confirm Password"
+                                             errorMessage={errors.passwordConfirm && errors.passwordConfirm}
+                                             onChange={(e) => dispatch(setForm('passwordConfirm', e.target.value))} />
+
+                                             <Gap height={60} />
+                                             <div className="d-grid">
+                                                  {
+                                                       buttonLoading ?
+                                                       <Button title="Please wait" isLoading={buttonLoading} />
+                                                       :
+                                                       <Button title="REGISTER" isLoading={buttonLoading} onClick={onSubmit} />
+                                                  }
+                                             <Gap height={25} />
+                                             <p className="text-end">Already have'an account? <h6 className="d-inline text-green" onClick={() => history.push('/login')}>Login</h6></p>
+                                             </div>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
                </div>
-               <Footer />
           </Fragment>
      )
 }

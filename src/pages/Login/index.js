@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Input, Navbar } from '../../components';
+import { AuthMedicine, Logo } from '../../assets';
+import { Button, Gap, Input} from '../../components';
 import { clearErrors, clearForm, login, setForm } from '../../config/redux/action/authAction';
-import { setIsLoading } from '../../config/redux/action/generalAction';
+import './login.scss'
 
 const Login = () => {
 
      const {form} = useSelector(state => state.authReducer);
-     const {isLoading} = useSelector(state => state.generalReducer);
+     const [buttonLoading, setButtonLoading] = useState(false);
 
      const dispatch = useDispatch();
      const history = useHistory();
@@ -21,11 +22,11 @@ const Login = () => {
 
      const onSubmit = () => {
 
-          dispatch(setIsLoading(true));
+          setButtonLoading(true);
 
           login(form)
           .then(res => {
-               dispatch(setIsLoading(false));
+               setButtonLoading(false);
                if(res.status === 200) {
                     localStorage.setItem('userId',res.data.data._id);
                     localStorage.setItem('userName',res.data.data.name);
@@ -43,26 +44,46 @@ const Login = () => {
      
      return (
           <Fragment>
-               <Navbar />
-               <div className="container my-5 py-5">
-                    <h1 className="text-center text-dark">Login</h1>
-                    <hr />
-                    <Input type="text" value={form.email} label="Email"
-                    errorMessage={''}
-                    onChange={(e) => dispatch(setForm('email', e.target.value))} />
+          <img src={Logo} className="img-auth" alt="Logo" onClick={() => history.push('/')} />
+          <div className="login auth-background">
+               <div className="container">
+                    <div className="row justify-content-end">
+                         <div className="col-md-6">
+                              <div className="card auth-card">
+                                   <img src={AuthMedicine} className="img-medicine" alt="auth medicine" />
+                                   <div className="card-body">
+                                        <h4 className="text-center mb-3">LOGIN</h4>
+                                        <div className="green-line mx-auto"></div>
 
-                    <Input type="password" value={form.password} label="Password"
-                    errorMessage={''}
-                    onChange={(e) => dispatch(setForm('password', e.target.value))} />
-
-                    {
-                         isLoading ?
-                         <Button title="Please wait" isLoading={isLoading} />
-                         :
-                         <Button title="Login" isLoading={isLoading} onClick={onSubmit} />
-                    }
+                                        <Gap height={50} />
+                                        <Input type="text" value={form.email} label="Email"
+                                        placeholder="e.g. customerservice@curebox.com"
+                                        onChange={(e) => dispatch(setForm('email', e.target.value))} />
+                                        
+                                        <Gap height={30} />
+                                        <Input type="password" value={form.password} label="Password"
+                                        onChange={(e) => dispatch(setForm('password', e.target.value))} />
+                                        
+                                        <Gap height={15} />
+                                        <p className="text-end text-green">Forgot password?</p>
+                                        
+                                        <Gap height={60} />
+                                        <div className="d-grid">
+                                             {
+                                                  buttonLoading ?
+                                                  <Button title="Please wait..." isLoading={buttonLoading} />
+                                                  :
+                                                  <Button title="LOGIN" isLoading={buttonLoading} onClick={onSubmit} />
+                                             }
+                                        <Gap height={25} />
+                                        <p className="text-end">New to CureBox? <h6 className="d-inline text-green" onClick={() => history.push('/register')}>Sign Up, It's Free</h6></p>
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                    </div>
                </div>
-               <Footer />
+          </div>
           </Fragment>
      )
 }

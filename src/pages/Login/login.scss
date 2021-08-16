@@ -1,0 +1,50 @@
+.login {
+     padding: 18rem 0;
+}
+
+.auth-background {
+     background: url('../../assets//images/authBackground.png') center center no-repeat;
+     background-size: 100% auto;
+     min-height: 100vh;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+
+     .auth-card {
+          padding: 2rem 1rem;
+          border-radius: 50px;
+          border: 2px solid #287E00;
+          box-shadow: 4px 4px 4px rgba($color: #000000, $alpha: 0.25);
+
+          .img-medicine {
+               position: absolute;
+               height: 150px;
+               width: auto;
+               top: -9.15rem;
+               left: 37%;
+          }
+     }
+
+     p {
+          cursor: pointer;
+     }
+
+     .text-green {
+          color: #287E00;
+     }
+
+}
+
+.img-auth {
+     position: absolute;
+     left: 2rem;
+     top: 2rem;
+     height: 80px;
+     cursor: pointer;
+}
+
+.green-line {
+     background: #287E00;
+     height: 2px;
+     width: 200px;
+}
