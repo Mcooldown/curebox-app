@@ -1,5 +1,6 @@
 const initialState = {
      isLoading: false,
+     searchValue: null,
 }
 
 const generalReducer = (state = initialState, action) => {
@@ -8,6 +9,12 @@ const generalReducer = (state = initialState, action) => {
           return {
                ...state,
                isLoading: action.payload,
+          }
+     }
+     if(action.type === 'SET_SEARCH_VALUE'){
+          return {
+               ...state,
+               searchValue: action.payload,
           }
      }
 

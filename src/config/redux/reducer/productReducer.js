@@ -55,6 +55,12 @@ const productReducer = (state = initialState, action) => {
                product: action.payload,
           }
      }
+     if(action.type === 'CLEAR_PRODUCTS'){
+          return {
+               ...state,
+               products: [],
+          }
+     }
 
      return state;
 };

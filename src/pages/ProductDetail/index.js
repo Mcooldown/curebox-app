@@ -32,21 +32,28 @@ const ProductDetail = (props) => {
 
      const onSubmit = () => {
 
-          if(quantity <= 0) return alert('Quantity minimum 1');
-          const data = {
-               userId: localStorage.getItem('userId'),
-               productId: props.match.params.id,
-               quantity: quantity,
-          };
+          const id = localStorage.getItem('userId');
 
-          setButtonLoading(true);
-          addCartItem(data)
-          .then(res => {
-               setButtonLoading(false);
-               if(res.status === 200){
-                    history.push('/cart');
-               }
-          });
+          if(id){
+               if(quantity <= 0) return alert('Quantity minimum 1');
+               const data = {
+                    userId: localStorage.getItem('userId'),
+                    productId: props.match.params.id,
+                    quantity: quantity,
+               };
+     
+               setButtonLoading(true);
+               addCartItem(data)
+               .then(res => {
+                    setButtonLoading(false);
+                    if(res.status === 200){
+                         history.push('/cart');
+                    }
+               });
+          }else{
+               alert('Please login first')
+               history.push('/login');
+          }
      }
 
      if(!isLoading && product.seller){

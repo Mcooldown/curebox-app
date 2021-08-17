@@ -1,17 +1,22 @@
 import React from 'react';
 import { Fragment } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory} from 'react-router-dom';
 import { Logo } from '../../../assets';
-import { Button, Input } from '../../atoms';
+import { setSearchValue } from '../../../config/redux/action/generalAction';
+import { Button } from '../../atoms';
 import './navbar.scss'
 
 const Navbar = () => {
 
      const history = useHistory();
+     const dispatch = useDispatch();
      const userName = localStorage.getItem('userName');
+     const {searchValue} = useSelector(state => state.generalReducer);
 
      const logout = () => {
           localStorage.clear();
+          alert('Logout Success. Session Expired');
           history.push('/');
      }
 
@@ -26,9 +31,10 @@ const Navbar = () => {
                     </button>
                     <div class="collapse navbar-collapse" id="cureboxNavbar">
                          <div class="navbar-nav ms-auto d-lg-flex align-items-center">
-                              <form className="m-0 py-2">
-                                   <Input type="text" errorMessage={''} placeholder="Find your needs here" />
-                              </form>
+                              <div class="input-group mx-lg-5">
+                                   <input type="text" value={searchValue} onChange={(e) => dispatch(setSearchValue(e.target.value))} className="form-control form-search" placeholder="Find your needs here" />
+                                   <span className="input-group-text" onClick={() => history.push(`/products/search/${searchValue}`)}><i className="fa fa-search"></i></span>
+                              </div>
                               {
                                    userName  &&
                                    <button className="btn btn-cart mx-3" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i></button>

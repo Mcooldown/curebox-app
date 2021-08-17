@@ -1,5 +1,5 @@
-import Logo from './images/logo.png';
-import LogoWhite from './images/logoWhite.png';
-import AuthMedicine from './images/authMedicine.png';
+import Logo from './images/logo.webp';
+import LogoWhite from './images/logoWhite.webp';
+import AuthMedicine from './images/authMedicine.webp';
 
 export {Logo, LogoWhite, AuthMedicine};

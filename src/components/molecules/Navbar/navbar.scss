@@ -35,4 +35,12 @@
                transform: scale(1.03);
           }
      }
+
+     .input-group {
+          width: 500px;
+
+          .input-group-text {
+               cursor: pointer;
+          }
+     }
 }

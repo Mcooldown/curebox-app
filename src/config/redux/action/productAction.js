@@ -9,12 +9,16 @@ export const clearForm = () => {
      return {type: 'CLEAR_PRODUCT_FORM'};
 }
 
+export const clearProducts = () => {
+     return {type: 'CLEAR_PRODUCTS'};
+}
+
 export const setProducts = (currentPage, perPage, searchValue = null) => (dispatch) => {
 
      const link = searchValue ? 
-     `https://curebox-api.herokuapp.com/v1/products?page=${currentPage}&perPage=${perPage}
+     `https://curebox-api.herokuapp.com/v1/products?currentPage=${currentPage}&perPage=${perPage}
      &searchValue=${searchValue}` :
-     `https://curebox-api.herokuapp.com/v1/products?page=${currentPage}&perPage=${perPage}`;
+     `https://curebox-api.herokuapp.com/v1/products?currentPage=${currentPage}&perPage=${perPage}`;
 
      axios.get(link)
      .then((res) => {

@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect} from 'react';
+import React, { Fragment, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import {Navbar, Footer, ProductItem, Loading}  from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
-import { setProducts } from '../../config/redux/action/productAction';
+import { clearProducts, setProducts } from '../../config/redux/action/productAction';
 import './home.scss';
 
 const Home = () => {
@@ -13,9 +13,10 @@ const Home = () => {
      const dispatch = useDispatch();
 
      useEffect(() => {
-
+          
           async function initialize() {
                await dispatch(setIsLoading(true));
+               await dispatch(clearProducts());
                await dispatch(setProducts(1, 12));
           }
 
@@ -47,7 +48,7 @@ const Home = () => {
                          <div className="row my-5">
                               {
                                    !isLoading ?
-                                   products && products.map ((product) => {
+                                   products.length > 0 && products.map ((product) => {
                                         return (
                                              <div className="col-md-3 my-3">
                                                   <ProductItem key={product._id}
