@@ -41,7 +41,7 @@ const Register = () => {
                }
                else{
                     dispatch(clearErrors());
-                    res.data.data.map((error) => {
+                    res.data.data.forEach((error) => {
                          dispatch(setErrors(error.param, error.msg));
                     });
                     alert("Register Failed. Please check your registration data");
@@ -63,8 +63,7 @@ const Register = () => {
                                              <div className="green-line mx-auto"></div>
 
                                              <Gap height={50} />
-                                             <Input type="text" label="Name" value={form.name} 
-                                             placeholder="e.g. Michele Carolina"
+                                             <Input type="text" label="Name" value={form.name}
                                              errorMessage={errors.name && errors.name}
                                              onChange={(e) => dispatch(setForm('name', e.target.value))} />
                                              

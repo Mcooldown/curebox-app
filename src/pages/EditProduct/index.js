@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
 import { Button, Footer, Input, Navbar, Upload } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
-import { clearForm, postNewProduct, setForm, setProduct, updateProduct } from '../../config/redux/action/productAction';
+import { clearForm, setForm, setProduct, updateProduct } from '../../config/redux/action/productAction';
 import LoadingPage from '../LoadingPage';
 
 const EditProduct = (props) => {
@@ -34,7 +34,7 @@ const EditProduct = (props) => {
           }
           initialize();
 
-     },[history, dispatch, product.productPhoto, props.match.params.id])
+     },[history, dispatch, props, product])
 
      const onImageUpload = (e) => {
           const file = e.target.files[0];

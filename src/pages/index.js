@@ -11,7 +11,10 @@ import TransactionDetails from './TransactionDetails';
 import Store from './Store';
 import EditProduct from './EditProduct';
 import ProductSearch from './ProductSearch';
+import Articles from './Articles';
+import ArticleDetail from './ArticleDetail';
+import CreateArticle from './CreateArticle';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
 , CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct
-, ProductSearch};
+, ProductSearch, Articles, ArticleDetail, CreateArticle};

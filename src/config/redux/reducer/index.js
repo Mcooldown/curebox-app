@@ -4,8 +4,9 @@ import productReducer from "./productReducer";
 import generalReducer from "./generalReducer";
 import cartReducer from "./cartReducer";
 import transactionReducer from "./transactionReducer";
+import articleReducer from "./articleReducer";
 
 const reducer = combineReducers({authReducer, productReducer, generalReducer, cartReducer
-,transactionReducer});
+,transactionReducer, articleReducer});
 
 export default reducer;

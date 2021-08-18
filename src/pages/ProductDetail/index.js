@@ -56,7 +56,7 @@ const ProductDetail = (props) => {
           }
      }
 
-     if(!isLoading && product.seller){
+     if(!isLoading && product.seller && !product.isDeleted){
           return (
                <Fragment>
                <Navbar />
@@ -85,7 +85,10 @@ const ProductDetail = (props) => {
                <Footer />
           </Fragment>
           )
-     }else{
+     }else if(product.isDeleted){
+          return <p>Product Not Available</p>
+     }
+     else{
           return <LoadingPage title="Please wait..." />
      }
 }

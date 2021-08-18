@@ -1,0 +1,28 @@
+.article-detail {
+     padding: 9rem 0;
+
+     .article-img {
+          width: 100%;
+     }
+
+     .article-rec {
+          padding: 1rem 0;
+
+          .article-rec-item {
+               cursor: pointer;
+          }
+
+          .article-rec-img {
+               width: 100%;
+               height: 100px;
+               object-fit: cover;
+          }
+
+          .article-rec-title {
+               line-height: 1.5em;
+               height: 3em;
+               overflow: hidden;
+          }
+     }
+
+}

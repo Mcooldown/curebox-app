@@ -47,7 +47,7 @@ const CheckoutTransaction = () => {
                }
                else{
                     dispatch(clearErrors());
-                    res.data.data.map((error) => {
+                    res.data.data.forEach((error) => {
                          dispatch(setErrors(error.param, error.msg));
                     });
                     alert("Checkout failed. Please fill the required information correctly");

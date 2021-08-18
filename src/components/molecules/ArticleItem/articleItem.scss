@@ -1,0 +1,21 @@
+.article-item {
+
+     cursor: pointer;
+     transition: 0.2s ease all;
+
+     &:hover {
+          transform: scale(1.02);
+     }
+
+     .article-img {
+          width: 100%;
+          height: 250px;
+          object-fit: cover;
+     }
+
+     .article-content {
+          line-height: 1.75em;
+          height: 3.5em;
+          overflow: hidden;
+     }
+}

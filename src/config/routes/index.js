@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {Login, Register, Home, CreateProduct, ProductDetail, Cart, 
-     CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct, ProductSearch} from '../../pages';
+     CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct, ProductSearch, Articles, ArticleDetail, CreateArticle} from '../../pages';
 
 const Routes = () => {
      return (
@@ -42,6 +42,15 @@ const Routes = () => {
                     </Route>
                     <Route path="/products/search/:searchValue" exact>
                          <ProductSearch />
+                    </Route>
+                    <Route path="/articles" exact>
+                         <Articles />
+                    </Route>
+                    <Route path="/articles/create" exact>
+                         <CreateArticle />
+                    </Route>
+                    <Route path="/articles/:id" exact>
+                         <ArticleDetail />
                     </Route>
                </Switch>
           </Router>

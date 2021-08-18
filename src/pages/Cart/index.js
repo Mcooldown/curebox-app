@@ -16,12 +16,17 @@ const Cart = () => {
      const dispatch = useDispatch();
 
      useEffect(() => {
-          const userId = localStorage.getItem('userId');
-          if(!userId) history.push('/login');
-
+          
           async function initialize () {
                await dispatch(setIsLoading(true));
-               await dispatch(setCartItems(userId));
+               
+               const userId = await localStorage.getItem('userId');
+               if(!userId){
+                    alert('Not Authorized. Please Login first');
+                    history.push('/login');
+               }else{
+                    await dispatch(setCartItems(userId));
+               }
           }
           initialize();
 
