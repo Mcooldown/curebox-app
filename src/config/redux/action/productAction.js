@@ -106,7 +106,6 @@ export const updateProduct = (form, productId) => {
           'description': form.description,
           'price': form.price,
           'productPhoto': form.productPhoto,
-          'productId': productId,
      });
 
      const updateProductPromise =  axios.put(`https://curebox-api.herokuapp.com/v1/products/${productId}`, data, {

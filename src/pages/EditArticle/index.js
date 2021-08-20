@@ -3,11 +3,11 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
 import { Button, Footer, Input, Navbar, Upload } from '../../components';
-import { clearForm, setForm, setProduct, updateProduct } from '../../config/redux/action/productAction';
+import { clearForm, setArticle, setForm, updateArticle } from '../../config/redux/action/articleAction';
 
-const EditProduct = (props) => {
+const EditArticle = (props) => {
 
-     const {form, product} = useSelector(state => state.productReducer);
+     const {form, article} = useSelector(state => state.articleReducer);
      const [imgPreview, setImgPreview] = useState('');
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
@@ -22,15 +22,14 @@ const EditProduct = (props) => {
 
           async function initialize (){
                await dispatch(clearForm());
-               await dispatch(setProduct(props.match.params.id));
-               await dispatch(setForm('name', product.name));
-               await dispatch(setForm('description', product.description));
-               await dispatch(setForm('price', product.price));
-               await setImgPreview(product.productPhoto);
+               await dispatch(setArticle(props.match.params.id));
+               await dispatch(setForm('title', article.title));
+               await dispatch(setForm('content', article.content));
+               await setImgPreview(article.articlePhoto);
           }
           initialize();
 
-     },[history, dispatch, props, product])
+     },[history, dispatch, props, article])
 
      const onImageUpload = (e) => {
           const file = e.target.files[0];
@@ -39,20 +38,21 @@ const EditProduct = (props) => {
           reader.readAsDataURL(file);
           reader.onloadend = () => {
                setImgPreview(reader.result);
-               dispatch(setForm('productPhoto', reader.result));
+               dispatch(setForm('articlePhoto', reader.result));
           }
      }
 
      const onSubmit = (e) => {
           e.preventDefault();
+          
           setButtonLoading(true);
-          updateProduct(form, product._id)
+          updateArticle(form, localStorage.getItem('userId'))
           .then(res => {
                setButtonLoading(false);
                if(res.status === 200){
                     dispatch(clearForm());
-                    alert('Product Updated');
-                    history.push('/store');
+                    alert('Article Updated');
+                    history.push('/articles/user');
                }
           });
      }
@@ -61,18 +61,16 @@ const EditProduct = (props) => {
           <Fragment>
                <Navbar />
                <div className="container py-5 my-5">
-                    <h1>Edit Product - ID: {product._id}</h1>
+                    <h1>Edit Article</h1>
                     <hr />
-                    <Input label="Name" value={form.name} type="text" 
-                    onChange={(e) => dispatch(setForm('name', e.target.value))}
+                    <Input label="Title" value={form.title} type="text"
+                    onChange={(e) => dispatch(setForm('title', e.target.value))}
                     />
-                    <Input label="Description" value={form.description} type="text" 
-                    onChange={(e) => dispatch(setForm('description', e.target.value))}
+                    <Input label="Content" value={form.content} type="text"
+                    onChange={(e) => dispatch(setForm('content', e.target.value))}
                     />
-                    <Input label="Price" value={form.price} type="number" 
-                    onChange={(e) => dispatch(setForm('price', e.target.value))}
-                    />
-                    <Upload label="Product Photo" img={imgPreview} onChange={(e) => onImageUpload(e)}  />
+                    <Upload label="Article Photo" img={imgPreview} onChange={(e) => onImageUpload(e)}  />
+                    
                     {
                          buttonLoading ?
                          <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
@@ -85,4 +83,4 @@ const EditProduct = (props) => {
      );
 }
 
-export default withRouter(EditProduct);
+export default withRouter(EditArticle);

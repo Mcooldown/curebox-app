@@ -36,7 +36,6 @@ const Navbar = () => {
                                    <span className="input-group-text" onClick={() => history.push(`/products/search/${searchValue}`)}><i className="fa fa-search"></i></span>
                               </div>
                               <button className="btn btn-cart mx-3" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i></button>
-
                               <p class="nav-link m-0 px-3" onClick={() => history.push('/articles')}>Article</p>
                               <p class="nav-link m-0 px-3">Forum</p>
                               {
@@ -50,6 +49,7 @@ const Navbar = () => {
                                                   <li><p class="dropdown-item" onClick={() => history.push('/store')}><i class="fas fa-store"></i> My Store</p></li>
                                                   <li><p class="dropdown-item" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i> My Cart</p></li>
                                                   <li><p class="dropdown-item" onClick={() => history.push('/transactions')}><i class="fas fa-tags"></i> My Transactions</p></li>
+                                                  <li><p class="dropdown-item" onClick={() => history.push('/articles/user')}><i class="fas fa-newspaper"></i> My Articles</p></li>
                                                   <li><p class="dropdown-item" onClick={logout}><i class="fas fa-sign-out-alt" aria-hidden="true"></i> Logout</p></li>
                                                   </ul>
                                              </div>

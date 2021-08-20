@@ -38,7 +38,7 @@ const ArticleDetail = (props) => {
                                         <p className="h5">Creator: <h5 className="d-inline-flex">{article.user.name}</h5></p>
                                         <h5>{ new Date(article.createdAt).toDateString("en-US")}</h5>
                                    </div>
-                                   <img className="article-img" src={article.articlePhoto} />
+                                   <img className="article-img" src={article.articlePhoto} alt={article.title} />
                                    <p className="mt-5">{article.content}</p>
                               </div>
                               <div className="col-md-4 my-3 ps-lg-4">
@@ -50,7 +50,7 @@ const ArticleDetail = (props) => {
                                                        <div className="row align-items-center my-3 article-rec-item"
                                                        onClick={() => history.push(`/articles/${article._id}`)}>
                                                             <div className="col-md-4">
-                                                                 <img src={article.articlePhoto} className="article-rec-img" />
+                                                                 <img src={article.articlePhoto} className="article-rec-img" alt={article.title} />
                                                             </div>
                                                             <div className="col-md-8">
                                                                  <h5 className="article-rec-title">{article.title}</h5>

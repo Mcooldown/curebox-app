@@ -14,7 +14,9 @@ import ProductSearch from './ProductSearch';
 import Articles from './Articles';
 import ArticleDetail from './ArticleDetail';
 import CreateArticle from './CreateArticle';
+import EditArticle from './EditArticle';
+import UserArticles from './UserArticles';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
 , CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct
-, ProductSearch, Articles, ArticleDetail, CreateArticle};
+, ProductSearch, Articles, ArticleDetail, CreateArticle, EditArticle, UserArticles};

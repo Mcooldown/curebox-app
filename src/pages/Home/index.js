@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import {Navbar, Footer, ProductItem, Loading}  from '../../components';
+import {Navbar, Footer, ProductItem, Loading, CartButton}  from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { clearProducts, setProducts } from '../../config/redux/action/productAction';
 import './home.scss';
@@ -70,6 +70,7 @@ const Home = () => {
                     </div>
                </div>
                <Footer />
+               <CartButton />
           </Fragment>
      )
 }

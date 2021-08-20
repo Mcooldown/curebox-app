@@ -18,8 +18,10 @@ const CreateArticle = () => {
           if(!userId){
                alert('Not authorized. Please login first');
                history.push('/login');
+          }else{
+               dispatch(clearForm());
           }
-     },[history])
+     },[history, dispatch])
 
      const onImageUpload = (e) => {
           const file = e.target.files[0];
@@ -43,7 +45,7 @@ const CreateArticle = () => {
                if(res.status === 201){
                     dispatch(clearForm());
                     alert('New Article Added');
-                    history.push('/articles');
+                    history.push('/articles/user');
                }
           });
      }
