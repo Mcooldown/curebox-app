@@ -87,11 +87,18 @@ export const setUserArticles = (userId, currentPage, perPage) => (dispatch) => {
 export const setArticle = (articleId) => (dispatch) => {
 
      axios.get(`https://curebox-api.herokuapp.com/v1/articles/${articleId}`)
-     .then(res => {
+     .then(async(res) => {
 
           const resData = res.data;
-          dispatch({type: 'SET_ARTICLE', payload: resData.data});
-          dispatch(setIsLoading(false));
+
+          async function finalize(){
+               await dispatch({type: 'SET_ARTICLE', payload: resData.data});
+               await dispatch(setForm('title', resData.data.title));
+               await dispatch(setForm('content', resData.data.content));
+               await dispatch(setForm('articlePhoto', resData.data.articlePhoto));
+          }
+
+          finalize().then(() => dispatch(setIsLoading(false)));
      })
      .catch(err => {
           console.log(err);

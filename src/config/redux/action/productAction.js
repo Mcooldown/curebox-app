@@ -88,11 +88,19 @@ export const postNewProduct = async (form) => {
 export const setProduct = (productId) => (dispatch) => {
 
      axios.get(`https://curebox-api.herokuapp.com/v1/products/${productId}`)
-     .then(res => {
+     .then(async(res) => {
 
           const resData = res.data;
-          dispatch({type: 'SET_PRODUCT', payload: resData.data});
-          dispatch(setIsLoading(false));
+          
+          async function finalize(){
+               await dispatch({type: 'SET_PRODUCT', payload: resData.data});
+               await dispatch(setForm('name', resData.data.name));
+               await dispatch(setForm('description', resData.data.description));
+               await dispatch(setForm('price', resData.data.price));
+               await dispatch(setForm('productPhoto', resData.data.productPhoto));
+          }
+
+          finalize().then(() => dispatch(setIsLoading(false)));
      })
      .catch(err => {
           console.log(err);
