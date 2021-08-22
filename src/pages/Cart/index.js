@@ -51,7 +51,7 @@ const Cart = () => {
                     <Navbar />
                     <div className="cart-wrapper">
                          <div className="container">
-                              <h1 className="text-center mb-3">My Cart</h1>
+                              <h2 className="text-center mb-3">My Cart</h2>
                               <div className="section-line mx-auto"></div>
 
                               <div className="cart-item-wrapper">

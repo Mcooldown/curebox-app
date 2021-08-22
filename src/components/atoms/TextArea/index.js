@@ -1,14 +1,14 @@
 import React from 'react';
 import { Fragment } from 'react';
 
-const Input = ({label, errorMessage, width, ...rest}) => {
+const TextArea = ({label, errorMessage, width, height, ...rest}) => {
 
-     const inputClass = !errorMessage ? 'form-control' : 'form-control is-invalid'
+     const TextAreaClass = !errorMessage ? 'form-control' : 'form-control is-invalid'
 
      return (
           <Fragment>
                {label && <h6 className="mb-2 fw-bold">{label}</h6>}
-               <input className={inputClass} style={{ width }}
+               <textarea className={TextAreaClass} style={{ width, height }}
                {...rest} />
                {
                     errorMessage && 
@@ -18,4 +18,4 @@ const Input = ({label, errorMessage, width, ...rest}) => {
      );
 }
 
-export default Input;
+export default TextArea;

@@ -21,7 +21,12 @@ export const checkoutTransaction = (form, amount) => {
      
      const data = JSON.stringify({
           userId: localStorage.getItem('userId'),
-          sendAddress: form.sendAddress,
+          address: form.address,
+          province: form.province,
+          cityDistrict: form.cityDistrict,
+          subDistrict: form.subDistrict,
+          urbanVillage: form.urbanVillage,
+          postalCode: form.postalCode,
           receiverName: form.receiverName,
           receiverPhoneNumber: form.receiverPhoneNumber,
           notes: form.notes,

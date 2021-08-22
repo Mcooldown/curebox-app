@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Input, Navbar } from '../../components';
+import { Button, CartItem, Footer, Gap, Input, Navbar, TextArea } from '../../components';
 import { setCartItems } from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { checkoutTransaction, clearErrors, clearForm, setErrors, setForm } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
+import './checkoutTransaction.scss';
 
 const CheckoutTransaction = () => {
      
@@ -18,7 +19,6 @@ const CheckoutTransaction = () => {
      const dispatch = useDispatch();
 
      useEffect(() => {
-
           async function initialize(){
                await dispatch(setIsLoading(true));
                await dispatch(clearForm());
@@ -51,6 +51,7 @@ const CheckoutTransaction = () => {
                          dispatch(setErrors(error.param, error.msg));
                     });
                     alert("Checkout failed. Please fill the required information correctly");
+                    window.scrollTo(0, 0);
                }
           });
      }
@@ -59,65 +60,164 @@ const CheckoutTransaction = () => {
           return(
                <Fragment>
                     <Navbar />
-                    <div className="container py-5 my-5">
-                         <h1>Checkout Transaction</h1>
-                         <hr />
-                         <div className="row justify-content-center">
-                              <div className="col-md-7">
-                                   <Input type="text" label="Send Address" value={form.sendAddress} 
-                                   errorMessage={errors.sendAddress && errors.sendAddress}
-                                   onChange={(e) => dispatch(setForm('sendAddress',e.target.value))} />
-
-                                   <Input type="text" label="Receiver Name" value={form.receiverName} 
-                                   errorMessage={errors.receiverName && errors.receiverName}
-                                   onChange={(e) => dispatch(setForm('receiverName',e.target.value))} />
-
-                                   <Input type="text" label="Receiver Phone Number" value={form.receiverPhoneNumber} 
-                                   errorMessage={errors.receiverPhoneNumber && errors.receiverPhoneNumber}
-                                   onChange={(e) => dispatch(setForm('receiverPhoneNumber',e.target.value))} />
-
-                                   <Input type="text" label="Notes" value={form.notes} onChange={(e) => dispatch(setForm('notes',e.target.value))} />
-                                   {
-                                        buttonLoading ?
-                                        <Button background="#287E00" isLoading={true} title="Please wait..." />
-                                        : <Button background="#287E00" title="Checkout" onClick={onSubmit} />
-                                   }
-                                   
-                              </div>
-                              <div className="col-md-5">
-                                   <div className="card border-0 shadow">
-                                        <div className="card-body my-2">
-                                             <h4>Cart Items</h4>
-                                             <hr />
-                                             {
-                                                  cartItems.map( (cartItem) => {
-                                                       return <Fragment>
-                                                            <div className="row my-2">
-                                                                 <div className="col-md-4">
-                                                                      <img src={cartItem.product.productPhoto} className="w-100" alt={cartItem.product.name} />
-                                                                 </div>
-                                                                 <div className="col-md-8">
-                                                                      <h5>{cartItem.product.name}</h5>
-                                                                      <p>Price: Rp{cartItem.product.price} <br />
-                                                                      Quantity: {cartItem.quantity} <br />
-                                                                      Subtotal: Rp{cartItem.quantity*cartItem.product.price}
-                                                                      </p>
-                                                                 </div>
-                                                            </div>
-                                                            <hr />
-                                                       </Fragment>
-                                                  })
-
-                                             }
-                                             <h4 className="my-3">Grand Total: <b>Rp{totalPayment}</b></h4>
+                    <Gap height={150} />
+                    <div className="container">
+                         <h2 className="text-center mb-3">Checkout</h2>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
+                         <h5 style={{ color: "#127E00" }}>Input Address</h5>
+                         <Gap height={30}  />
+                         <div className="address-wrapper">
+                              <div className="card-body">
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Address</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <TextArea type="text" value={form.address}
+                                             placeholder="Nama Jalan, Nomor Rumah, RT, RW"
+                                             errorMessage={errors.address && errors.address}
+                                             onChange={(e) => dispatch(setForm('address',e.target.value))} />
                                         </div>
                                    </div>
-                                   
+
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Province</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.province}
+                                             placeholder="Provinsi"
+                                             errorMessage={errors.province && errors.province}
+                                             onChange={(e) => dispatch(setForm('province',e.target.value))} />
+                                        </div>
+                                   </div>
+
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>City / District</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.cityDistrict}
+                                             placeholder="Kota / Kabupaten"
+                                             errorMessage={errors.cityDistrict && errors.cityDistrict}
+                                             onChange={(e) => dispatch(setForm('cityDistrict',e.target.value))} />
+                                        </div>
+                                   </div>
+
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Sub-district</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.subDistrict}
+                                             placeholder="Kecamatan"
+                                             errorMessage={errors.subDistrict && errors.subDistrict}
+                                             onChange={(e) => dispatch(setForm('subDistrict',e.target.value))} />
+                                        </div>
+                                   </div>
+
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Urban Village</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.urbanVillage}
+                                             placeholder="Kelurahan"
+                                             errorMessage={errors.urbanVillage && errors.urbanVillage}
+                                             onChange={(e) => dispatch(setForm('urbanVillage',e.target.value))} />
+                                        </div>
+                                   </div>
+
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Postal Code</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.postalCode}
+                                             placeholder="Kode Pos"
+                                             errorMessage={errors.postalCode && errors.postalCode}
+                                             onChange={(e) => dispatch(setForm('postalCode',e.target.value))} />
+                                        </div>
+                                   </div>
                               </div>
                          </div>
-                         
+
+                         <Gap height={50} />
+                         <h5 style={{ color: "#127E00" }}>Input Receiver Information</h5>
+                         <Gap height={30}  />
+                         <div className="address-wrapper">
+                              <div className="card-body">
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Receiver Name</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.receiverName} 
+                                             errorMessage={errors.receiverName && errors.receiverName}
+                                             onChange={(e) => dispatch(setForm('receiverName',e.target.value))} />
+                                        </div>
+                                   </div>
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Receiver Phone Number</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input type="text" value={form.receiverPhoneNumber} 
+                                             errorMessage={errors.receiverPhoneNumber && errors.receiverPhoneNumber}
+                                             onChange={(e) => dispatch(setForm('receiverPhoneNumber',e.target.value))} />
+                                        </div>
+                                   </div>
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Notes</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <TextArea type="text" value={form.notes} onChange={(e) => dispatch(setForm('notes',e.target.value))} />
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <Gap height={50} />
+                         <h5 style={{ color: "#127E00" }}>Re-check Your Orders</h5>
+                         <Gap height={30}  />
+                         {
+                              cartItems.length >0 && cartItems.map( (cartItem) => {
+                                   return <CartItem key={cartItem._id}
+                                   _id= {cartItem._id}
+                                   productId={cartItem.product._id}
+                                   name={cartItem.product.name}
+                                   description={cartItem.product.description}
+                                   price={cartItem.product.price}
+                                   image={cartItem.product.productPhoto}
+                                   quantity={cartItem.quantity}
+                                   sellerName={cartItem.product.seller.name}
+                                   quantityDisabled
+                                   removeDisabled />
+                              })
+                         }
+                         <Gap height={30} />
+                         {
+                              cartItems.length >0 &&
+                              <div className="total-wrapper">
+                                   <div className="d-flex align-items-center justify-content-end">
+                                        <h5 className="me-2">Total: </h5>
+                                        <h2 className="fw-bold text-danger mb-3">Rp{new Intl.NumberFormat(['ban', 'id']).format(totalPayment)}</h2>
+                                   </div>
+                              </div>
+                         }   
+                         <Gap height={50} />
+                         <div className="d-grid">
+                         {
+                              buttonLoading ?
+
+                              <Button background="#287E00" isLoading={true} title="Please wait..." />
+                              : <Button background="#287E00" title="Buy" onClick={onSubmit} />
+                         }
+                         </div>
                          
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>
           );

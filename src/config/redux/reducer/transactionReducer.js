@@ -2,15 +2,26 @@ const initialState = {
      transactions: [],
      transactionDetails: [{}],
      form: {
-          sendAddress: '',
+          address: '',
+          province: '',
+          cityDistrict: '',
+          subDistrict: '',
+          urbanVillage: '',
+          postalCode: '',
           receiverName: '',
           receiverPhoneNumber: '',
           notes: ''
      },
      errors:{
-          sendAddress: '',
+          address: '',
+          province: '',
+          cityDistrict: '',
+          subDistrict: '',
+          urbanVillage: '',
+          postalCode: '',
           receiverName: '',
           receiverPhoneNumber: '',
+          notes: ''
      }
 }
 
@@ -29,9 +40,14 @@ const transactionReducer = (state = initialState, action) => {
           return {
                ...state,
                form:{
-                    sendAddress: '',
+                    address: '',
+                    province: '',
+                    cityDistrict: '',
+                    subDistrict: '',
+                    urbanVillage: '',
+                    postalCode: '',
                     receiverName: '',
-                    receiverPhoneNumber:'',
+                    receiverPhoneNumber: '',
                     notes: ''
                }
           }
@@ -55,9 +71,15 @@ const transactionReducer = (state = initialState, action) => {
           return {
                ...state,
                errors : {
-                    sendAddress: '',
+                    address: '',
+                    province: '',
+                    cityDistrict: '',
+                    subDistrict: '',
+                    urbanVillage: '',
+                    postalCode: '',
                     receiverName: '',
-                    receiverPhoneNumber:'',
+                    receiverPhoneNumber: '',
+                    notes: ''
                }
           }
      }
