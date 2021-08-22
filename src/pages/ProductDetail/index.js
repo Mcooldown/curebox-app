@@ -63,10 +63,8 @@ const ProductDetail = (props) => {
           return (
                <Fragment>
                <Navbar />
-               <Gap height={150} />
+               <Gap height={200} />
                <div className="container">
-                    <Button background="#287E00" title="Back to home" onClick={() => history.push('/')} />
-                    <Gap height={30} />
                     <div className="row justify-content-between">
                          <div className="col-md-5">
                               <img src={product.productPhoto} className="w-100" alt={product.name} />
@@ -87,13 +85,13 @@ const ProductDetail = (props) => {
                               </div>
                          </div>
                          <div className="col-md-6">
-                              <h1>{product.name}</h1>
+                              <h2>{product.name}</h2>
                               <Gap height={20} />
                               <p className="text-muted"><i class="fas fa-store"></i> {product.seller.name} Store</p>
                               <Gap height={30} />
-                              <h3 className="fw-bold mb-3">Description</h3>
+                              <h4 className="fw-bold mb-3">Description</h4>
                               <p>{product.description}</p>
-                              <Gap height={30} />
+                              <Gap height={10} />
                               <h3>Rp{new Intl.NumberFormat(['ban', 'id']).format(product.price)}</h3>
                          </div>
                     </div>

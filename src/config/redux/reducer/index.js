@@ -5,8 +5,9 @@ import generalReducer from "./generalReducer";
 import cartReducer from "./cartReducer";
 import transactionReducer from "./transactionReducer";
 import articleReducer from "./articleReducer";
+import forumReducer from "./forumReducer";
 
 const reducer = combineReducers({authReducer, productReducer, generalReducer, cartReducer
-,transactionReducer, articleReducer});
+,transactionReducer, articleReducer, forumReducer});
 
 export default reducer;

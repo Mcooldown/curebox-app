@@ -58,7 +58,7 @@ export const setTransactions = (userId) => (dispatch) => {
 
 export const setTransactionDetails = (transactionId) => (dispatch) => {
 
-     axios.get(`http://localhost:4000/v1/transactions/detail/${transactionId}`)
+     axios.get(`https://curebox-api.herokuapp.com/v1/transactions/detail/${transactionId}`)
      .then(res => {
           const resData = res.data;
 

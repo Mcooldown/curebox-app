@@ -16,7 +16,10 @@ import ArticleDetail from './ArticleDetail';
 import CreateArticle from './CreateArticle';
 import EditArticle from './EditArticle';
 import UserArticles from './UserArticles';
+import Forums from './Forums';
+import CreateForum from './CreateForum';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
 , CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct
-, ProductSearch, Articles, ArticleDetail, CreateArticle, EditArticle, UserArticles};
+, ProductSearch, Articles, ArticleDetail, CreateArticle, EditArticle, UserArticles
+, Forums, CreateForum};
