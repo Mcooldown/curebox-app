@@ -3,12 +3,11 @@ import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button, Footer, Input, Navbar, Upload } from '../../components';
-import { clearForm, setForm } from '../../config/redux/action/forumAction';
+import { clearErrors, clearForm, postNewForum, setErrors, setForm } from '../../config/redux/action/forumAction';
 
 const CreateForum = () => {
 
      const {form, errors} = useSelector(state => state.forumReducer);
-     const {isLoading} = useSelector(state => state.generalReducer);
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
      const history = useHistory();
@@ -34,20 +33,28 @@ const CreateForum = () => {
      }
 
      const onSubmit = (e) => {
-          // e.preventDefault();
-          // if(imgPreview === '')return alert('Image required');
-          // setbuttonLoading(true);
+          e.preventDefault();
 
-          // postNewProduct(form)
-          // .then(res => {
-          //      setbuttonLoading(false);
-          //      if(res.status === 201){
-          //           dispatch(clearForm());
-          //           alert('New Product Added');
-          //           history.push('/store');
-          //      }
-          // });
-          console.log(form);
+          setButtonLoading(true);
+          postNewForum(form)
+          .then(res => {
+               setButtonLoading(false);
+               
+               if(res.status === 201) {
+                    dispatch(clearForm());
+                    dispatch(clearErrors());
+
+                    alert("Forum Created");
+                    history.push('/forums');
+               }
+               else{
+                    dispatch(clearErrors());
+                    res.data.data.forEach((error) => {
+                         dispatch(setErrors(error.param, error.msg));
+                    });
+                    alert("Create Forum Failed");
+               }
+          });
      }
 
      return (

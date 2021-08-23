@@ -18,8 +18,9 @@ import EditArticle from './EditArticle';
 import UserArticles from './UserArticles';
 import Forums from './Forums';
 import CreateForum from './CreateForum';
+import ForumDetails from './ForumDetails';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
 , CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct
 , ProductSearch, Articles, ArticleDetail, CreateArticle, EditArticle, UserArticles
-, Forums, CreateForum};
+, Forums, CreateForum, ForumDetails};

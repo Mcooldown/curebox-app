@@ -1,10 +1,17 @@
 const initialState = {
      forums: [],
+     forum: [],
      forumDetails: [],
      form: {
           title: '',
           content: '',
           forumPhoto: '',
+     },
+     page: {
+          totalData: 0,
+          perPage: 10,
+          currentPage: 1,
+          totalPage: 0
      },
      errors: {
           title: '',
@@ -61,6 +68,18 @@ const forumReducer = (state = initialState, action) => {
                     title: '',
                     content: '',
                }
+          }
+     }
+     if(action.type === 'SET_FORUMS_PAGE'){
+          return {
+               ...state,
+               page: action.payload,
+          }
+     }
+     if(action.type === 'SET_FORUM'){
+          return {
+               ...state,
+               forum: action.payload,
           }
      }
 

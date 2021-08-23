@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {Login, Register, Home, CreateProduct, ProductDetail, Cart, 
      CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, 
-     EditProduct, ProductSearch, Articles, ArticleDetail, CreateArticle, UserArticles, EditArticle, Forums, CreateForum} from '../../pages';
+     EditProduct, ProductSearch, Articles, ArticleDetail, CreateArticle, UserArticles, EditArticle, Forums, CreateForum, ForumDetails} from '../../pages';
 
 const Routes = () => {
      return (
@@ -64,6 +64,9 @@ const Routes = () => {
                     </Route>
                     <Route path="/forums/create" exact>
                          <CreateForum />
+                    </Route>
+                    <Route path="/forums/:id" exact>
+                         <ForumDetails />
                     </Route>
                </Switch>
           </Router>
