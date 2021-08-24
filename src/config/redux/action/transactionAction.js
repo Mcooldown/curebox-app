@@ -61,11 +61,8 @@ export const setTransactionDetails = (transactionId) => (dispatch) => {
      axios.get(`https://curebox-api.herokuapp.com/v1/transactions/detail/${transactionId}`)
      .then(res => {
           const resData = res.data;
-
-          async function finalize(){
-               await dispatch({type: 'SET_TRANSACTION_DETAILS', payload: resData.data});
-          }
-          finalize().then(() => dispatch(setIsLoading(false)));
+          dispatch({type: 'SET_TRANSACTION_DETAILS', payload: resData.data});
+          dispatch(setIsLoading(false));
      })
      .catch(err => {
           console.log(err);

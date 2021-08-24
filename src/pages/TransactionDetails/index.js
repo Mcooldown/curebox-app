@@ -1,14 +1,16 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
 import { Button, Footer, Loading, Navbar, TransactionDetailItem } from '../../components';
+import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setTransactionDetails } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
 
 const TransactionDetails = (props) => {
 
      const {transactionDetails} = useSelector(state => state.transactionReducer);
+     const {isLoading} = useSelector(state => state.generalReducer);
      const dispatch = useDispatch();
      const history = useHistory();
 
@@ -21,15 +23,14 @@ const TransactionDetails = (props) => {
           } 
 
           async function initialize() {
+               await dispatch(setIsLoading(true));
                await dispatch(setTransactionDetails(props.match.params.id));
           }
-
           initialize();
 
-     }, [dispatch, props.match.params.id, history])
+     }, [dispatch, props, history])
 
-     if(transactionDetails[0].transaction) {
-          console.log(transactionDetails[0]);
+     if(!isLoading) {
           return (
                <Fragment>
                     <Navbar />
@@ -37,14 +38,14 @@ const TransactionDetails = (props) => {
                     <Button title="Back to Transaction" onClick={() => history.push('/transactions')} />
                          <h1>Ini Detail</h1>
                          <hr/>
-                         {/* {
+                         {
                               transactionDetails[0] &&
                               <p>Transaction ID:{ transactionDetails[0].transaction._id} <br />
                                    Total Payment: Rp{transactionDetails[0].transaction.amount}
                               </p>
-                         } */}
+                         }
                          {
-                              transactionDetails ?
+                              transactionDetails.length > 0 ?
                               transactionDetails.map((detail) => {
                                    return <TransactionDetailItem 
                                    key={detail._id}

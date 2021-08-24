@@ -48,17 +48,21 @@ export const setStoreProducts = (userId, currentPage, perPage) => (dispatch) => 
      .then((res) => {
 
           const resData = res.data;
-          dispatch({type: 'SET_PRODUCTS', payload: resData.data});
-          dispatch({
-               type: 'SET_PRODUCTS_PAGE',
-               payload: {
-                    totalData: resData.total_data,
-                    perPage: resData.per_page,
-                    currentPage: resData.current_page,
-                    totalPage: Math.ceil(resData.total_data/ resData.per_page),
-               }
-          })
-          dispatch(setIsLoading(false));
+
+          async function finalize() {
+               await dispatch({type: 'SET_PRODUCTS', payload: resData.data});
+               await dispatch({
+                    type: 'SET_PRODUCTS_PAGE',
+                    payload: {
+                         totalData: resData.total_data,
+                         perPage: resData.per_page,
+                         currentPage: resData.current_page,
+                         totalPage: Math.ceil(resData.total_data/ resData.per_page),
+                    }
+               })
+          }
+          
+          finalize().then(() => dispatch(setIsLoading(false)));
      })
      .catch(err => {
           console.log(err);
@@ -131,7 +135,6 @@ export const deleteProduct = (productId, userId) => (dispatch) => {
      axios.delete(`https://curebox-api.herokuapp.com/v1/products/${productId}`)
      .then((res) => {
           dispatch(setStoreProducts(userId, 1, 8));
-          dispatch(setIsLoading(false));
      })
      .catch(err => {
           console.log(err);

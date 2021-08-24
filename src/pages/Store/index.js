@@ -38,6 +38,7 @@ const Store = () => {
           if(confirmDelete){
                await dispatch(setIsLoading(true));
                await dispatch(deleteProduct(id, localStorage.getItem('userId')));
+               await dispatch(setStoreProducts(localStorage.getItem('userId'), 1, 8));
           }
      }
 

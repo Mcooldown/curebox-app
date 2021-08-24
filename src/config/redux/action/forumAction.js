@@ -106,3 +106,32 @@ export const setForumDetails = (forumId) => (dispatch) => {
           console.log(err);
      });
 }
+
+export const updateForumDetail = (form, forumDetailId) => {
+
+     const data = JSON.stringify({
+          'content': form.content,
+          'forumPhoto' : form.forumPhoto,
+     });
+
+     const updateForumDetailPromise =  axios.put(`https://curebox-api.herokuapp.com/v1/forums/detail/${forumDetailId}`, data, {
+          headers: {
+               'Content-Type': 'application/json',
+          }
+     })
+
+     const response = updateForumDetailPromise.then(res => res).catch(err => err.response);
+     return response;
+     
+}
+
+export const deleteForumDetail = (forumDetailId, forumHeaderId) => (dispatch) => {
+     
+     axios.delete(`https://curebox-api.herokuapp.com/v1/forums/detail/${forumDetailId}`)
+     .then((res) => {
+          dispatch(setForumDetails(forumHeaderId));
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}

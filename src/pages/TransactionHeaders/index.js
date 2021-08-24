@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Footer, Navbar } from '../../components';
+import { Footer, Gap, Navbar } from '../../components';
 import {TransactionItem} from '../../components/molecules';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setTransactions } from '../../config/redux/action/transactionAction';
@@ -32,9 +32,11 @@ const TransactionHeaders = () => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container my-5 py-5">
-                         <h1>My Transactions</h1>
-                         <hr />
+                    <Gap height={150} />
+                    <div className="container">
+                         <h2 className="text-center mb-3">My Transactions</h2>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
                          {
                               transactions.map((transaction) => {
                                    return <TransactionItem 
@@ -49,6 +51,7 @@ const TransactionHeaders = () => {
                               })
                          }
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>
           )
