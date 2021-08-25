@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router';
+import { useHistory, withRouter } from 'react-router';
 import { Button, Footer, Input, Navbar, Upload } from '../../components';
-import { clearErrors, clearForm, deleteForumDetail, postNewForumDetail, setErrors, setForm, setForum, setForumDetails, updateForumDetail } from '../../config/redux/action/forumAction';
+import { clearErrors, clearForm, deleteForum, deleteForumDetail, postNewForumDetail, setErrors, setForm, setForum, setForumDetails, updateForum, updateForumDetail } from '../../config/redux/action/forumAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
 
@@ -12,6 +12,7 @@ const ForumDetails = (props) => {
      const {forumDetails, forum, form, errors} = useSelector(state => state.forumReducer);
      const {isLoading} = useSelector(state => state.generalReducer);
      const dispatch = useDispatch();
+     const history = useHistory();
      const [isReply, setIsReply] = useState(false);
      const [buttonLoading, setButtonLoading] = useState(false);
      const [editId, setEditId] = useState(0);
@@ -64,13 +65,72 @@ const ForumDetails = (props) => {
 
      }
 
+     const onEdit = async(id, title, content, forumPhoto) => {
+          await setEditId(id);
+          await dispatch(setForm('title', title));
+          await dispatch(setForm('content', content));
+          await dispatch(setForm('forumPhoto', forumPhoto));
+     }
+
+     const onUpdate = (id) => {
+
+          async function finalizeSuccess(){
+               await dispatch(clearForm());
+               await dispatch(clearErrors());
+               await setEditId(0);
+               await alert("Reply forum updated");
+               await dispatch(setForum(props.match.params.id));
+          }
+
+          async function finalizeFailed(res) {
+               await dispatch(clearErrors());
+               await res.data.data.forEach((error) => {
+                         dispatch(setErrors(error.param, error.msg));
+                    });
+               await alert("Update forum thread failed");
+          }
+
+          setButtonLoading(true);
+          updateForum(form, id)
+          .then(res => {
+               setButtonLoading(false);
+               
+               if(res.status === 200) {
+                    finalizeSuccess();
+               }
+               else{
+                    finalizeFailed(res);
+               }
+          });
+     }
+
+     const onDelete = async (id) => {
+
+          const confirmDelete = window.confirm('Are you sure want to delete this forum thread?');
+
+          if(confirmDelete){
+               dispatch(setIsLoading(true));
+               deleteForum(id)
+               .then(res => {
+                    dispatch(setIsLoading(false));
+                    if(res.status === 200) {
+                         alert('Delete Success');
+                         history.push('/forums');
+                    }
+                    else{
+                         alert("Delete Failed");
+                    }
+               });
+          }
+     }
+
      const onEditDetail = async(id, content, forumPhoto) => {
           await setEditId(id);
           await dispatch(setForm('content', content));
           await dispatch(setForm('forumPhoto', forumPhoto));
      }
 
-     const onUpdate = (id) => {
+     const onUpdateDetail = (id) => {
 
           async function finalizeSuccess(){
                await dispatch(clearForm());
@@ -120,18 +180,48 @@ const ForumDetails = (props) => {
                     <div className="container my-5 py-5">
                          <div className="card border-0 shadow">
                               <div className="card-body my-3">
-                                   <h2>{forum.title}</h2>
-                                   <p>Created by {forum.user.name} at {forum.createdAt}</p>
-                                   <hr />
-                                   <p>{forum.content}</p>
                                    {
-                                        forum.forumPhoto && 
-                                        <img src={forum.forumPhoto} className="w-25" alt={forum.title} />
-                                   }
-                                   <br />
-                                   {
-                                        !isReply &&
-                                        <Button background="gray" title="Reply" onClick={() => setIsReply(true)} />
+                                        forum._id === editId ?
+                                        <Fragment>
+                                             <Input label="Title" value={form.title} type="text" errorMessage={errors.title} 
+                                             onChange={(e) => dispatch(setForm('title', e.target.value))}
+                                             />
+                                             <Input label="Content" value={form.content} type="text" errorMessage={errors.content} 
+                                             onChange={(e) => dispatch(setForm('content', e.target.value))}
+                                             />
+                                             <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
+                                             
+                                             <Button background="red" title="Cancel" onClick={() => setEditId(0)} />
+                                             {
+                                                  buttonLoading ?
+                                                  <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
+                                                  :
+                                                  <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdate(forum._id)}  />
+                                             }
+                                        </Fragment> :
+                                        <Fragment>
+                                             <h2>{forum.title}</h2>
+                                             <p>Created by {forum.user.name} at {forum.createdAt}</p>
+                                             <hr />
+                                             <p>{forum.content}</p>
+                                             {
+                                                  forum.forumPhoto && 
+                                                  <img src={forum.forumPhoto} className="w-25" alt={forum.title} />
+                                             }
+                                             <br />
+                                             {
+                                                  !isReply &&
+                                                  <Button background="blue" title="Reply" onClick={() => setIsReply(true)} />
+                                             }
+                                             {
+                                                  forum.user._id === localStorage.getItem('userId') &&
+                                                  <Button title="Edit" background="gray" onClick={() => onEdit(forum._id, forum.title, forum.content, forum.forumPhoto)} />
+                                             }
+                                             {
+                                                  forum.user._id === localStorage.getItem('userId') &&
+                                                  <Button title="Delete" background="red" onClick={() => onDelete(forum._id)} />
+                                             }
+                                        </Fragment>
                                    }
                               </div>
                          </div>
@@ -180,7 +270,7 @@ const ForumDetails = (props) => {
                                                                       buttonLoading ?
                                                                       <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
                                                                       :
-                                                                      <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdate(forumDetail._id)} />
+                                                                      <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdateDetail(forumDetail._id)} />
                                                                  }
                                                             </Fragment> :
                                                             <Fragment>
