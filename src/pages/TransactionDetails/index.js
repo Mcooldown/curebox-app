@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
-import { Button, Footer, Loading, Navbar, TransactionDetailItem } from '../../components';
+import { CartItem, Footer, Gap, Loading, Navbar } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { setTransactionDetails } from '../../config/redux/action/transactionAction';
 import LoadingPage from '../LoadingPage';
@@ -34,30 +34,56 @@ const TransactionDetails = (props) => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container my-5 py-5">
-                    <Button title="Back to Transaction" onClick={() => history.push('/transactions')} />
-                         <h1>Ini Detail</h1>
-                         <hr/>
+                    <Gap height={150} />
+                    <div className="container">
                          {
                               transactionDetails[0] &&
-                              <p>Transaction ID:{ transactionDetails[0].transaction._id} <br />
-                                   Total Payment: Rp{transactionDetails[0].transaction.amount}
-                              </p>
+                              <Fragment>
+                                   <h2 className="text-center mb-3">Transaction Details</h2>
+                                   <div className="section-line mx-auto"></div>
+                                   <Gap height={75} />
+                                   <div className="d-flex justify-content-between">
+                                        <h4>Transaction ID: {transactionDetails[0].transaction._id}</h4>
+                                        <p className="h5">Transaction Date: {new Date(transactionDetails[0].transaction.createdAt).toLocaleDateString("en-GB")}</p>
+                                   </div>
+                                   <hr />
+                                   <Gap height={15} />
+                                   <p className="h5"><i class="fas fa-user me-3"></i>Receiver's Name: {transactionDetails[0].transaction.receiverName}</p>     
+                                   <Gap height={10} />
+                                   <p className="h5"><i class="fas fa-phone me-3"></i>Receiver's Phone: {transactionDetails[0].transaction.receiverPhoneNumber}</p>     
+                                   <Gap height={10} />
+                                   <p className="h5"><i class="fas fa-map-marker-alt me-3"></i>Send to: &nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.address},&nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.urbanVillage},&nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.subDistrict}, &nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.cityDistrict}, &nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.province}, &nbsp;
+                                   {transactionDetails[0].transaction.sendAddress.postalCode}
+                                   </p>     
+                                   <Gap height={10} />
+                                   <p className="h5"><i class="fas fa-sticky-note me-3"></i>Notes: {transactionDetails[0].transaction.notes}</p>     
+                                   <Gap height={10} />
+                                   <hr />
+                              </Fragment>
                          }
                          {
                               transactionDetails.length > 0 ?
                               transactionDetails.map((detail) => {
-                                   return <TransactionDetailItem 
-                                   key={detail._id}
+                                   return <CartItem key={detail._id}
+                                   _id= {detail._id}
+                                   productId={detail.product._id}
                                    name={detail.product.name}
                                    description={detail.product.description}
                                    price={detail.product.price}
                                    image={detail.product.productPhoto}
                                    quantity={detail.quantity}
-                                   />
+                                   sellerName={detail.product.seller.name}
+                                   quantityDisabled
+                                   removeDisabled />
                               }) : <Loading title="Please wait..." />
                          }
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>     
           )
