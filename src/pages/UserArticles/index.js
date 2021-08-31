@@ -69,10 +69,12 @@ const UserArticles = () => {
                                                   title={article.title}
                                                   content= {article.content}
                                                   articlePhoto= {article.articlePhoto}
+                                                  createdAt = {article.createdAt}
                                                   isRecommended={false}
                                                   user={article.user}
                                                   onUpdate={onUpdate}
                                                   onDelete={onDelete}
+                                                  onClick={(id) => history.push(`/articles/${id}`)}
                                                   />
                                              </div>   
                                         ) 

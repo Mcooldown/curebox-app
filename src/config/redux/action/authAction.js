@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setIsLoading } from "./generalAction";
 
 export const setForm = (formType, formValue) => {
      return {type: 'SET_AUTH_FORM_DATA', formType, formValue};
@@ -26,7 +27,8 @@ export const registerNewUser = (form) => {
           'phoneNumber': form.phoneNumber,
           'email': form.email,
           'password': form.password,
-          'passwordConfirm': form.passwordConfirm
+          'profilePhoto': form.profilePhoto,
+          'passwordConfirm': form.passwordConfirm,
      });
 
      const registerPromise = axios.post('https://curebox-api.herokuapp.com/v1/auth/register' ,data, {
@@ -56,3 +58,20 @@ export const login = (form) => {
      return response;
 }
 
+export const setUser = (userId) => (dispatch) => {
+
+     axios.get(`https://curebox-api.herokuapp.com/v1/auth/user/${userId}`)
+     .then(async(res) => {
+
+          const resData = res.data;
+          
+          async function finalize(){
+               await dispatch({type: 'SET_USER', payload: resData.data});
+          }
+
+          finalize().then(() => dispatch(setIsLoading(false)));
+     })
+     .catch(err => {
+          console.log(err);
+     })
+}

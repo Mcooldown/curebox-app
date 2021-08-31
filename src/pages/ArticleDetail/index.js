@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
-import { Footer, Navbar } from '../../components';
+import { Footer, Gap, Navbar } from '../../components';
 import { setArticle, setArticles } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
@@ -35,30 +35,33 @@ const ArticleDetail = (props) => {
                               <div className="col-md-8 my-3 pe-lg-4">
                                    <h1 className="text-center">{article.title}</h1>
                                    <div className="text-muted d-flex justify-content-between my-5">
-                                        <p className="h5">Creator: <h5 className="d-inline-flex">{article.user.name}</h5></p>
+                                        <p className="h5">Creator: <span><h5 className="d-inline-flex">{article.user.name}</h5></span></p>
                                         <h5>{ new Date(article.createdAt).toDateString("en-US")}</h5>
                                    </div>
                                    <img className="article-img" src={article.articlePhoto} alt={article.title} />
-                                   <p className="mt-5">{article.content}</p>
+                                   <div className="mt-5" dangerouslySetInnerHTML={{__html:article.content}}></div>
                               </div>
                               <div className="col-md-4 my-3 ps-lg-4">
                                    <h4>Recommended Articles</h4>
+                                   <Gap height={10} />
                                    <div className="article-rec">
-                                        { 
-                                             articles.length > 0 && articles.map((article) => {
-                                                  return (
-                                                       <div className="row align-items-center my-3 article-rec-item"
-                                                       onClick={() => history.push(`/articles/${article._id}`)}>
-                                                            <div className="col-md-4">
-                                                                 <img src={article.articlePhoto} className="article-rec-img" alt={article.title} />
+                                        <div className="card-body">
+                                             { 
+                                                  articles.length > 0 && articles.map((article) => {
+                                                       return (
+                                                            <div className="row align-items-center my-3 article-rec-item"
+                                                            onClick={() => history.push(`/articles/${article._id}`)}>
+                                                                 <div className="col-md-4">
+                                                                      <img src={article.articlePhoto} className="article-rec-img" alt={article.title} />
+                                                                 </div>
+                                                                 <div className="col-md-8">
+                                                                      <h5 className="article-rec-title">{article.title}</h5>
+                                                                 </div>
                                                             </div>
-                                                            <div className="col-md-8">
-                                                                 <h5 className="article-rec-title">{article.title}</h5>
-                                                            </div>
-                                                       </div>
-                                                  ) 
-                                             })
-                                        }
+                                                       ) 
+                                                  })
+                                             }
+                                        </div>
                                    </div>
                                    
                               </div>

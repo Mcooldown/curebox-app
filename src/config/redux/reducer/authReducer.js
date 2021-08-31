@@ -8,6 +8,7 @@ const initialState = {
           email: '',
           password: '',
           passwordConfirm: '',
+          profilePhoto: '',
      },
      errors: {
           name: '',
@@ -18,7 +19,9 @@ const initialState = {
           email: '',
           password: '',
           passwordConfirm: '',
-     }
+          profilePhoto: '',
+     },
+     user: [],
 }
 
 const authReducer = (state = initialState, action) => {
@@ -44,6 +47,7 @@ const authReducer = (state = initialState, action) => {
                     email: '',
                     password: '',
                     passwordConfirm: '',
+                    profilePhoto: '',
                }
           }
 
@@ -68,7 +72,13 @@ const authReducer = (state = initialState, action) => {
                     email: '',
                     password: '',
                     passwordConfirm: '',
+                    profilePhoto: '',
                }
+          }
+     }else if( action.type === 'SET_USER'){
+          return {
+               ...state,
+               user: action.payload,
           }
      }
      return state;

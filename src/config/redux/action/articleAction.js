@@ -17,6 +17,10 @@ export const clearErrors = () => {
      return {type: 'CLEAR_ARTICLE_ERRORS'};
 }
 
+export const clearArticles = () => {
+     return {type: 'CLEAR_ARTICLES'};
+}
+
 export const postNewArticle = async (form) => {
      
      const data = await JSON.stringify({

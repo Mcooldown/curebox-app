@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Gap, Input, Select } from '../../components';
+import { Button, Gap, Input, Select, Upload } from '../../components';
 import { clearErrors, clearForm, registerNewUser, setErrors, setForm } from '../../config/redux/action/authAction';
 import { useHistory } from 'react-router-dom';
 import { AuthMedicine, Logo } from '../../assets';
@@ -13,7 +13,7 @@ const Register = () => {
      const [buttonLoading, setButtonLoading] = useState(false);
      const dispatch = useDispatch();
      const history = useHistory();
-     const genderOptions = ['Male', 'Female'];
+     const genderOptions = ['','Male', 'Female'];
 
      useEffect(() => {
           const userId = localStorage.getItem('userId');
@@ -24,10 +24,21 @@ const Register = () => {
           }
      },[dispatch, history]);
 
+     const onImageUpload = (e) => {
+          const file = e.target.files[0];
+          
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = () => {
+               dispatch(setForm('profilePhoto', reader.result));
+          }
+     }
+
      const onSubmit = () => {
 
-          setButtonLoading(true);
+          if(form.profilePhoto === '') return alert('Profile Photo must be filled');
 
+          setButtonLoading(true);
           registerNewUser(form)
           .then(res => {
 
@@ -48,6 +59,7 @@ const Register = () => {
                }
           });
      }
+     
 
      return (
           <Fragment>
@@ -73,9 +85,9 @@ const Register = () => {
                                              onChange={(e) => dispatch(setForm('gender', e.target.value))} />
 
                                              <Gap height={30} />
-                                             <Input type="text" value={form.address} label="Address"
+                                             <Input type="text" value={form.address} label="City/District, Province"
                                              errorMessage={errors.address && errors.address}
-                                             placeholder="e.g. Jl. Jendral Sudirman No. 12"
+                                             placeholder="e.g. Bandung, Jawa Barat"
                                              onChange={(e) => dispatch(setForm('address', e.target.value))} />
 
                                              <Gap height={30} />
@@ -88,6 +100,9 @@ const Register = () => {
                                              errorMessage={errors.phoneNumber && errors.phoneNumber}
                                              placeholder="e.g. 0816xxxxxxxx"
                                              onChange={(e) => dispatch(setForm('phoneNumber', e.target.value))} />
+
+                                             <Gap height={30} />
+                                             <Upload label="Profile Photo" img={form.profilePhoto} onChange={(e) => onImageUpload(e)}  />
 
                                              <Gap height={30} />
                                              <Input type="text" value={form.email} label="Email"

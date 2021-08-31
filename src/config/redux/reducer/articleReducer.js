@@ -27,6 +27,12 @@ const articleReducer = (state = initialState, action) => {
                articles: action.payload,
           }
      }
+     if(action.type === 'CLEAR_ARTICLES'){
+          return {
+               ...state,
+               articles: [],
+          }
+     }
      if(action.type === 'SET_ARTICLES_PAGE'){
           return {
                ...state,

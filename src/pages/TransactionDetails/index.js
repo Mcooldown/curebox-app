@@ -48,20 +48,20 @@ const TransactionDetails = (props) => {
                                    </div>
                                    <hr />
                                    <Gap height={15} />
-                                   <p className="h5"><i class="fas fa-user me-3"></i>Receiver's Name: {transactionDetails[0].transaction.receiverName}</p>     
+                                   <p className="h5"><i class="fas fa-user me-3"></i>Receiver's Name: <span><h5 className="d-inline">{transactionDetails[0].transaction.receiverName}</h5></span></p>     
                                    <Gap height={10} />
-                                   <p className="h5"><i class="fas fa-phone me-3"></i>Receiver's Phone: {transactionDetails[0].transaction.receiverPhoneNumber}</p>     
+                                   <p className="h5"><i class="fas fa-phone me-3"></i>Receiver's Phone: <span><h5 className="d-inline">{transactionDetails[0].transaction.receiverPhoneNumber}</h5></span></p>     
                                    <Gap height={10} />
                                    <p className="h5"><i class="fas fa-map-marker-alt me-3"></i>Send to: &nbsp;
-                                   {transactionDetails[0].transaction.sendAddress.address},&nbsp;
+                                   <span><h5 className="d-inline">{transactionDetails[0].transaction.sendAddress.address},&nbsp;
                                    {transactionDetails[0].transaction.sendAddress.urbanVillage},&nbsp;
                                    {transactionDetails[0].transaction.sendAddress.subDistrict}, &nbsp;
                                    {transactionDetails[0].transaction.sendAddress.cityDistrict}, &nbsp;
                                    {transactionDetails[0].transaction.sendAddress.province}, &nbsp;
-                                   {transactionDetails[0].transaction.sendAddress.postalCode}
+                                   {transactionDetails[0].transaction.sendAddress.postalCode}</h5></span>
                                    </p>     
                                    <Gap height={10} />
-                                   <p className="h5"><i class="fas fa-sticky-note me-3"></i>Notes: {transactionDetails[0].transaction.notes}</p>     
+                                   <p className="h5"><i class="fas fa-sticky-note me-3"></i>Notes: <span><h5 className="d-inline">{transactionDetails[0].transaction.notes}</h5></span></p>     
                                    <Gap height={10} />
                                    <hr />
                               </Fragment>

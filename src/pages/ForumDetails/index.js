@@ -210,7 +210,7 @@ const ForumDetails = (props) => {
                                              }
                                              <br />
                                              {
-                                                  !isReply &&
+                                                  !isReply && localStorage.getItem('userId') &&
                                                   <Button background="blue" title="Reply" onClick={() => setIsReply(true)} />
                                              }
                                              {

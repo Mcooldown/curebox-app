@@ -19,8 +19,9 @@ import UserArticles from './UserArticles';
 import Forums from './Forums';
 import CreateForum from './CreateForum';
 import ForumDetails from './ForumDetails';
+import Profile from './Profile';
 
 export {Home, Register, Login, CreateProduct, ProductDetail, Cart, LoadingPage
 , CheckoutTransaction, TransactionHeaders, TransactionDetails, Store, EditProduct
 , ProductSearch, Articles, ArticleDetail, CreateArticle, EditArticle, UserArticles
-, Forums, CreateForum, ForumDetails};
+, Forums, CreateForum, ForumDetails, Profile};

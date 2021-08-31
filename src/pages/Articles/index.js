@@ -2,7 +2,7 @@ import React, { useEffect} from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { CartButton, Footer, Navbar } from '../../components';
+import { CartButton, Footer, Gap, Navbar } from '../../components';
 import ArticleItem from '../../components/molecules/ArticleItem';
 import { setArticles } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
@@ -30,14 +30,15 @@ const Articles = () => {
           return (
                <Fragment>
                     <Navbar />
-     
-                    <div className="container my-5 py-5">
-                         <h1>Articles</h1>
-                         <hr />
+                    <Gap height={150} />
+                    <div className="container">
+                         <h2 className="text-center mb-3">Articles</h2>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
                          <div className="row">
                               { articles.length > 0 && articles.map((article) => {
                                         return (
-                                             <div className="col-md-4 my-3">
+                                             <div className="col-md-3 my-3">
                                                   <ArticleItem
                                                   key={article._id}
                                                   _id={article._id}
@@ -46,6 +47,7 @@ const Articles = () => {
                                                   articlePhoto= {article.articlePhoto}
                                                   isRecommended={false}
                                                   user={article.user}
+                                                  createdAt={article.createdAt}
                                                   onClick={(id) => history.push(`/articles/${id}`)}
                                                   />
                                              </div>   
@@ -54,7 +56,7 @@ const Articles = () => {
                               }
                          </div>
                     </div>
-     
+                    <Gap height={150} />
                     <Footer />
                     <CartButton />
                </Fragment>     

@@ -6,6 +6,8 @@ import { Button, Footer, Input, Navbar, Upload } from '../../components';
 import { clearForm, setArticle, setForm, updateArticle } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const EditArticle = (props) => {
 
@@ -73,8 +75,12 @@ const EditArticle = (props) => {
                          <Input label="Title" value={form.title} type="text"
                          onChange={(e) => dispatch(setForm('title', e.target.value))}
                          />
-                         <Input label="Content" value={form.content} type="text"
-                         onChange={(e) => dispatch(setForm('content', e.target.value))}
+                         <h6 className="mb-2 fw-bold">Content</h6>
+                         <CKEditor
+                         editor={ ClassicEditor }
+                         data={form.content}
+                         onChange={ ( event, editor ) => 
+                         dispatch(setForm('content', editor.getData()))}
                          />
                          <Upload label="Article Photo" img={form.articlePhoto} onChange={(e) => onImageUpload(e)}  />
                          

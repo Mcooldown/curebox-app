@@ -67,7 +67,7 @@ const CheckoutTransaction = () => {
                          <Gap height={50}  />
                          <h5 style={{ color: "#127E00" }}>Input Address</h5>
                          <Gap height={30}  />
-                         <div className="address-wrapper">
+                         <div className="green-wrapper">
                               <div className="card-body">
                                    <div className="form-group row align-items-center">
                                         <div className="col-md-3">
@@ -146,7 +146,7 @@ const CheckoutTransaction = () => {
                          <Gap height={50} />
                          <h5 style={{ color: "#127E00" }}>Input Receiver Information</h5>
                          <Gap height={30}  />
-                         <div className="address-wrapper">
+                         <div className="green-wrapper">
                               <div className="card-body">
                                    <div className="form-group row align-items-center">
                                         <div className="col-md-3">

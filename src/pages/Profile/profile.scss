@@ -1,0 +1,26 @@
+.profile {
+
+     background: url('../../assets/images/ellipse-profile-2.png') no-repeat,
+          url('../../assets/images/ellipse-profile-1.png') no-repeat;
+     background-size: 400px, 500px;
+     background-position: 0% -20%, 120% 10%;
+
+     .title-pipe {
+          background-image: linear-gradient(to right, #CEF8BB, white);
+          border-radius: 5rem;
+          padding: 1rem 1.5rem;
+     }
+
+     .profile-name {
+          display: inline-flex;
+          color: #287E00;
+     }
+
+     .profile-photo {
+          width: 250px;
+          height: 250px;
+          object-fit: cover;
+          border-radius: 50%;
+          border: 5px solid #287E00;
+     }
+}

@@ -7,7 +7,7 @@ const ProductItem = (props) => {
      const history = useHistory();
 
      return (
-          <div className="card card-product"  onClick={() => history.push(`/products/${props._id}`)}>
+          <div className="card card-item"  onClick={() => history.push(`/products/${props._id}`)}>
                <img className="product-image" src={props.image} alt={props.name} />
                <div className="card-body">
                     <p className="product-name mb-2">{props.name}</p>

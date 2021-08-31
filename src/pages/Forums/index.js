@@ -30,7 +30,10 @@ const Forums = () => {
                     <Navbar />
                     <div className="container my-5 py-5">
                         <h1>Forums</h1>
-                         <Button background="gray" title="Create New Forum" onClick={() => history.push('/forums/create')} />
+                        {
+                             localStorage.getItem('userId') &&
+                             <Button background="gray" title="Create New Forum" onClick={() => history.push('/forums/create')} />
+                        }
                          <hr />
                          { forums.length > 0 && forums.map((forum) => {
                                    return (
