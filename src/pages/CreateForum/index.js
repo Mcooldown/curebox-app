@@ -67,7 +67,7 @@ const CreateForum = () => {
                <Navbar />
                <Gap height={150} />
                <div className="container">
-                    <h2 className="text-center mb-3">Create Forum</h2>
+                    <h1 className="text-center mb-3">Create Forum</h1>
                     <div className="section-line mx-auto"></div>
                     <Gap height={50}  />
                

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Navbar } from '../../components';
+import { Footer, Gap, Navbar } from '../../components';
 import ArticleItem from '../../components/molecules/ArticleItem';
 import { deleteArticle, setUserArticles } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
@@ -55,10 +55,11 @@ const UserArticles = () => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container my-5 py-5">
-                         <h1>My Articles</h1>
-                         <hr />
-                         <Button background="#287E00" title="Create New Article" onClick={() => history.push('/articles/create') } />
+                    <Gap height={150} />
+                    <div className="container">
+                         <h1 className="text-center mb-3">My Articles</h1>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
                          <div className="row">
                               { articles.length > 0 && articles.map((article) => {
                                         return (
@@ -74,14 +75,21 @@ const UserArticles = () => {
                                                   user={article.user}
                                                   onUpdate={onUpdate}
                                                   onDelete={onDelete}
+
                                                   onClick={(id) => history.push(`/articles/${id}`)}
                                                   />
                                              </div>   
                                         ) 
                                    })
                               }
+                              <div className="col-md-4 my-3 d-flex align-items-center justify-content-center">
+                                   <div style={{ cursor: "pointer" }} onClick={() => history.push('/articles/create') }>
+                                        <h4>Add An Article</h4>
+                                   </div>
+                              </div>
                          </div>
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>
           )

@@ -39,7 +39,7 @@ const TransactionDetails = (props) => {
                          {
                               transactionDetails[0] &&
                               <Fragment>
-                                   <h2 className="text-center mb-3">Transaction Details</h2>
+                                   <h1 className="text-center mb-3">Transaction Details</h1>
                                    <div className="section-line mx-auto"></div>
                                    <Gap height={75} />
                                    <div className="d-flex justify-content-between">

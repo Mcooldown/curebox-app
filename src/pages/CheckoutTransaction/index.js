@@ -62,7 +62,7 @@ const CheckoutTransaction = () => {
                     <Navbar />
                     <Gap height={150} />
                     <div className="container">
-                         <h2 className="text-center mb-3">Checkout</h2>
+                         <h1 className="text-center mb-3">Checkout</h1>
                          <div className="section-line mx-auto"></div>
                          <Gap height={50}  />
                          <h5 style={{ color: "#127E00" }}>Input Address</h5>

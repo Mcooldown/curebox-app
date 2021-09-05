@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router';
-import { Button, Footer, Input, Navbar, Upload } from '../../components';
+import { NoPictureUser } from '../../assets';
+import { Button, CartButton, Footer, Gap, Input, Navbar, Upload } from '../../components';
 import { clearErrors, clearForm, deleteForum, deleteForumDetail, postNewForumDetail, setErrors, setForm, setForum, setForumDetails, updateForum, updateForumDetail } from '../../config/redux/action/forumAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ForumDetails = (props) => {
 
@@ -177,130 +180,163 @@ const ForumDetails = (props) => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container my-5 py-5">
-                         <div className="card border-0 shadow">
-                              <div className="card-body my-3">
-                                   {
-                                        forum._id === editId ?
-                                        <Fragment>
-                                             <Input label="Title" value={form.title} type="text" errorMessage={errors.title} 
-                                             onChange={(e) => dispatch(setForm('title', e.target.value))}
-                                             />
-                                             <Input label="Content" value={form.content} type="text" errorMessage={errors.content} 
-                                             onChange={(e) => dispatch(setForm('content', e.target.value))}
-                                             />
-                                             <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
-                                             
-                                             <Button background="red" title="Cancel" onClick={() => setEditId(0)} />
-                                             {
-                                                  buttonLoading ?
-                                                  <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
-                                                  :
-                                                  <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdate(forum._id)}  />
-                                             }
-                                        </Fragment> :
-                                        <Fragment>
-                                             <h2>{forum.title}</h2>
-                                             <p>Created by {forum.user.name} at {forum.createdAt}</p>
-                                             <hr />
-                                             <p>{forum.content}</p>
-                                             {
-                                                  forum.forumPhoto && 
-                                                  <img src={forum.forumPhoto} className="w-25" alt={forum.title} />
-                                             }
-                                             <br />
-                                             {
-                                                  !isReply && localStorage.getItem('userId') &&
-                                                  <Button background="blue" title="Reply" onClick={() => setIsReply(true)} />
-                                             }
-                                             {
-                                                  forum.user._id === localStorage.getItem('userId') &&
-                                                  <Button title="Edit" background="gray" onClick={() => onEdit(forum._id, forum.title, forum.content, forum.forumPhoto)} />
-                                             }
-                                             {
-                                                  forum.user._id === localStorage.getItem('userId') &&
-                                                  <Button title="Delete" background="red" onClick={() => onDelete(forum._id)} />
-                                             }
-                                        </Fragment>
-                                   }
-                              </div>
-                         </div>
+                    <Navbar />
+                    <Gap height={150} />
+                    <div className="container">
                          {
-                              isReply && (
-                                   <div className="card border-0 shadow mt-3">
-                                        <div className="card-body">
-                                             <h2>Reply</h2>
-                                             <hr />
-                                             <Input label="Message" value={form.content} type="text" errorMessage={errors.content} 
-                                             onChange={(e) => dispatch(setForm('content', e.target.value))}
-                                             />
-                                             <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
-                                             
-                                             <Button background="red" title="Cancel" onClick={() => setIsReply(false)} />
+                              forum._id === editId ?
+                              <div>
+                                   <Input label="Title" value={form.title} type="text" errorMessage={errors.title} 
+                                   onChange={(e) => dispatch(setForm('title', e.target.value))}
+                                   />
+                                   <Input label="Content" value={form.content} type="text" errorMessage={errors.content} 
+                                   onChange={(e) => dispatch(setForm('content', e.target.value))}
+                                   />
+                                   <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
+                                   
+                                   <Button background="red" title="Cancel" onClick={() => setEditId(0)} />
+                                   {
+                                        buttonLoading ?
+                                        <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
+                                        :
+                                        <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdate(forum._id)}  />
+                                   }
+                              </div> :
+                              <Fragment>
+                                   <div className="d-flex justify-content-between align-items-center">
+                                        <h1 className="mb-3">{forum.title}</h1>
+                                        <div className="d-flex align-items-center">
+                                             <i className="fa fa-heart fa-2x me-4 text-danger"></i>
+                                             <i className="fa fa-share-alt fa-2x text-dark me-4"></i>
                                              {
-                                                  buttonLoading ?
-                                                  <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
-                                                  :
-                                                  <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={onSubmit} />
+                                                  forum.user._id === localStorage.getItem('userId') &&
+                                                  <Fragment>
+                                                       <button className="btn-delete me-3" onClick={() => onDelete(forum._id)}>Delete</button>
+                                                       <Button title="Edit" background="#287E00" onClick={() => onEdit(forum._id, forum.title, forum.content, forum.forumPhoto)} />
+                                                  </Fragment>
                                              }
                                         </div>
                                    </div>
-                              )
+                                   <Gap height={10} />
+                                   <div className="d-flex justify-content-between align-items-center">
+                                        <div className="d-flex align-items-center">
+                                             <img src={forum.user.profilePhoto ? forum.user.profilePhoto : NoPictureUser} style={{ height:"50px" }} alt={forum.user.name} className="rounded-circle" />
+                                             <p className="m-0 ms-3">{forum.user.name}</p>
+                                        </div>
+                                        <p className="m-0">{ new Date(forum.createdAt).toDateString("en-US")}</p>
+                                   </div>
+                                   <hr />
+                                   <Gap height={20} />
+                                   <div dangerouslySetInnerHTML={{__html:forum.content}}></div>
+                                   <Gap height={20} />
+                                   <div className="text-center">
+                                        {
+                                             forum.forumPhoto && 
+                                             <img src={forum.forumPhoto} className="w-50" alt={forum.title} />
+                                        }
+                                   </div>
+                                   <br />
+                              </Fragment>
                          }
-
-                         <h2 className="mt-5">Replies</h2>
+                         <Gap height={30}  />
                          <hr />
-                         {
-                              forumDetails.length > 0 ?
-                              (
-                                   forumDetails.map((forumDetail) => {
-                                        return (
-                                             <div className="card border-0 shadow mt-3">
-                                                  <div className="card-body">
-                                                       {
-                                                            forumDetail._id === editId ?
-                                                            <Fragment>
-                                                                 <Input label="Content" value={form.content} type="text" errorMessage={errors.content} 
-                                                                 onChange={(e) => dispatch(setForm('content', e.target.value))}
-                                                                 />
-                                                                 <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
-                                                                 
-                                                                 <Button background="red" title="Cancel" onClick={() => setEditId(0)} />
-                                                                 {
-                                                                      buttonLoading ?
-                                                                      <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
-                                                                      :
-                                                                      <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdateDetail(forumDetail._id)} />
-                                                                 }
-                                                            </Fragment> :
-                                                            <Fragment>
-                                                                 <h5>{forumDetail.content}</h5>
-                                                                 <p>by {forumDetail.user.name}</p>
-                                                                 <p>posted at {forumDetail.createdAt}</p>
-                                                                 {
-                                                                      forumDetail.forumPhoto &&
-                                                                      <img src={forumDetail.forumPhoto} className="w-25" alt={forumDetail.createdAt} />
-                                                                 }
-                                                                 <br />
-                                                                 {
-                                                                      forumDetail.user._id === localStorage.getItem('userId') &&
-                                                                      <Fragment>
-                                                                           <Button background="gray" title="Edit" onClick={() => onEditDetail(forumDetail._id, forumDetail.content, forumDetail.forumPhoto)} />
-                                                                           <Button background="red" title="Delete" onClick={() => onDeleteDetail(forumDetail._id)} />
-                                                                      </Fragment>
+                         <Gap height={30}  />
+                         <div className="row">
+                              <div className="col-md-8">
+                                   <h3>Reply Forum</h3>
+                                   <Gap height={30} />
+                                   <CKEditor
+                                        editor={ ClassicEditor }
+                                        data="Type your reply here"
+                                        onChange={ ( event, editor ) => 
+                                        dispatch(setForm('content', editor.getData()))}
+                                   />
+                                   <Gap height={30} />
+                                   <Upload label="Upload Photo (Optional)" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
+                                   <Gap height={30} />
+                                   <div className="text-end">
+                                        {
+                                             buttonLoading ?
+                                             <Button background="#287E00" title="Please wait..." isLoading={buttonLoading} />
+                                             :
+                                             <Button background="#287E00" title="Reply" isLoading={buttonLoading} onClick={onSubmit} />
+                                        }
+                                   </div>
+                                   <Gap height={30} />
+                                   <hr />
+                                   <div className="green-wrapper">
+                                        <div className="card-body">
+                                             <Gap height={20} />
+                                             <h3>Replies</h3>
+                                             {
+                                                  forumDetails.length > 0 ?
+                                                  (
+                                                       forumDetails.map((forumDetail) => {
+                                                            return (
+                                                                 <div className="card border-0 my-4">
+                                                                      <div className="card-body">
+                                                                           {
+                                                                                forumDetail._id === editId ?
+                                                                                <Fragment>
+                                                                                     <Input label="Content" value={form.content} type="text" errorMessage={errors.content} 
+                                                                                     onChange={(e) => dispatch(setForm('content', e.target.value))}
+                                                                                     />
+                                                                                     <Upload label="Forum Photo" img={form.forumPhoto} onChange={(e) => onImageUpload(e)} />
+                                                                                     
+                                                                                     <Button background="red" title="Cancel" onClick={() => setEditId(0)} />
+                                                                                     {
+                                                                                          buttonLoading ?
+                                                                                          <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
+                                                                                          :
+                                                                                          <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={() => onUpdateDetail(forumDetail._id)} />
+                                                                                     }
+                                                                                </Fragment> :
+                                                                                <Fragment>
+                                                                                     <div className="d-flex align-items-center justify-content-between">
+                                                                                          <div className="d-flex align-items-center">
+                                                                                               <img src={forumDetail.user.profilePhoto ? forumDetail.user.profilePhoto : NoPictureUser} style={{ height:"50px" }} alt={forumDetail.user.name} className="rounded-circle" />
+                                                                                               <Gap width={40} />
+                                                                                               <p className="m-0">{forumDetail.user.name}</p>
+                                                                                               <Gap width={50} />
+                                                                                               <p className="m-0">{ new Date(forumDetail.createdAt).toDateString("en-US")}</p>
+                                                                                          </div>
+                                                                                          {
+                                                                                          forumDetail.user._id === localStorage.getItem('userId') &&
+                                                                                          <div className="d-flex align-items-center">
+                                                                                               <button className="btn-delete me-3" onClick={() => onDeleteDetail(forumDetail._id)}>Delete</button>
+                                                                                               <Button background="#287E00" title="Edit" onClick={() => onEditDetail(forumDetail._id, forumDetail.content, forumDetail.forumPhoto)} />
+                                                                                          </div>
+                                                                                          }
+                                                                                     </div>
+                                                                                     <hr />
+                                                                                     <div dangerouslySetInnerHTML={{__html:forumDetail.content}}></div>
+                                                                                     <div className="text-center my-3">
+                                                                                     {
+                                                                                          forumDetail.forumPhoto &&
+                                                                                          <img src={forumDetail.forumPhoto} className="w-50" alt={forumDetail.createdAt} />
+                                                                                     }
+                                                                                     </div>
+                                                                                </Fragment>
+                                                                           }
+                                                                      </div>
+                                                                 </div>
+                                                            )
+                                                            
+                                                       })
 
-                                                                 }
-                                                            </Fragment>
-                                                       }
-                                                  </div>
-                                             </div>
-                                        )
-                                        
-                                   })
+                                                  ) : <p>No Replies</p>
+                                             }
+                                        </div>
+                                   </div>
+                              </div>
+                              <div className="col-md-4">
 
-                              ) : <p>No Replies</p>
-                         }
+                              </div>
+                         </div>
+                         
                     </div>
+                    <Gap height={150} />
+                    <CartButton />
                     <Footer />
                </Fragment>
           )

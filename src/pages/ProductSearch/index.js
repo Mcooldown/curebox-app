@@ -44,7 +44,7 @@ const ProductSearch = (props) => {
                          options={perPageOptions}
                          defaultValue={perPage}
                          value={perPage}
-                         onChange={(e) => setPerPage(e.target.value)}
+                         onChange={(e) => {setPerPage(e.target.value); setCounter(1)}}
                          />
                          <Gap width={10} />
                          <h5 style={{ color: "#287E00" }} className="m-0">Results</h5>

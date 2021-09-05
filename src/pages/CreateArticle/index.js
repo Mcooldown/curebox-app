@@ -61,7 +61,7 @@ const CreateArticle = () => {
                <Navbar />
                <Gap height={150} />
                <div className="container">
-                    <h2 className="text-center mb-3">Create Article</h2>
+                    <h1 className="text-center mb-3">Create Article</h1>
                     <div className="section-line mx-auto"></div>
                     <Gap height={50}  />
                     <div className="green-wrapper">

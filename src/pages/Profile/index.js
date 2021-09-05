@@ -39,7 +39,7 @@ const Profile = () => {
                     <div className="profile">
                          <Gap height={150} />
                          <div className="container">
-                              <h2 className="text-center mb-3">Hello, <h2 className="profile-name">{user.name}</h2></h2>
+                              <h1 className="text-center mb-3">Hello, <h1 className="profile-name">{user.name}</h1></h1>
                               <div className="section-line mx-auto"></div>
                               <Gap height={50} />
                                    <div className="text-center">

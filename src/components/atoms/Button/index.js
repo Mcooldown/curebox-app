@@ -5,7 +5,7 @@ const Button = ({title, isLoading, background, width, ...rest}) => {
 
 
      if(isLoading) return (
-          <button style={{ background, width }} className="btn-component btn d-flex align-items-center justify-content-center" disabled {...rest} >
+          <button style={{ background, width}} className="btn-component btn d-flex align-items-center justify-content-center" disabled {...rest} >
                <span className="spinner-border" role="status">
                </span>
                <span className="ms-3 fw-bold">{title}</span>

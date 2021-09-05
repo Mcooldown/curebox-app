@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Navbar } from '../../components';
+import { Button, CartButton, Footer, Gap, Navbar } from '../../components';
+import ForumItem from '../../components/molecules/ForumItem';
 import { setForums } from '../../config/redux/action/forumAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
@@ -28,8 +29,11 @@ const Forums = () => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container my-5 py-5">
-                        <h1>Forums</h1>
+                    <Gap height={150} />
+                    <div className="container">
+                         <h1 className="text-center mb-3">Articles</h1>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
                         {
                              localStorage.getItem('userId') &&
                              <Button background="gray" title="Create New Forum" onClick={() => history.push('/forums/create')} />
@@ -37,17 +41,21 @@ const Forums = () => {
                          <hr />
                          { forums.length > 0 && forums.map((forum) => {
                                    return (
-                                        <div key={forum._id} className="card shadow border-0 my-3" onClick={() => history.push(`/forums/${forum._id}`)}>
-                                             <div className="card-body my-3">
-                                                  <h2>{forum.title}</h2>
-                                                  <p>{forum.content}</p>
-                                                  <p>Created by {forum.user.name}</p>
-                                             </div>
-                                        </div>
+                                        <ForumItem
+                                             onClick={() => history.push(`/forums/${forum._id}`)}
+                                             key={forum._id}
+                                             title={forum.title}
+                                             content={forum.content}
+                                             user= {forum.user}
+                                             forumPhoto={forum.forumPhoto}
+                                             createdAt = {forum.createdAt}
+                                        />
                                    ) 
                               })
                          }
                     </div>
+                    <Gap height={150} />
+                    <CartButton />
                     <Footer />
                </Fragment>
           )
