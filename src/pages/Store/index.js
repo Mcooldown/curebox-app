@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { Button, Footer, Navbar, StoreProductItem } from '../../components';
+import Swal from 'sweetalert2';
+import { Footer, Gap, Navbar, StoreProductItem } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { clearForm, deleteProduct, setStoreProducts } from '../../config/redux/action/productAction';
 import LoadingPage from '../LoadingPage';
@@ -24,22 +25,40 @@ const Store = () => {
 
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');     
           }
 
           fetchData();
      }, [dispatch, history]);
 
-     const onDelete = async (id) => {
-
-          const confirmDelete = window.confirm('Are you sure want to delete this product?');
-
-          if(confirmDelete){
+     const onDelete = (id) => {
+          
+          async function finalize(){
                await dispatch(setIsLoading(true));
                await dispatch(deleteProduct(id, localStorage.getItem('userId')));
                await dispatch(setStoreProducts(localStorage.getItem('userId'), 1, 8));
           }
+
+          Swal.fire({
+               title: 'Are you sure want to delete this product?',
+               text: "This action cannot be reverted",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#287E00',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+               if (result.isConfirmed) {
+                    finalize().then(() => {
+                         Swal.fire({
+                         title: 'Success',
+                         text: "Product deleted",
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
+               });
+               }
+          })
      }
 
      const onUpdate = (id) => {
@@ -51,30 +70,36 @@ const Store = () => {
      }else{
           return <Fragment>
                <Navbar />
-               <div className="container my-5 py-5">
-                    <h1>My Store</h1>
-                    <Button background="#287E00" title="Add New Product" onClick={() => history.push('/products/create')} />
-                    <hr />
+               <Gap height={150} />
+               <div className="container">
+                    <h1 className="text-center mb-3">{localStorage.getItem('userName') + ' Store'}</h1>
+                    <div className="section-line mx-auto"></div>
+                    <Gap height={50}  />
                     <div className="row">
                          {
-                         products.map((product) => {
-                              return <div className="col-md-6 my-3">
-                                   <StoreProductItem 
-                                   key={product._id}
-                                   _id = {product._id}
-                                   name={product.name}
-                                   image={product.productPhoto}
-                                   price={product.price}
-                                   rating ={product.rating}
-                                   onDelete = {onDelete}
-                                   onUpdate = {onUpdate}
-                                   />
+                              products.map((product) => {
+                                   return <div className="col-md-3 my-3">
+                                        <StoreProductItem 
+                                        key={product._id}
+                                        _id = {product._id}
+                                        name={product.name}
+                                        image={product.productPhoto}
+                                        price={product.price}
+                                        rating ={product.rating}
+                                        onDelete = {onDelete}
+                                        onUpdate = {onUpdate}
+                                        />
+                                   </div>
+                              })
+                         }
+                         <div className="col-md-3 my-3 d-flex align-items-center justify-content-center">
+                              <div style={{ cursor: "pointer" }} onClick={() => history.push('/products/create') }>
+                                   <h4>Add New Product</h4>
                               </div>
-                         })
-                    }
+                         </div>
                     </div>
-                    
                </div>
+               <Gap height={150} />
                <Footer />
           </Fragment>
      }

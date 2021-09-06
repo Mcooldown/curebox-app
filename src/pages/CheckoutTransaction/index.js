@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import Swal from 'sweetalert2';
 import { Button, CartItem, Footer, Gap, Input, Navbar, TextArea } from '../../components';
 import { setCartItems } from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
@@ -27,7 +28,7 @@ const CheckoutTransaction = () => {
           }
 
           const userId = localStorage.getItem('userId');
-          if(!userId) history.push('/login');
+          if(!userId) return history.push('/login');
 
           initialize();
 
@@ -42,15 +43,25 @@ const CheckoutTransaction = () => {
                setButtonLoading(false);
                if(res.status === 200) {
                     dispatch(clearForm());
-                    alert("Checkout success");
-                    history.push('/transactions');
+                    Swal.fire({
+                         title: 'Success',
+                         text: 'Checkout Success',
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
+                    return history.push('/transactions');
                }
                else{
                     dispatch(clearErrors());
                     res.data.data.forEach((error) => {
                          dispatch(setErrors(error.param, error.msg));
                     });
-                    alert("Checkout failed. Please fill the required information correctly");
+                    Swal.fire({
+                         title: 'Error',
+                         text: 'Checkout failed. Please make sure that required data already filled correctly.',
+                         icon: 'error',
+                         confirmButtonColor: '#287E00',
+                    });
                     window.scrollTo(0, 0);
                }
           });
@@ -212,7 +223,7 @@ const CheckoutTransaction = () => {
                               buttonLoading ?
 
                               <Button background="#287E00" isLoading={true} title="Please wait..." />
-                              : <Button background="#287E00" title="Buy" onClick={onSubmit} />
+                              : <Button background="#287E00" title="Finish Checkout" onClick={onSubmit} />
                          }
                          </div>
                          

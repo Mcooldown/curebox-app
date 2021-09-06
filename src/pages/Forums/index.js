@@ -31,28 +31,32 @@ const Forums = () => {
                     <Navbar />
                     <Gap height={150} />
                     <div className="container">
-                         <h1 className="text-center mb-3">Articles</h1>
+                         <h1 className="text-center mb-3">Forum Threads</h1>
                          <div className="section-line mx-auto"></div>
                          <Gap height={50}  />
-                        {
-                             localStorage.getItem('userId') &&
-                             <Button background="gray" title="Create New Forum" onClick={() => history.push('/forums/create')} />
-                        }
-                         <hr />
-                         { forums.length > 0 && forums.map((forum) => {
-                                   return (
-                                        <ForumItem
-                                             onClick={() => history.push(`/forums/${forum._id}`)}
-                                             key={forum._id}
-                                             title={forum.title}
-                                             content={forum.content}
-                                             user= {forum.user}
-                                             forumPhoto={forum.forumPhoto}
-                                             createdAt = {forum.createdAt}
-                                        />
-                                   ) 
-                              })
+                         {
+                              localStorage.getItem('userId') &&
+                              <Button background="#287E00" title="Create New Thread" onClick={() => history.push('/forums/create')} />
                          }
+                         <hr />
+                         <div className="row">
+                              { forums.length > 0 && forums.map((forum) => {
+                                        return (
+                                             <div className="col-md-4 my-3">
+                                                  <ForumItem
+                                                       onClick={() => history.push(`/forums/${forum._id}`)}
+                                                       key={forum._id}
+                                                       title={forum.title}
+                                                       content={forum.content}
+                                                       user= {forum.user}
+                                                       forumPhoto={forum.forumPhoto}
+                                                       createdAt = {forum.createdAt}
+                                                  />
+                                             </div>
+                                        ) 
+                                   })
+                              }
+                         </div>
                     </div>
                     <Gap height={150} />
                     <CartButton />

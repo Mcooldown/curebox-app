@@ -44,18 +44,18 @@ const ArticleDetail = (props) => {
                               <div className="col-md-4 my-3 ps-lg-4">
                                    <h4>Recommended Articles</h4>
                                    <Gap height={10} />
-                                   <div className="article-rec">
+                                   <div className="more-rec">
                                         <div className="card-body">
                                              { 
                                                   articles.length > 0 && articles.map((article) => {
                                                        return (
-                                                            <div className="row align-items-center my-3 article-rec-item"
+                                                            <div className="row align-items-center my-3 more-rec-item"
                                                             onClick={() => history.push(`/articles/${article._id}`)}>
                                                                  <div className="col-md-4">
-                                                                      <img src={article.articlePhoto} className="article-rec-img" alt={article.title} />
+                                                                      <img src={article.articlePhoto} className="more-rec-img" alt={article.title} />
                                                                  </div>
                                                                  <div className="col-md-8">
-                                                                      <h5 className="article-rec-title">{article.title}</h5>
+                                                                      <h5 className="more-rec-title">{article.title}</h5>
                                                                  </div>
                                                             </div>
                                                        ) 

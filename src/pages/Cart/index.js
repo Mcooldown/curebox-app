@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { Button, CartItem, Footer, Navbar } from '../../components';
 import { changeCartItemQuantity, removeCartItems, setCartItems} from '../../config/redux/action/cartAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
@@ -22,7 +23,6 @@ const Cart = () => {
                
                const userId = await localStorage.getItem('userId');
                if(!userId){
-                    alert('Not Authorized. Please Login first');
                     history.push('/login');
                }else{
                     await dispatch(setCartItems(userId));
@@ -33,11 +33,32 @@ const Cart = () => {
      }, [dispatch, history]);
 
      const onDelete = async (id) => {
-          let confirmDelete = window.confirm("Are you sure want to delete this cart item?");
-          if(confirmDelete) {
+
+          async function finalize() {
                await dispatch(setIsLoading(true));
                await dispatch(removeCartItems(id, localStorage.getItem('userId')));
           }
+
+          Swal.fire({
+               title: 'Are you sure want to delete this product from your cart?',
+               text: "This action cannot be reverted",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#287E00',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+               if (result.isConfirmed) {
+                    finalize().then(() => {
+                         Swal.fire({
+                         title: 'Success',
+                         text: "Product deleted from your cart",
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
+               });
+               }
+          })
      }
 
      const onChangeQuantity = async (id, quantity) => {
@@ -83,7 +104,7 @@ const Cart = () => {
                                              <h5 className="me-2">Total: </h5>
                                              <h2 className="fw-bold text-danger mb-3">{new Intl.NumberFormat(['ban', 'id']).format(totalPayment)}</h2>
                                         </div>
-                                        <Button width="300px" background="#287E00" title="CHECKOUT" onClick={() => history.push('/checkout')} />
+                                        <Button width="300px" background="#287E00" title="Checkout" onClick={() => history.push('/checkout')} />
                                    </div> : null
                               }
                          </div>

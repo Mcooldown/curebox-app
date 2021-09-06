@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
-import { Button, Footer, Input, Navbar, Upload } from '../../components';
+import { Button, Footer, Gap, Input, Navbar, Upload } from '../../components';
 import { clearForm, setArticle, setForm, updateArticle } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 
 const EditArticle = (props) => {
 
@@ -21,7 +22,6 @@ const EditArticle = (props) => {
      useEffect(() => {
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');
           }
 
@@ -51,6 +51,13 @@ const EditArticle = (props) => {
 
      const onSubmit = (e) => {
           e.preventDefault();
+
+          if(form.content === '') return Swal.fire({
+               title: 'Error',
+               text: 'Content must be filled',
+               icon: 'error',
+               confirmButtonColor: '#287E00',
+          });
           
           setButtonLoading(true);
           updateArticle(form, article._id)
@@ -58,10 +65,14 @@ const EditArticle = (props) => {
                setButtonLoading(false);
                if(res.status === 200){
                     dispatch(clearForm());
-                    alert('Article Updated');
+                    Swal.fire({
+                         title: 'Success',
+                         text: 'Article Updated',
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
                     return history.push('/articles/user');
                }
-               console.log(res);
           });
      }
 
@@ -69,28 +80,57 @@ const EditArticle = (props) => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container py-5 my-5">
-                         <h1>Edit Article</h1>
-                         <hr />
-                         <Input label="Title" value={form.title} type="text"
-                         onChange={(e) => dispatch(setForm('title', e.target.value))}
-                         />
-                         <h6 className="mb-2 fw-bold">Content</h6>
-                         <CKEditor
-                         editor={ ClassicEditor }
-                         data={form.content}
-                         onChange={ ( event, editor ) => 
-                         dispatch(setForm('content', editor.getData()))}
-                         />
-                         <Upload label="Article Photo" img={form.articlePhoto} onChange={(e) => onImageUpload(e)}  />
-                         
-                         {
-                              buttonLoading ?
-                              <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
-                              :
-                              <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={onSubmit} />
-                         }
+                    <Gap height={150} />
+                    <div className="container">
+                         <h1 className="text-center mb-3">Edit Article</h1>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
+                         <div className="green-wrapper">
+                              <div className="card-body">
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Title</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <Input value={form.title} type="text"
+                                             onChange={(e) => dispatch(setForm('title', e.target.value))}
+                                             />
+                                        </div>
+                                   </div>
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Article Photo</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                        <Upload img={form.articlePhoto} onChange={(e) => onImageUpload(e)}  />
+                                        </div>
+                                   </div>
+                                   <div className="form-group row align-items-center">
+                                        <div className="col-md-3">
+                                             <h6>Content</h6>
+                                        </div>
+                                        <div className="col-md-9">
+                                             <CKEditor
+                                             editor={ ClassicEditor }
+                                             data={form.content}
+                                             onChange={ ( event, editor ) => 
+                                             dispatch(setForm('content', editor.getData()))}
+                                             />
+                                        </div>
+                                   </div>
+                              </div>
+                         </div>
+                         <Gap height={50} />
+                         <div className="d-grid">
+                              {
+                                   buttonLoading ?
+                                   <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
+                                   :
+                                   <Button background="#287E00" title="Update Article" isLoading={buttonLoading} onClick={onSubmit} />
+                              }
+                         </div>
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>
           );

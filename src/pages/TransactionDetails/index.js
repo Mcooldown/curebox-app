@@ -18,7 +18,6 @@ const TransactionDetails = (props) => {
           const userId = localStorage.getItem('userId');
 
           if(!userId){
-               alert('Not Authorized, Please login first');
                history.push('/login');
           } 
 

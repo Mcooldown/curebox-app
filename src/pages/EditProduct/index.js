@@ -1,8 +1,11 @@
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useEffect, useState } from 'react';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, withRouter } from 'react-router-dom';
-import { Button, Footer, Input, Navbar, Upload } from '../../components';
+import Swal from 'sweetalert2';
+import { Button, Footer, Gap, Input, Navbar, Upload } from '../../components';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import { clearForm, setForm, setProduct, updateProduct } from '../../config/redux/action/productAction';
 import LoadingPage from '../LoadingPage';
@@ -19,7 +22,6 @@ const EditProduct = (props) => {
      useEffect(() => {
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');
           }
 
@@ -49,14 +51,27 @@ const EditProduct = (props) => {
 
      const onSubmit = (e) => {
           e.preventDefault();
+
+          if(form.description === '') return Swal.fire({
+               title: 'Error',
+               text: "Description must be filled",
+               icon: 'error',
+               confirmButtonColor: '#287E00',
+          });
+
           setButtonLoading(true);
           updateProduct(form, product._id)
           .then(res => {
                setButtonLoading(false);
                if(res.status === 200){
                     dispatch(clearForm());
-                    alert('Product Updated');
-                    history.push('/store');
+                    Swal.fire({
+                         title: 'Success',
+                         text: "Product Updated",
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    })
+                    return history.push('/store');
                }
           });
      }
@@ -65,26 +80,44 @@ const EditProduct = (props) => {
           return (
                <Fragment>
                     <Navbar />
-                    <div className="container py-5 my-5">
-                         <h1>Edit Product - ID: {product._id}</h1>
-                         <hr />
-                         <Input label="Name" value={form.name} type="text" 
-                         onChange={(e) => dispatch(setForm('name', e.target.value))}
-                         />
-                         <Input label="Description" value={form.description} type="text" 
-                         onChange={(e) => dispatch(setForm('description', e.target.value))}
-                         />
-                         <Input label="Price" value={form.price} type="number" 
-                         onChange={(e) => dispatch(setForm('price', e.target.value))}
-                         />
-                         <Upload label="Product Photo" img={form.productPhoto} onChange={(e) => onImageUpload(e)}  />
-                         {
-                              buttonLoading ?
-                              <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
-                              :
-                              <Button background="#287E00" title="Submit" isLoading={buttonLoading} onClick={onSubmit} />
-                         }
+                    <Gap height={150} />
+                    <div className="container">
+                         <h1 className="text-center mb-3">Edit Product</h1>
+                         <div className="section-line mx-auto"></div>
+                         <Gap height={50}  />
+                         <div className="green-wrapper py-3">
+                              <div className="card-body">
+                                   <Input label="Name" value={form.name} type="text" errorMessage={''} 
+                                   onChange={(e) => dispatch(setForm('name', e.target.value))}
+                                   />
+                                   <Gap height={20} />
+                                   <h6>Description</h6>
+                                   <CKEditor
+                                        editor={ ClassicEditor }
+                                        data={form.description}
+                                        onChange={ ( event, editor ) => 
+                                             dispatch(setForm('description', editor.getData()))}
+                                   />
+                                   <Gap height={20} />
+                                   <Input label="Price" value={form.price} type="number" errorMessage={''} 
+                                   onChange={(e) => dispatch(setForm('price', e.target.value))}
+                                   />
+                                   <Gap height={20} />
+                                   <Upload label="Product Photo" img={form.productPhoto} onChange={(e) => onImageUpload(e)}  />
+                              </div>
+                         </div>
+                         <Gap height={30} />
+                         <div className="d-grid">
+                              {
+                                   buttonLoading ?
+                                   <Button background="#287E00" title="Please wait" isLoading={buttonLoading} />
+                                   :
+                                   <Button background="#287E00" title="Update Product" isLoading={buttonLoading} onClick={onSubmit} />
+                              }
+          
+                         </div>
                     </div>
+                    <Gap height={150} />
                     <Footer />
                </Fragment>
           );

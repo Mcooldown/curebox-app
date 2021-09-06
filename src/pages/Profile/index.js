@@ -8,6 +8,7 @@ import { setUser } from '../../config/redux/action/authAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
 import './profile.scss';
+import { ArticleVector, ForumVector, StoreVector } from '../../assets';
 
 const Profile = () => {
 
@@ -20,7 +21,6 @@ const Profile = () => {
 
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                return history.push('/login');
           }
 
@@ -120,6 +120,36 @@ const Profile = () => {
                                         </div>
                                         <div className="col-md-9">
                                              <h6 className="m-0">{user.email}</h6>
+                                        </div>
+                                   </div>
+                              </div>
+                              <Gap height={50} />
+                              <div className="row">
+                                   <div className="col-md-4">
+                                        <div className="card card-profile" onClick={() => history.push('/articles/user')}>
+                                             <div className="card-body text-center my-3">
+                                                  <img src={ArticleVector} className="img-card-profile" alt="article-vector" />
+                                                  <Gap height={40} />
+                                                  <h5>My Articles</h5>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div className="col-md-4">
+                                        <div className="card card-profile" onClick={() => history.push('/forums')}>
+                                             <div className="card-body text-center my-3">
+                                                  <img src={ForumVector} className="img-card-profile" alt="article-vector" />
+                                                  <Gap height={40} />
+                                                  <h5>My Forum Threads</h5>
+                                             </div>
+                                        </div>
+                                   </div>
+                                   <div className="col-md-4">
+                                        <div className="card card-profile" onClick={() => history.push('/store')}>
+                                             <div className="card-body text-center my-3">
+                                                  <img src={StoreVector} className="img-card-profile" alt="article-vector" />
+                                                  <Gap height={40} />
+                                                  <h5>My Store</h5>
+                                             </div>
                                         </div>
                                    </div>
                               </div>

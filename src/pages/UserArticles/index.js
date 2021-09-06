@@ -7,6 +7,7 @@ import ArticleItem from '../../components/molecules/ArticleItem';
 import { deleteArticle, setUserArticles } from '../../config/redux/action/articleAction';
 import { setIsLoading } from '../../config/redux/action/generalAction';
 import LoadingPage from '../LoadingPage';
+import Swal from 'sweetalert2';
 
 const UserArticles = () => {
 
@@ -19,7 +20,6 @@ const UserArticles = () => {
 
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');
           } 
 
@@ -39,11 +39,26 @@ const UserArticles = () => {
                await dispatch(deleteArticle(localStorage.getItem('userId'),id));
           }
 
-          const confirmDelete = window.confirm('Are you sure want to delete this articles?');
-
-          if(confirmDelete){
-               finalize();
-          }
+          Swal.fire({
+               title: 'Are you sure want to delete this article?',
+               text: "This action cannot be reverted",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonColor: '#287E00',
+               cancelButtonColor: '#d33',
+               confirmButtonText: 'Yes, delete it!'
+               }).then((result) => {
+               if (result.isConfirmed) {
+                    finalize().then(() => {
+                         Swal.fire({
+                         title: 'Success',
+                         text: "Article deleted",
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
+               });
+               }
+          })
      }
 
      const onUpdate = (e, id) => {

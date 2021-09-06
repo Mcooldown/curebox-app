@@ -7,6 +7,7 @@ import { clearErrors, clearForm, postNewForum, setErrors, setForm } from '../../
 import './createForum.scss'
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 
 const CreateForum = () => {
 
@@ -18,7 +19,6 @@ const CreateForum = () => {
      useEffect(() => {
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');
           }else{
                dispatch(clearForm());
@@ -38,7 +38,12 @@ const CreateForum = () => {
      const onSubmit = (e) => {
           e.preventDefault();
 
-          if(form.content === '') return alert('Content must be filled');
+          if(form.content === '') return Swal.fire({
+               title: 'Error',
+               text: 'Content must be filled',
+               icon: 'error',
+               confirmButtonColor: '#287E00',
+          });
 
           setButtonLoading(true);
           postNewForum(form)
@@ -49,15 +54,25 @@ const CreateForum = () => {
                     dispatch(clearForm());
                     dispatch(clearErrors());
 
-                    alert("Forum Created");
-                    history.push('/forums');
+                    Swal.fire({
+                         title: 'Success',
+                         text: 'New Forum Thread Created',
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    });
+                    return history.push('/forums');
                }
                else{
                     dispatch(clearErrors());
                     res.data.data.forEach((error) => {
                          dispatch(setErrors(error.param, error.msg));
                     });
-                    alert("Create Forum Failed");
+                    return Swal.fire({
+                         title: 'Error',
+                         text: 'Create New Thread Failed. Please make sure that required data filled correctly',
+                         icon: 'error',
+                         confirmButtonColor: '#287E00',
+                    });
                }
           });
      }

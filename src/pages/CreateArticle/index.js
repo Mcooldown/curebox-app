@@ -7,6 +7,7 @@ import { clearForm, postNewArticle, setForm } from '../../config/redux/action/ar
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import './createArticle.scss';
+import Swal from 'sweetalert2';
 
 const CreateArticle = () => {
 
@@ -19,7 +20,6 @@ const CreateArticle = () => {
      useEffect(() => {
           const userId = localStorage.getItem('userId');
           if(!userId){
-               alert('Not authorized. Please login first');
                history.push('/login');
           }else{
                dispatch(clearForm());
@@ -40,9 +40,19 @@ const CreateArticle = () => {
      const onSubmit = (e) => {
           e.preventDefault();
 
-          if(form.title === '') return alert('Title required');
-          else if(form.content === '') return alert('Content required'); 
-          else if(imgPreview === '')return alert('Image required');
+          if(form.title === '' || form.content === '' || imgPreview === ''){
+               let message = null;
+               if(form.title === '') message = "Title required";
+               else if(form.content === '') message = "Content required";
+               else if(imgPreview === '') message = "Image required";
+
+               return Swal.fire({
+                    title: 'Error',
+                    text: message,
+                    icon: 'error',
+                    confirmButtonColor: '#287E00',
+               });
+          } 
           
           setIsLoading(true);
           postNewArticle(form)
@@ -50,7 +60,12 @@ const CreateArticle = () => {
                setIsLoading(false);
                if(res.status === 201){
                     dispatch(clearForm());
-                    alert('New Article Added');
+                    Swal.fire({
+                         title: 'Success',
+                         text: 'New Article Created',
+                         icon: 'success',
+                         confirmButtonColor: '#287E00',
+                    })
                     history.push('/articles/user');
                }
           });

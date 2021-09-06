@@ -16,7 +16,6 @@ const Navbar = () => {
 
      const logout = () => {
           localStorage.clear();
-          alert('Logout Success');
           history.push('/');
      }
 
@@ -36,7 +35,7 @@ const Navbar = () => {
                                    <span className="input-group-text" onClick={() => history.push(`/products/search/${searchValue}`)}><i className="fa fa-search"></i></span>
                               </div>
                               <button className="btn btn-cart mx-3" onClick={() => history.push('/cart')}><i class="fas fa-shopping-cart"></i></button>
-                              <p class="nav-link m-0 px-3" onClick={() => history.push('/articles')}>Article</p>
+                              <p class="nav-link m-0 px-3" onClick={() => history.push('/articles')}>Articles</p>
                               <p class="nav-link m-0 px-3" onClick={() => history.push('/forums')}>Forum</p>
                               {
                                    userName ?

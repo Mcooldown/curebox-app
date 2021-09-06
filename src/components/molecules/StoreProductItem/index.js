@@ -1,26 +1,19 @@
 import React from 'react';
-import { Button } from '../../atoms';
+import { Button, Gap } from '../../atoms';
 
 const StoreProductItem = (props) => {
 
      return (
-          <div className="card border-0 shadow-sm">
+          <div className="card card-item">
+               <img className="product-image" src={props.image} alt={props.name} />
                <div className="card-body">
-                    <div className="row">
-                         <div className="col-md-3">
-                              <img className="w-100" src={props.image} alt={props.name} />
-                         </div>
-                         <div className="col-md-7">
-                              <p className="mb-2">{props.name}</p>
-                              <h5 className="mb-2">Rp{props.price}</h5>
-                              <i class="fa fa-star"></i> {props.rating}/5.00
-                         </div>
-                         <div className="col-md-2">
-                              <Button background="#287E00" title="Update" onClick={() => props.onUpdate(props._id)} />
-                              <Button background="#287E00" title="Delete" onClick={() => props.onDelete(props._id)} />
-                         </div>
+                    <p className="product-name m-0">{props.name}</p>
+                    <h5 className="mb-2">Rp{props.price}</h5>
+                    <Gap height={20} />
+                    <div className="d-flex justify-content-end">
+                         <button className="btn-delete me-2" onClick={() => props.onDelete(props._id)}>Delete</button>
+                         <Button background="#287E00" title="Edit" onClick={() => props.onUpdate(props._id)} />
                     </div>
-                    
                </div>
           </div>
      );

@@ -90,8 +90,8 @@ const ProductDetail = (props) => {
                               <p className="text-muted"><i class="fas fa-store"></i> {product.seller.name} Store</p>
                               <Gap height={30} />
                               <h4 className="fw-bold mb-3">Description</h4>
-                              <p>{product.description}</p>
-                              <Gap height={10} />
+                              <div dangerouslySetInnerHTML={{__html:product.description}}></div>
+                              <Gap height={30} />
                               <h3>Rp{new Intl.NumberFormat(['ban', 'id']).format(product.price)}</h3>
                          </div>
                     </div>
